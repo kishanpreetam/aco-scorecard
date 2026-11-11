@@ -1,0 +1,11 @@
+track_code,track_name,track_family,program_era,risk_model,max_sharing_rate,display_order
+TRACK_1,Track 1,Track 1,Original tracks (2012 to mid 2019),One-Sided,0.50,1
+TRACK_1_PLUS,Track 1+ Model,Track 1+,Original tracks (2012 to mid 2019),Two-Sided,0.50,2
+TRACK_2,Track 2,Track 2,Original tracks (2012 to mid 2019),Two-Sided,0.60,3
+TRACK_3,Track 3,Track 3,Original tracks (2012 to mid 2019),Two-Sided,0.75,4
+BASIC_A,BASIC Level A,BASIC A and B (one-sided),Pathways to Success (July 2019 on),One-Sided,0.40,5
+BASIC_B,BASIC Level B,BASIC A and B (one-sided),Pathways to Success (July 2019 on),One-Sided,0.40,6
+BASIC_C,BASIC Level C,BASIC C to E (two-sided),Pathways to Success (July 2019 on),Two-Sided,0.50,7
+BASIC_D,BASIC Level D,BASIC C to E (two-sided),Pathways to Success (July 2019 on),Two-Sided,0.50,8
+BASIC_E,BASIC Level E,BASIC C to E (two-sided),Pathways to Success (July 2019 on),Two-Sided,0.50,9
+ENHANCED,ENHANCED,ENHANCED,Pathways to Success (July 2019 on),Two-Sided,0.75,10

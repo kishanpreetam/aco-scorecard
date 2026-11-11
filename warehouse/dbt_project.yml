@@ -1,0 +1,47 @@
+name: aco_scorecard
+version: "1.0.0"
+config-version: 2
+profile: aco_scorecard
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+analysis-paths: ["analyses"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages", "logs"]
+
+flags:
+  send_anonymous_usage_stats: false
+  use_colors: false
+
+vars:
+  # Every performance period the pipeline must contain. A missing period fails the coverage tests.
+  expected_periods: ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2019A", "2020", "2021", "2022", "2023", "2024"]
+  expected_county_periods: ["2016", "2017", "2018", "2019", "2019A", "2020", "2021", "2022", "2023", "2024"]
+
+models:
+  aco_scorecard:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: table
+      +schema: intermediate
+    marts:
+      +materialized: table
+      core:
+        +schema: core
+      reporting:
+        +schema: reporting
+    semantic:
+      +materialized: table
+      +schema: core
+
+seeds:
+  aco_scorecard:
+    +schema: reference
+
+data_tests:
+  aco_scorecard:
+    +store_failures: false

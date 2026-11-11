@@ -1,0 +1,438 @@
+version: 2
+
+# Governed semantic layer (dbt semantic models + MetricFlow).
+# Each metric is defined once here, with plain-language business context, so a BI tool, a
+# notebook or an AI assistant asking "what was the savings rate in 2024?" gets the same answer.
+# results/semantic_layer_tests.json checks every business question against plain SQL.
+
+models:
+  - name: metricflow_time_spine
+    description: Daily calendar used by MetricFlow for time grouping.
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
+        data_tests: [unique, not_null]
+
+semantic_models:
+  - name: aco_performance_periods
+    description: >
+      One row per ACO per CMS performance period from the Shared Savings Program financial and
+      quality results. Dollars are totals for the period (PY 2019 has two six-month periods for
+      some ACOs; 2012 starters have an 18 or 21 month first period in PY 2013). Use
+      performance_year to filter years; it covers both PY 2019 periods.
+    model: ref('fct_aco_financial_year')
+    defaults:
+      agg_time_dimension: performance_year_start
+    entities:
+      - name: aco_period
+        type: primary
+        expr: aco_period_key
+      - name: aco
+        type: foreign
+        expr: aco_key
+      - name: track
+        type: foreign
+        expr: track_code
+      - name: performance_period
+        type: foreign
+        expr: performance_period_id
+    dimensions:
+      - name: performance_year_start
+        type: time
+        description: January 1 of the performance year (both PY 2019 periods map to 2019-01-01).
+        type_params:
+          time_granularity: year
+      - name: performance_year
+        type: categorical
+        description: Calendar performance year, 2013 to 2024.
+      - name: performance_period_id
+        type: categorical
+        description: CMS file period id; 2019 and 2019A are the two PY 2019 periods.
+      - name: risk_model
+        type: categorical
+        description: One-Sided (shares savings only) or Two-Sided (also owes losses).
+      - name: agreement_type
+        type: categorical
+        description: Initial, Renewal or Re-entering agreement period (published from PY 2016).
+      - name: assignment_type
+        type: categorical
+        description: Prospective or Retrospective beneficiary assignment (published from PY 2021).
+      - name: revenue_category
+        type: categorical
+        description: High Revenue or Low Revenue ACO (published from PY 2018).
+      - name: savings_rate_band
+        type: categorical
+        description: ACO savings rate band for the period.
+      - name: earned_savings_flag
+        type: categorical
+        description: True when the ACO earned a shared savings payment for the period.
+      - name: met_quality_standard_flag
+        type: categorical
+        description: True when the ACO met the quality performance standard (published from PY 2016).
+    measures:
+      - name: benchmark_dollars
+        description: Total benchmark expenditures (the spending target).
+        agg: sum
+        expr: total_benchmark_expenditures
+      - name: expenditure_dollars
+        description: Total Parts A and B spending for assigned beneficiaries.
+        agg: sum
+        expr: total_expenditures
+      - name: savings_dollars
+        description: Benchmark minus expenditures (negative values are losses).
+        agg: sum
+        expr: benchmark_minus_expenditures
+      - name: earned_shared_savings_dollars
+        description: Shared savings payments CMS paid to ACOs.
+        agg: sum
+        expr: earned_shared_savings
+      - name: shared_losses_dollars
+        description: Shared losses two-sided ACOs owed to CMS.
+        agg: sum
+        expr: shared_losses_owed
+      - name: assigned_beneficiaries
+        description: Assigned beneficiaries (summed over periods; an ACO in both PY 2019 periods counts twice).
+        agg: sum
+        expr: n_assigned_beneficiaries
+      - name: person_years_total
+        description: Assigned beneficiary person years (annualized by CMS).
+        agg: sum
+        expr: person_years
+      - name: annualized_expenditure_dollars
+        description: Per capita expenditure times person years, used to build person-year weighted per capita spending.
+        agg: sum
+        expr: annualized_expenditure
+      - name: risk_adjusted_expenditure_dollars
+        description: Risk normalized per capita expenditure times person years.
+        agg: sum
+        expr: risk_adjusted_annualized_expenditure
+      - name: quality_score_average
+        description: Simple average of ACO quality scores (0 to 100).
+        agg: average
+        expr: quality_score
+      - name: distinct_acos
+        description: Distinct ACOs.
+        agg: count_distinct
+        expr: aco_key
+      - name: reconciliations
+        description: ACO performance periods reconciled.
+        agg: sum
+        expr: aco_period_count
+      - name: reconciliations_earning_savings
+        description: ACO performance periods with a shared savings payment.
+        agg: sum
+        expr: "case when earned_shared_savings > 0 then 1 else 0 end"
+
+  - name: tracks
+    description: Shared Savings Program tracks (risk arrangements) and their maximum sharing rates.
+    model: ref('dim_track')
+    entities:
+      - name: track
+        type: primary
+        expr: track_code
+    dimensions:
+      - name: track_family
+        type: categorical
+        description: Track 1, Track 1+, Track 2, Track 3, BASIC A and B (one-sided), BASIC C to E (two-sided) or ENHANCED.
+      - name: program_era
+        type: categorical
+        description: Original tracks (2012 to mid 2019) or Pathways to Success (July 2019 on).
+      - name: track_risk_model
+        type: categorical
+        expr: risk_model
+        description: Risk model implied by the track.
+
+  - name: acos
+    description: One row per ACO (conformed key across the PY 2017 to 2018 identifier change).
+    model: ref('dim_aco')
+    entities:
+      - name: aco
+        type: primary
+        expr: aco_key
+    dimensions:
+      - name: primary_state
+        type: categorical
+        description: State with the most reported assigned person years in the ACO's latest county file.
+      - name: aco_key_method
+        type: categorical
+        description: How the ACO key was assigned (published id, bridged legacy id, or legacy id only).
+      - name: first_performance_year
+        type: categorical
+        description: First year the ACO was reconciled.
+
+  - name: performance_periods
+    description: CMS performance periods with the quality methodology that applied.
+    model: ref('dim_performance_year')
+    entities:
+      - name: performance_period
+        type: primary
+        expr: performance_period_id
+    dimensions:
+      - name: quality_measure_set
+        type: categorical
+        description: ACO measure set (2013 to 2020) or APM Performance Pathway (2021 to 2024).
+      - name: comparability_group
+        type: categorical
+        description: Quality scores are comparable only within a group.
+
+  - name: aco_attribution
+    description: Person years, spending and CMS-HCC risk scores by ACO, period and Medicare enrollment type.
+    model: ref('fct_attribution')
+    defaults:
+      agg_time_dimension: attribution_year_start
+    entities:
+      - name: attribution_row
+        type: primary
+        expr: attribution_key
+      - name: aco_period
+        type: foreign
+        expr: aco_period_key
+    dimensions:
+      - name: attribution_year_start
+        type: time
+        expr: performance_year_start
+        type_params:
+          time_granularity: year
+      - name: enrollment_type_code
+        type: categorical
+        description: esrd, disabled, aged_dual or aged_nondual.
+    measures:
+      - name: enrollment_person_years
+        description: Person years for the enrollment type (suppressed cells excluded).
+        agg: sum
+        expr: person_years
+      - name: risk_weighted_person_years
+        description: Risk score times person years.
+        agg: sum
+        expr: risk_score * person_years
+      - name: person_years_with_risk_score
+        description: Person years where a risk score is published.
+        agg: sum
+        expr: "case when risk_score is not null then person_years end"
+
+  - name: aco_quality_results
+    description: One row per ACO, period, quality measure and collection type.
+    model: ref('fct_aco_quality_measure')
+    defaults:
+      agg_time_dimension: measure_year_start
+    entities:
+      - name: measure_result
+        type: primary
+        expr: aco_measure_key
+      - name: aco_period
+        type: foreign
+        expr: aco_period_key
+      - name: quality_measure
+        type: foreign
+        expr: measure_key
+    dimensions:
+      - name: measure_year_start
+        type: time
+        expr: performance_year_start
+        type_params:
+          time_granularity: year
+      - name: collection_type
+        type: categorical
+      - name: value_status
+        type: categorical
+    measures:
+      - name: measure_rate_average
+        description: Simple average of reported performance rates.
+        agg: average
+        expr: measure_value
+      - name: measure_results
+        description: ACO results expected for the measure (reported or not).
+        agg: sum
+        expr: "1"
+      - name: measure_results_reported
+        description: Results with a reported value.
+        agg: sum
+        expr: "case when is_reported then 1 else 0 end"
+
+  - name: quality_measures
+    description: Conformed quality measure catalog.
+    model: ref('dim_measure')
+    entities:
+      - name: quality_measure
+        type: primary
+        expr: measure_key
+    dimensions:
+      - name: measure_name
+        type: categorical
+      - name: domain
+        type: categorical
+      - name: higher_is_better
+        type: categorical
+
+metrics:
+  - name: total_benchmark
+    label: Total benchmark expenditures
+    description: Sum of ACO spending targets (benchmarks) in dollars.
+    type: simple
+    type_params:
+      measure: benchmark_dollars
+  - name: total_expenditures
+    label: Total expenditures
+    description: Sum of Parts A and B spending for assigned beneficiaries in dollars.
+    type: simple
+    type_params:
+      measure: expenditure_dollars
+  - name: total_savings
+    label: Total savings (benchmark minus expenditures)
+    description: Benchmark minus actual spending, summed over ACOs; ACOs above benchmark subtract.
+    type: simple
+    type_params:
+      measure: savings_dollars
+  - name: savings_rate
+    label: Savings rate
+    description: Total savings divided by total benchmark. Program-level rate weights each ACO by its benchmark.
+    type: ratio
+    type_params:
+      numerator: total_savings
+      denominator: total_benchmark
+  - name: earned_shared_savings
+    label: Earned shared savings payments
+    description: Dollars CMS paid ACOs that beat their minimum savings rate and met the quality standard.
+    type: simple
+    type_params:
+      measure: earned_shared_savings_dollars
+  - name: shared_losses_owed
+    label: Shared losses owed
+    description: Dollars two-sided ACOs owed CMS because spending exceeded the benchmark beyond their minimum loss rate.
+    type: simple
+    type_params:
+      measure: shared_losses_dollars
+  - name: net_savings_to_medicare
+    label: Net savings to Medicare
+    description: Total savings minus shared savings payments plus shared losses owed.
+    type: derived
+    type_params:
+      expr: total_savings - earned_shared_savings + shared_losses_owed
+      metrics:
+        - name: total_savings
+        - name: earned_shared_savings
+        - name: shared_losses_owed
+  - name: assigned_beneficiaries
+    label: Assigned beneficiaries
+    description: Medicare beneficiaries assigned to ACOs (an ACO in both PY 2019 periods is counted in each).
+    type: simple
+    type_params:
+      measure: assigned_beneficiaries
+  - name: earned_shared_savings_per_assigned_beneficiary
+    label: Earned shared savings per assigned beneficiary
+    description: Shared savings payments divided by assigned beneficiaries.
+    type: ratio
+    type_params:
+      numerator: earned_shared_savings
+      denominator: assigned_beneficiaries
+  - name: per_capita_expenditure
+    label: Per capita expenditure
+    description: Person-year weighted annual spending per assigned beneficiary.
+    type: ratio
+    type_params:
+      numerator: annualized_expenditure
+      denominator: person_years
+  - name: risk_adjusted_per_capita_expenditure
+    label: Risk-adjusted per capita expenditure
+    description: Person-year weighted spending per beneficiary after dividing each enrollment type's spending by its mean CMS-HCC risk score.
+    type: ratio
+    type_params:
+      numerator: risk_adjusted_expenditure
+      denominator: person_years
+  - name: mean_quality_score
+    label: Mean quality score
+    description: Simple average ACO quality score (0 to 100). Compare only within a comparability_group; the method changed in PY 2021 and PY 2023.
+    type: simple
+    type_params:
+      measure: quality_score_average
+  - name: aco_count
+    label: Number of ACOs
+    description: Distinct ACOs reconciled.
+    type: simple
+    type_params:
+      measure: distinct_acos
+  - name: share_earning_savings
+    label: Share of reconciliations earning shared savings
+    description: ACO performance periods with a shared savings payment divided by all ACO performance periods.
+    type: ratio
+    type_params:
+      numerator: reconciliations_earning_savings_count
+      denominator: reconciliations_count
+  - name: mean_risk_score
+    label: Mean CMS-HCC risk score
+    description: Person-year weighted mean prospective CMS-HCC risk score, by enrollment type if grouped.
+    type: ratio
+    type_params:
+      numerator: risk_weighted_person_years_sum
+      denominator: person_years_with_risk_score_sum
+  - name: quality_reporting_rate
+    label: Quality measure reporting rate
+    description: Share of expected ACO measure results that have a reported value.
+    type: ratio
+    type_params:
+      numerator: measure_results_reported_count
+      denominator: measure_results_count
+  - name: mean_measure_rate
+    label: Mean measure performance rate
+    description: Simple average of reported performance rates for the selected measures.
+    type: simple
+    type_params:
+      measure: measure_rate_average
+
+  # Building-block metrics used by the ratio metrics above.
+  - name: person_years
+    label: Person years
+    description: Assigned beneficiary person years (annualized).
+    type: simple
+    type_params:
+      measure: person_years_total
+  - name: annualized_expenditure
+    label: Annualized expenditure (building block)
+    description: Per capita expenditure times person years.
+    type: simple
+    type_params:
+      measure: annualized_expenditure_dollars
+  - name: risk_adjusted_expenditure
+    label: Risk-adjusted annualized expenditure (building block)
+    description: Risk normalized per capita expenditure times person years.
+    type: simple
+    type_params:
+      measure: risk_adjusted_expenditure_dollars
+  - name: reconciliations_count
+    label: ACO reconciliations
+    description: ACO performance periods reconciled.
+    type: simple
+    type_params:
+      measure: reconciliations
+  - name: reconciliations_earning_savings_count
+    label: ACO reconciliations earning shared savings
+    description: ACO performance periods with a shared savings payment.
+    type: simple
+    type_params:
+      measure: reconciliations_earning_savings
+  - name: risk_weighted_person_years_sum
+    label: Risk weighted person years (building block)
+    description: Risk score times person years.
+    type: simple
+    type_params:
+      measure: risk_weighted_person_years
+  - name: person_years_with_risk_score_sum
+    label: Person years with a risk score (building block)
+    description: Person years where a risk score is published.
+    type: simple
+    type_params:
+      measure: person_years_with_risk_score
+  - name: measure_results_count
+    label: Expected quality results (building block)
+    description: ACO measure results expected (reported or not).
+    type: simple
+    type_params:
+      measure: measure_results
+  - name: measure_results_reported_count
+    label: Reported quality results (building block)
+    description: ACO measure results with a reported value.
+    type: simple
+    type_params:
+      measure: measure_results_reported

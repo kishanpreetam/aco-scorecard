@@ -1,0 +1,10 @@
+# Direct dependencies, pinned. requirements-lock.txt pins the full resolved set (uv pip freeze).
+# Python 3.12 (uv venv --python 3.12 .venv).
+duckdb==2.0.0
+dbt-core==1.12.6
+dbt-duckdb==1.11.1
+dbt-metricflow==0.15.0
+metricflow==0.213.0
+plotly==7.1.0
+pyyaml==6.0.3
+pytest==9.2.0

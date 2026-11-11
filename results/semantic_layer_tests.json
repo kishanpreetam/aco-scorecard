@@ -1,0 +1,523 @@
+{
+  "run_started_at": "2026-11-04T04:12:03+00:00",
+  "tolerance": {
+    "relative": 1e-09,
+    "absolute": 1e-06
+  },
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "What was the program-wide savings rate (total savings over total benchmark) in each performance year from 2013 to 2024?",
+      "metricflow_query": "query --metrics savings_rate --group-by metric_time__year",
+      "metricflow_sql": "SELECT\n  metric_time__year\n  , CAST(total_savings AS DOUBLE) / CAST(NULLIF(total_benchmark, 0) AS DOUBLE) AS savings_rate\nFROM (\n  SELECT\n    DATE_TRUNC('year', performance_year_start) AS metric_time__year\n    , SUM(benchmark_minus_expenditures) AS total_savings\n    , SUM(total_benchmark_expenditures) AS total_benchmark\n  FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n  GROUP BY\n    DATE_TRUNC('year', performance_year_start)\n) subq_5",
+      "independent_sql": "select year, sum(bme) / sum(bench) as savings_rate from (select 2013 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2013 union all select 2014 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2014 union all select 2015 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2015 union all select 2016 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2016 union all select 2017 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2017 union all select 2018 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2018 union all select 2019 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2019 union all select 2019 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2019a union all select 2020 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2020 union all select 2021 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2021 union all select 2022 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2022 union all select 2023 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2023 union all select 2024 as year, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2024) group by year",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "year": "2013"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.005496450537842819,
+          "expected": 0.005496450537842819,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2014"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.005511511405270263,
+          "expected": 0.005511511405270263,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2015"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.005856320707395314,
+          "expected": 0.005856320707395314,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2016"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.008011434371615027,
+          "expected": 0.008011434371615027,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2017"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.011531899143528843,
+          "expected": 0.011531899143528843,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2018"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.01553832078592579,
+          "expected": 0.01553832078592579,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2019"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.022689703292234752,
+          "expected": 0.022689703292234752,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2020"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.03735426830105111,
+          "expected": 0.03735426830105111,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2021"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.03193568282253025,
+          "expected": 0.03193568282253025,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2022"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.03606155106796726,
+          "expected": 0.03606155106796726,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2023"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.04033381794999952,
+          "expected": 0.04033381794999952,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2024"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.04733122439796326,
+          "expected": 0.04733122439796326,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 12,
+      "expected_rows": 12
+    },
+    {
+      "id": "Q02",
+      "question": "In PY 2024, how much did CMS pay ACOs in shared savings, how much did ACOs owe in losses, and what were net savings to Medicare?",
+      "metricflow_query": "query --metrics earned_shared_savings,shared_losses_owed,net_savings_to_medicare --where \"{{ Dimension('aco_period__performance_year') }} = 2024\"",
+      "metricflow_sql": "SELECT\n    performance_year AS aco_period__performance_year\n    , benchmark_minus_expenditures AS __total_savings\n    , earned_shared_savings AS __earned_shared_savings\n    , shared_losses_owed AS __shared_losses_owed\n  FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n)\n\nSELECT\n  MAX(subq_6.earned_shared_savings) AS earned_shared_savings\n  , MAX(subq_6.shared_losses_owed) AS shared_losses_owed\n  , MAX(subq_13.net_savings_to_medicare) AS net_savings_to_medicare\nFROM (\n  SELECT\n    SUM(earned_shared_savings) AS earned_shared_savings\n    , SUM(shared_losses_owed) AS shared_losses_owed\n  FROM (\n    SELECT\n      aco_period__performance_year\n      , __earned_shared_savings AS earned_shared_savings\n      , __shared_losses_owed AS shared_losses_owed\n    FROM sma_10002_cte\n  ) subq_2\n  WHERE aco_period__performance_year = 2024\n) subq_6\nCROSS JOIN (\n  SELECT\n    total_savings - earned_shared_savings + shared_losses_owed AS net_savings_to_medicare\n  FROM (\n    SELECT\n      SUM(total_savings) AS total_savings\n      , SUM(earned_shared_savings) AS earned_shared_savings\n      , SUM(shared_losses_owed) AS shared_losses_owed\n    FROM (\n      SELECT\n        aco_period__performance_year\n        , __total_savings AS total_savings\n        , __earned_shared_savings AS earned_shared_savings\n        , __shared_losses_owed AS shared_losses_owed\n      FROM sma_10002_cte\n    ) subq_8\n    WHERE aco_period__performance_year = 2024\n  ) subq_12\n) subq_13",
+      "independent_sql": "select sum(greatest(e, 0)) as earned_shared_savings, sum(greatest(-e, 0)) as shared_losses_owed, sum(bme) - sum(greatest(e, 0)) + sum(greatest(-e, 0)) as net_savings_to_medicare from (select try_cast(nullif(replace(replace(replace(trim(\"EarnSaveLoss\"), '$', ''), ',', ''), '%', ''), '') as double) as e, try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme from raw.puf_py2024)",
+      "pass": true,
+      "checks": [
+        {
+          "key": {},
+          "metric": "earned_shared_savings",
+          "metricflow": 4142450738.0,
+          "expected": 4142450738.0,
+          "pass": true
+        },
+        {
+          "key": {},
+          "metric": "shared_losses_owed",
+          "metricflow": 19966437.0,
+          "expected": 19966437.0,
+          "pass": true
+        },
+        {
+          "key": {},
+          "metric": "net_savings_to_medicare",
+          "metricflow": 2491835204.0,
+          "expected": 2491835204.0,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 1,
+      "expected_rows": 1
+    },
+    {
+      "id": "Q03",
+      "question": "Which track family had the highest savings rate in PY 2024?",
+      "metricflow_query": "query --metrics savings_rate --group-by track__track_family --where \"{{ Dimension('aco_period__performance_year') }} = 2024\"",
+      "metricflow_sql": "SELECT\n  track__track_family\n  , CAST(total_savings AS DOUBLE) / CAST(NULLIF(total_benchmark, 0) AS DOUBLE) AS savings_rate\nFROM (\n  SELECT\n    track__track_family\n    , SUM(total_savings) AS total_savings\n    , SUM(total_benchmark) AS total_benchmark\n  FROM (\n    SELECT\n      aco_performance_periods_src_10000.performance_year AS aco_period__performance_year\n      , tracks_src_10000.track_family AS track__track_family\n      , aco_performance_periods_src_10000.total_benchmark_expenditures AS total_benchmark\n      , aco_performance_periods_src_10000.benchmark_minus_expenditures AS total_savings\n    FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n    LEFT OUTER JOIN\n      \"aco\".\"core\".\"dim_track\" tracks_src_10000\n    ON\n      aco_performance_periods_src_10000.track_code = tracks_src_10000.track_code\n  ) subq_5\n  WHERE aco_period__performance_year = 2024\n  GROUP BY\n    track__track_family\n) subq_9",
+      "independent_sql": "select case trim(\"Current_Track\") when 'A' then 'BASIC A and B (one-sided)' when 'B' then 'BASIC A and B (one-sided)' when 'C' then 'BASIC C to E (two-sided)' when 'D' then 'BASIC C to E (two-sided)' when 'E' then 'BASIC C to E (two-sided)' when 'EN' then 'ENHANCED' end as track_family, sum(try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double)) / sum(try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double)) as savings_rate from raw.puf_py2024 group by 1",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "track_family": "ENHANCED"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.056450344425411296,
+          "expected": 0.056450344425411296,
+          "pass": true
+        },
+        {
+          "key": {
+            "track_family": "BASIC C to E (two-sided)"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.04348279804153102,
+          "expected": 0.04348279804153102,
+          "pass": true
+        },
+        {
+          "key": {
+            "track_family": "BASIC A and B (one-sided)"
+          },
+          "metric": "savings_rate",
+          "metricflow": 0.03162050806198101,
+          "expected": 0.03162050806198101,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 3,
+      "expected_rows": 3
+    },
+    {
+      "id": "Q04",
+      "question": "How many distinct ACOs were reconciled in PY 2019, counting both the January and July 2019 periods?",
+      "metricflow_query": "query --metrics aco_count --where \"{{ Dimension('aco_period__performance_year') }} = 2019\"",
+      "metricflow_sql": "SELECT\n  COUNT(DISTINCT aco_count) AS aco_count\nFROM (\n  SELECT\n    performance_year AS aco_period__performance_year\n    , aco_key AS aco_count\n  FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n) subq_2\nWHERE aco_period__performance_year = 2019",
+      "independent_sql": "select count(distinct id) as aco_count from (select trim(\"ACO_ID\") as id from raw.puf_py2019 union all select trim(\"ACO_ID\") from raw.puf_py2019a)",
+      "pass": true,
+      "checks": [
+        {
+          "key": {},
+          "metric": "aco_count",
+          "metricflow": 541.0,
+          "expected": 541,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 1,
+      "expected_rows": 1
+    },
+    {
+      "id": "Q05",
+      "question": "What share of ACO reconciliations earned a shared savings payment in each year from 2021 to 2024?",
+      "metricflow_query": "query --metrics share_earning_savings --group-by metric_time__year --where \"{{ Dimension('aco_period__performance_year') }} >= 2021\"",
+      "metricflow_sql": "SELECT\n  metric_time__year\n  , CAST(reconciliations_earning_savings_count AS DOUBLE) / CAST(NULLIF(reconciliations_count, 0) AS DOUBLE) AS share_earning_savings\nFROM (\n  SELECT\n    metric_time__year\n    , SUM(reconciliations_earning_savings_count) AS reconciliations_earning_savings_count\n    , SUM(reconciliations_count) AS reconciliations_count\n  FROM (\n    SELECT\n      DATE_TRUNC('year', performance_year_start) AS metric_time__year\n      , performance_year AS aco_period__performance_year\n      , aco_period_count AS reconciliations_count\n      , case when earned_shared_savings > 0 then 1 else 0 end AS reconciliations_earning_savings_count\n    FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n  ) subq_2\n  WHERE aco_period__performance_year >= 2021\n  GROUP BY\n    metric_time__year\n) subq_6",
+      "independent_sql": "select year, avg(case when e > 0 then 1.0 else 0.0 end) as share_earning_savings from (select 2021 as year, try_cast(nullif(replace(replace(replace(trim(\"EarnSaveLoss\"), '$', ''), ',', ''), '%', ''), '') as double) as e from raw.puf_py2021 union all select 2022 as year, try_cast(nullif(replace(replace(replace(trim(\"EarnSaveLoss\"), '$', ''), ',', ''), '%', ''), '') as double) as e from raw.puf_py2022 union all select 2023 as year, try_cast(nullif(replace(replace(replace(trim(\"EarnSaveLoss\"), '$', ''), ',', ''), '%', ''), '') as double) as e from raw.puf_py2023 union all select 2024 as year, try_cast(nullif(replace(replace(replace(trim(\"EarnSaveLoss\"), '$', ''), ',', ''), '%', ''), '') as double) as e from raw.puf_py2024) group by year",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "year": "2021"
+          },
+          "metric": "share_earning_savings",
+          "metricflow": 0.5768421052631579,
+          "expected": 0.5768421052631579,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2022"
+          },
+          "metric": "share_earning_savings",
+          "metricflow": 0.6286307053941909,
+          "expected": 0.6286307053941909,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2023"
+          },
+          "metric": "share_earning_savings",
+          "metricflow": 0.6909492273730684,
+          "expected": 0.6909492273730684,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2024"
+          },
+          "metric": "share_earning_savings",
+          "metricflow": 0.7563025210084033,
+          "expected": 0.7563025210084033,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 4,
+      "expected_rows": 4
+    },
+    {
+      "id": "Q06",
+      "question": "In PY 2023, how did earned shared savings per assigned beneficiary compare between one-sided and two-sided ACOs?",
+      "metricflow_query": "query --metrics earned_shared_savings_per_assigned_beneficiary --group-by aco_period__risk_model --where \"{{ Dimension('aco_period__performance_year') }} = 2023\"",
+      "metricflow_sql": "SELECT\n  aco_period__risk_model\n  , CAST(earned_shared_savings AS DOUBLE) / CAST(NULLIF(assigned_beneficiaries, 0) AS DOUBLE) AS earned_shared_savings_per_assigned_beneficiary\nFROM (\n  SELECT\n    aco_period__risk_model\n    , SUM(earned_shared_savings) AS earned_shared_savings\n    , SUM(assigned_beneficiaries) AS assigned_beneficiaries\n  FROM (\n    SELECT\n      performance_year AS aco_period__performance_year\n      , risk_model AS aco_period__risk_model\n      , earned_shared_savings\n      , n_assigned_beneficiaries AS assigned_beneficiaries\n    FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n  ) subq_2\n  WHERE aco_period__performance_year = 2023\n  GROUP BY\n    aco_period__risk_model\n) subq_6",
+      "independent_sql": "select trim(\"Risk_Model\") as risk_model, sum(greatest(try_cast(nullif(replace(replace(replace(trim(\"EarnSaveLoss\"), '$', ''), ',', ''), '%', ''), '') as double), 0)) / sum(try_cast(nullif(replace(replace(replace(trim(\"N_AB\"), '$', ''), ',', ''), '%', ''), '') as double)) as earned_shared_savings_per_assigned_beneficiary from raw.puf_py2023 group by 1",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "risk_model": "Two-Sided"
+          },
+          "metric": "earned_shared_savings_per_assigned_beneficiary",
+          "metricflow": 372.62113317128524,
+          "expected": 372.62113317128524,
+          "pass": true
+        },
+        {
+          "key": {
+            "risk_model": "One-Sided"
+          },
+          "metric": "earned_shared_savings_per_assigned_beneficiary",
+          "metricflow": 118.22288630077797,
+          "expected": 118.22288630077797,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 2,
+      "expected_rows": 2
+    },
+    {
+      "id": "Q07",
+      "question": "What was the mean ACO quality score in each year of the APM Performance Pathway era (2021 to 2024)?",
+      "metricflow_query": "query --metrics mean_quality_score --group-by metric_time__year --where \"{{ Dimension('aco_period__performance_year') }} >= 2021\"",
+      "metricflow_sql": "SELECT\n  metric_time__year\n  , AVG(mean_quality_score) AS mean_quality_score\nFROM (\n  SELECT\n    DATE_TRUNC('year', performance_year_start) AS metric_time__year\n    , performance_year AS aco_period__performance_year\n    , quality_score AS mean_quality_score\n  FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n) subq_2\nWHERE aco_period__performance_year >= 2021\nGROUP BY\n  metric_time__year",
+      "independent_sql": "select year, avg(q) as mean_quality_score from (select 2021 as year, try_cast(nullif(replace(replace(replace(trim(\"QualScore\"), '$', ''), ',', ''), '%', ''), '') as double) as q from raw.puf_py2021 union all select 2022 as year, try_cast(nullif(replace(replace(replace(trim(\"QualScore\"), '$', ''), ',', ''), '%', ''), '') as double) as q from raw.puf_py2022 union all select 2023 as year, try_cast(nullif(replace(replace(replace(trim(\"QualScore\"), '$', ''), ',', ''), '%', ''), '') as double) as q from raw.puf_py2023 union all select 2024 as year, try_cast(nullif(replace(replace(replace(trim(\"QualScore\"), '$', ''), ',', ''), '%', ''), '') as double) as q from raw.puf_py2024) group by year",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "year": "2021"
+          },
+          "metric": "mean_quality_score",
+          "metricflow": 90.6677473684211,
+          "expected": 90.6677473684211,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2022"
+          },
+          "metric": "mean_quality_score",
+          "metricflow": 81.53105809128631,
+          "expected": 81.53105809128631,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2023"
+          },
+          "metric": "mean_quality_score",
+          "metricflow": 82.27905077262689,
+          "expected": 82.27905077262689,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2024"
+          },
+          "metric": "mean_quality_score",
+          "metricflow": 81.89930672268913,
+          "expected": 81.89930672268913,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 4,
+      "expected_rows": 4
+    },
+    {
+      "id": "Q08",
+      "question": "What was risk-adjusted per capita expenditure (spending divided by CMS-HCC risk score, by enrollment type) in PY 2023 and PY 2024?",
+      "metricflow_query": "query --metrics risk_adjusted_per_capita_expenditure --group-by metric_time__year --where \"{{ Dimension('aco_period__performance_year') }} in (2023, 2024)\"",
+      "metricflow_sql": "SELECT\n  metric_time__year\n  , CAST(risk_adjusted_expenditure AS DOUBLE) / CAST(NULLIF(person_years, 0) AS DOUBLE) AS risk_adjusted_per_capita_expenditure\nFROM (\n  SELECT\n    metric_time__year\n    , SUM(risk_adjusted_expenditure) AS risk_adjusted_expenditure\n    , SUM(person_years) AS person_years\n  FROM (\n    SELECT\n      DATE_TRUNC('year', performance_year_start) AS metric_time__year\n      , performance_year AS aco_period__performance_year\n      , person_years\n      , risk_adjusted_annualized_expenditure AS risk_adjusted_expenditure\n    FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n  ) subq_2\n  WHERE aco_period__performance_year in (2023, 2024)\n  GROUP BY\n    metric_time__year\n) subq_6",
+      "independent_sql": "select year, sum(rapc * py) / sum(py) as risk_adjusted_per_capita_expenditure from (select 2023 as year, ( coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_Dual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_NonDual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) ) / nullif( coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_Dual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_NonDual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0), 0) as rapc, try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as py from raw.puf_py2023 union all select 2024 as year, ( coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_Dual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 then try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) / try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) * try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_NonDual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) ) / nullif( coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_Dual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0) + coalesce(case when try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) > 0 and try_cast(nullif(replace(replace(replace(trim(\"Per_Capita_Exp_ALL_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_NonDual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) end, 0), 0) as rapc, try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as py from raw.puf_py2024) group by year",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "year": "2023"
+          },
+          "metric": "risk_adjusted_per_capita_expenditure",
+          "metricflow": 12213.04017428256,
+          "expected": 12213.04017428256,
+          "pass": true
+        },
+        {
+          "key": {
+            "year": "2024"
+          },
+          "metric": "risk_adjusted_per_capita_expenditure",
+          "metricflow": 13189.34565763482,
+          "expected": 13189.34565763482,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 2,
+      "expected_rows": 2
+    },
+    {
+      "id": "Q09",
+      "question": "How many Medicare beneficiaries were assigned to Shared Savings Program ACOs in PY 2024?",
+      "metricflow_query": "query --metrics assigned_beneficiaries --where \"{{ Dimension('aco_period__performance_year') }} = 2024\"",
+      "metricflow_sql": "SELECT\n  SUM(assigned_beneficiaries) AS assigned_beneficiaries\nFROM (\n  SELECT\n    performance_year AS aco_period__performance_year\n    , n_assigned_beneficiaries AS assigned_beneficiaries\n  FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n) subq_2\nWHERE aco_period__performance_year = 2024",
+      "independent_sql": "select sum(try_cast(nullif(replace(replace(replace(trim(\"N_AB\"), '$', ''), ',', ''), '%', ''), '') as double)) as assigned_beneficiaries from raw.puf_py2024",
+      "pass": true,
+      "checks": [
+        {
+          "key": {},
+          "metric": "assigned_beneficiaries",
+          "metricflow": 10326340.0,
+          "expected": 10326340.0,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 1,
+      "expected_rows": 1
+    },
+    {
+      "id": "Q10",
+      "question": "What was the person-year weighted mean CMS-HCC risk score for each Medicare enrollment type in PY 2024?",
+      "metricflow_query": "query --metrics mean_risk_score --group-by attribution_row__enrollment_type_code --where \"{{ TimeDimension('metric_time', 'year') }} = '2024-01-01'\"",
+      "metricflow_sql": "SELECT\n  attribution_row__enrollment_type_code\n  , CAST(risk_weighted_person_years_sum AS DOUBLE) / CAST(NULLIF(person_years_with_risk_score_sum, 0) AS DOUBLE) AS mean_risk_score\nFROM (\n  SELECT\n    attribution_row__enrollment_type_code\n    , SUM(risk_weighted_person_years_sum) AS risk_weighted_person_years_sum\n    , SUM(person_years_with_risk_score_sum) AS person_years_with_risk_score_sum\n  FROM (\n    SELECT\n      DATE_TRUNC('year', performance_year_start) AS metric_time__year\n      , enrollment_type_code AS attribution_row__enrollment_type_code\n      , risk_score * person_years AS risk_weighted_person_years_sum\n      , case when risk_score is not null then person_years end AS person_years_with_risk_score_sum\n    FROM \"aco\".\"core\".\"fct_attribution\" aco_attribution_src_10000\n  ) subq_2\n  WHERE metric_time__year = '2024-01-01'\n  GROUP BY\n    attribution_row__enrollment_type_code\n) subq_6",
+      "independent_sql": "select 'esrd' as enrollment_type_code, sum(r * y) / sum(case when r is not null then y end) as mean_risk_score from (select try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as r, try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_ESRD_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as y from raw.puf_py2024) union all select 'disabled' as enrollment_type_code, sum(r * y) / sum(case when r is not null then y end) as mean_risk_score from (select try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as r, try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_DIS_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as y from raw.puf_py2024) union all select 'aged_dual' as enrollment_type_code, sum(r * y) / sum(case when r is not null then y end) as mean_risk_score from (select try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGDU_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as r, try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_Dual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as y from raw.puf_py2024) union all select 'aged_nondual' as enrollment_type_code, sum(r * y) / sum(case when r is not null then y end) as mean_risk_score from (select try_cast(nullif(replace(replace(replace(trim(\"CMS_HCC_RiskScore_AGND_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as r, try_cast(nullif(replace(replace(replace(trim(\"N_AB_Year_AGED_NonDual_PY\"), '$', ''), ',', ''), '%', ''), '') as double) as y from raw.puf_py2024)",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "enrollment_type_code": "esrd"
+          },
+          "metric": "mean_risk_score",
+          "metricflow": 0.9829421779184047,
+          "expected": 0.9829421779184054,
+          "pass": true
+        },
+        {
+          "key": {
+            "enrollment_type_code": "disabled"
+          },
+          "metric": "mean_risk_score",
+          "metricflow": 0.9678624529207325,
+          "expected": 0.9678624529207331,
+          "pass": true
+        },
+        {
+          "key": {
+            "enrollment_type_code": "aged_dual"
+          },
+          "metric": "mean_risk_score",
+          "metricflow": 0.9582766687495821,
+          "expected": 0.9582766687495813,
+          "pass": true
+        },
+        {
+          "key": {
+            "enrollment_type_code": "aged_nondual"
+          },
+          "metric": "mean_risk_score",
+          "metricflow": 1.0029317292746973,
+          "expected": 1.002931729274699,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 4,
+      "expected_rows": 4
+    },
+    {
+      "id": "Q11",
+      "question": "For Controlling High Blood Pressure (Quality ID 236) in PY 2024, what share of ACOs reported a result through each collection type?",
+      "metricflow_query": "query --metrics quality_reporting_rate --group-by measure_result__collection_type --where \"{{ Entity('quality_measure') }} = 'Q236' and {{ TimeDimension('metric_time', 'year') }} = '2024-01-01'\"",
+      "metricflow_sql": "SELECT\n  measure_result__collection_type\n  , CAST(measure_results_reported_count AS DOUBLE) / CAST(NULLIF(measure_results_count, 0) AS DOUBLE) AS quality_reporting_rate\nFROM (\n  SELECT\n    measure_result__collection_type\n    , SUM(measure_results_reported_count) AS measure_results_reported_count\n    , SUM(measure_results_count) AS measure_results_count\n  FROM (\n    SELECT\n      DATE_TRUNC('year', performance_year_start) AS metric_time__year\n      , measure_key AS quality_measure\n      , collection_type AS measure_result__collection_type\n      , 1 AS measure_results_count\n      , case when is_reported then 1 else 0 end AS measure_results_reported_count\n    FROM \"aco\".\"core\".\"fct_aco_quality_measure\" aco_quality_results_src_10000\n  ) subq_2\n  WHERE quality_measure = 'Q236' and metric_time__year = '2024-01-01'\n  GROUP BY\n    measure_result__collection_type\n) subq_6",
+      "independent_sql": "select 'Web Interface' as collection_type, avg(case when try_cast(nullif(replace(replace(replace(trim(\"QualityID_236_WI\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then 1.0 else 0.0 end) as quality_reporting_rate from raw.puf_py2024 union all select 'eCQM' as collection_type, avg(case when try_cast(nullif(replace(replace(replace(trim(\"QualityID_236_eCQM\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then 1.0 else 0.0 end) as quality_reporting_rate from raw.puf_py2024 union all select 'MIPS CQM' as collection_type, avg(case when try_cast(nullif(replace(replace(replace(trim(\"QualityID_236_MIPSCQM\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then 1.0 else 0.0 end) as quality_reporting_rate from raw.puf_py2024 union all select 'Medicare CQM' as collection_type, avg(case when try_cast(nullif(replace(replace(replace(trim(\"QualityID_236_MedicareCQM\"), '$', ''), ',', ''), '%', ''), '') as double) is not null then 1.0 else 0.0 end) as quality_reporting_rate from raw.puf_py2024",
+      "pass": true,
+      "checks": [
+        {
+          "key": {
+            "collection_type": "Web Interface"
+          },
+          "metric": "quality_reporting_rate",
+          "metricflow": 0.8214285714285714,
+          "expected": 0.8214285714285714,
+          "pass": true
+        },
+        {
+          "key": {
+            "collection_type": "eCQM"
+          },
+          "metric": "quality_reporting_rate",
+          "metricflow": 0.07983193277310924,
+          "expected": 0.07983193277310924,
+          "pass": true
+        },
+        {
+          "key": {
+            "collection_type": "MIPS CQM"
+          },
+          "metric": "quality_reporting_rate",
+          "metricflow": 0.031512605042016806,
+          "expected": 0.031512605042016806,
+          "pass": true
+        },
+        {
+          "key": {
+            "collection_type": "Medicare CQM"
+          },
+          "metric": "quality_reporting_rate",
+          "metricflow": 0.05042016806722689,
+          "expected": 0.05042016806722689,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 4,
+      "expected_rows": 4
+    },
+    {
+      "id": "Q12",
+      "question": "How many ACOs saved 5 percent or more of their benchmark in PY 2024, and what was their combined savings rate?",
+      "metricflow_query": "query --metrics aco_count,savings_rate --where \"{{ Dimension('aco_period__performance_year') }} = 2024 and {{ Dimension('aco_period__savings_rate_band') }} = '5 percent or more'\"",
+      "metricflow_sql": "SELECT\n    performance_year AS aco_period__performance_year\n    , savings_rate_band AS aco_period__savings_rate_band\n    , total_benchmark_expenditures AS __total_benchmark\n    , benchmark_minus_expenditures AS __total_savings\n    , aco_key AS __aco_count\n  FROM \"aco\".\"core\".\"fct_aco_financial_year\" aco_performance_periods_src_10000\n)\n\nSELECT\n  MAX(subq_6.aco_count) AS aco_count\n  , MAX(subq_13.savings_rate) AS savings_rate\nFROM (\n  SELECT\n    COUNT(DISTINCT aco_count) AS aco_count\n  FROM (\n    SELECT\n      aco_period__performance_year\n      , aco_period__savings_rate_band\n      , __aco_count AS aco_count\n    FROM sma_10002_cte\n  ) subq_2\n  WHERE aco_period__performance_year = 2024 and aco_period__savings_rate_band = '5 percent or more'\n) subq_6\nCROSS JOIN (\n  SELECT\n    CAST(SUM(total_savings) AS DOUBLE) / CAST(NULLIF(SUM(total_benchmark), 0) AS DOUBLE) AS savings_rate\n  FROM (\n    SELECT\n      aco_period__performance_year\n      , aco_period__savings_rate_band\n      , __total_benchmark AS total_benchmark\n      , __total_savings AS total_savings\n    FROM sma_10002_cte\n  ) subq_8\n  WHERE aco_period__performance_year = 2024 and aco_period__savings_rate_band = '5 percent or more'\n) subq_13",
+      "independent_sql": "select count(*) as aco_count, sum(bme) / sum(bench) as savings_rate from (select try_cast(nullif(replace(replace(replace(trim(\"BnchmkMinExp\"), '$', ''), ',', ''), '%', ''), '') as double) as bme, try_cast(nullif(replace(replace(replace(trim(\"ABtotBnchmk\"), '$', ''), ',', ''), '%', ''), '') as double) as bench from raw.puf_py2024) where bme / bench >= 0.05",
+      "pass": true,
+      "checks": [
+        {
+          "key": {},
+          "metric": "aco_count",
+          "metricflow": 204.0,
+          "expected": 204,
+          "pass": true
+        },
+        {
+          "key": {},
+          "metric": "savings_rate",
+          "metricflow": 0.08189253082657492,
+          "expected": 0.08189253082657492,
+          "pass": true
+        }
+      ],
+      "metricflow_rows": 1,
+      "expected_rows": 1
+    }
+  ],
+  "summary": {
+    "questions": 12,
+    "questions_passed": 12,
+    "values_compared": 42,
+    "values_passed": 42
+  }
+}

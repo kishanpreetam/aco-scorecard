@@ -1,0 +1,96 @@
+version: 2
+
+models:
+  - name: mart_aco_year_scorecard
+    description: >
+      One row per ACO per performance year, with the two PY 2019 periods combined. Adds year over
+      year changes (only between consecutive years), rankings, percentiles and quartiles within
+      the year, a three-year rolling average and running totals.
+    columns:
+      - name: aco_year_key
+        data_tests: [unique, not_null]
+      - name: savings_rate
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: -0.5, max_value: 0.5}
+      - name: savings_rate_percentile
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 1}
+      - name: savings_rate_quartile
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4]
+                quote: false
+      - name: savings_rate_avg_last3
+        description: Average savings rate over the ACO's last three reconciled years (fewer at the start of its history).
+      - name: savings_rate_change_yoy
+        description: Change in savings rate from the ACO's previous year; NULL when the previous year is missing.
+
+  - name: mart_program_year_summary
+    description: One row per performance year with program totals, distribution of ACO results and year over year change.
+    columns:
+      - name: performance_year
+        data_tests: [unique, not_null]
+      - name: net_savings_to_medicare
+        description: Benchmark minus expenditures, less earned shared savings payments, plus shared losses owed.
+
+  - name: mart_track_year_summary
+    description: One row per performance year and track family.
+    columns:
+      - name: track_year_key
+        data_tests: [unique, not_null]
+
+  - name: mart_quality_measure_year
+    description: One row per quality measure, collection type and performance year, with reporting coverage and the distribution of reported rates.
+    columns:
+      - name: measure_year_key
+        data_tests: [unique, not_null]
+      - name: reporting_rate
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 1}
+
+  - name: mart_state_year_assignment
+    description: One row per state and performance year with reported assigned person years from the county files (lower bounds because of suppression).
+    columns:
+      - name: state_year_key
+        data_tests: [unique, not_null]
+      - name: coverage_of_program
+        description: Share of the program's PUF person years that the reported county cells account for.
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0.9, max_value: 1.0001}
+
+unit_tests:
+  - name: scorecard_combines_2019_periods_and_computes_yoy
+    description: >
+      An ACO reconciled in 2018 and in both 2019 periods gets one 2019 row whose dollars are
+      summed and whose savings rate is recomputed from the sums; the year over year change is
+      measured against 2018. Values are chosen to be exact in binary floating point.
+    model: mart_aco_year_scorecard
+    given:
+      - input: ref('fct_aco_financial_year')
+        rows:
+          - {aco_key: A1, aco_name: Test ACO, performance_year: 2018, performance_period_id: "2018", period_end_date: 2018-12-31, track_code: TRACK_1, track_family: Track 1, risk_model: One-Sided, n_assigned_beneficiaries: 10000, beneficiary_years_in_period: 9800, total_benchmark_expenditures: 16000000, total_expenditures: 15000000, benchmark_minus_expenditures: 1000000, earned_shared_savings: 0, shared_losses_owed: 0, per_capita_expenditure: 10000, risk_adjusted_per_capita_expenditure: 9000, weighted_risk_score: 1.1, quality_score: 90, earned_savings_flag: false}
+          - {aco_key: A1, aco_name: Test ACO, performance_year: 2019, performance_period_id: "2019", period_end_date: 2019-06-30, track_code: TRACK_1, track_family: Track 1, risk_model: One-Sided, n_assigned_beneficiaries: 10000, beneficiary_years_in_period: 4900, total_benchmark_expenditures: 8000000, total_expenditures: 7000000, benchmark_minus_expenditures: 1000000, earned_shared_savings: 500000, shared_losses_owed: 0, per_capita_expenditure: 10000, risk_adjusted_per_capita_expenditure: 9000, weighted_risk_score: 1.1, quality_score: 95, earned_savings_flag: true}
+          - {aco_key: A1, aco_name: Test ACO, performance_year: 2019, performance_period_id: "2019A", period_end_date: 2019-12-31, track_code: ENHANCED, track_family: ENHANCED, risk_model: Two-Sided, n_assigned_beneficiaries: 11000, beneficiary_years_in_period: 5100, total_benchmark_expenditures: 8000000, total_expenditures: 7000000, benchmark_minus_expenditures: 1000000, earned_shared_savings: 250000, shared_losses_owed: 0, per_capita_expenditure: 10200, risk_adjusted_per_capita_expenditure: 9100, weighted_risk_score: 1.12, quality_score: 95, earned_savings_flag: true}
+    expect:
+      rows:
+        - {aco_key: A1, performance_year: 2018, periods_in_year: 1, savings_rate: 0.0625, track_code: TRACK_1, n_assigned_beneficiaries: 10000, savings_rate_change_yoy: null, net_savings_to_medicare: 1000000}
+        - {aco_key: A1, performance_year: 2019, periods_in_year: 2, savings_rate: 0.125, track_code: ENHANCED, n_assigned_beneficiaries: 11000, savings_rate_change_yoy: 0.0625, net_savings_to_medicare: 1250000}
+
+  - name: scorecard_skips_yoy_across_a_gap_year
+    description: Year over year change is NULL when the ACO's previous reconciled year is not the prior calendar year.
+    model: mart_aco_year_scorecard
+    given:
+      - input: ref('fct_aco_financial_year')
+        rows:
+          - {aco_key: B1, performance_year: 2020, period_end_date: 2020-12-31, n_assigned_beneficiaries: 5000, beneficiary_years_in_period: 5000, total_benchmark_expenditures: 16000000, total_expenditures: 15000000, benchmark_minus_expenditures: 1000000, earned_shared_savings: 0, shared_losses_owed: 0, quality_score: 80}
+          - {aco_key: B1, performance_year: 2022, period_end_date: 2022-12-31, n_assigned_beneficiaries: 5000, beneficiary_years_in_period: 5000, total_benchmark_expenditures: 16000000, total_expenditures: 14000000, benchmark_minus_expenditures: 2000000, earned_shared_savings: 0, shared_losses_owed: 0, quality_score: 85}
+    expect:
+      rows:
+        - {aco_key: B1, performance_year: 2020, savings_rate: 0.0625, savings_rate_change_yoy: null}
+        - {aco_key: B1, performance_year: 2022, savings_rate: 0.125, savings_rate_change_yoy: null}

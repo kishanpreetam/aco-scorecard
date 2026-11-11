@@ -1,0 +1,245 @@
+version: 2
+
+models:
+  - name: dim_aco
+    description: One row per ACO across all years, keyed by the conformed aco_key, with attributes from its latest period.
+    columns:
+      - name: aco_key
+        description: Published ACO_ID (PY 2018 on), the bridged ACO_ID for legacy rows, or LEGACY-<ACO_Num> when no bridge exists.
+        data_tests: [unique, not_null]
+      - name: aco_key_method
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [published_aco_id, bridged_legacy_id, legacy_id_only]
+      - name: primary_state
+        description: State with the most reported assigned person years in the ACO's latest county file year.
+
+  - name: dim_performance_year
+    description: One row per CMS performance period with the quality methodology and source file that applied.
+    columns:
+      - name: performance_period_id
+        data_tests:
+          - unique
+          - not_null
+          - values_present:
+              arguments:
+                expected_var: expected_periods
+      - name: aco_count
+        description: ACOs reconciled in the period.
+        data_tests: [not_null]
+
+  - name: dim_track
+    description: Shared Savings Program tracks with risk model and maximum sharing rate.
+    columns:
+      - name: track_code
+        data_tests: [unique, not_null]
+
+  - name: dim_measure
+    description: Conformed quality measures (legacy ACO codes mapped to APP names via the CMS crosswalk).
+    columns:
+      - name: measure_key
+        data_tests: [unique, not_null]
+      - name: reported_result_count
+        description: Reported results across all years; a catalog entry that never appears in the data fails this test.
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 1}
+
+  - name: dim_enrollment_type
+    description: Medicare enrollment types used for benchmarks and risk scores.
+    columns:
+      - name: enrollment_type_code
+        data_tests: [unique, not_null]
+
+  - name: fct_aco_financial_year
+    description: >
+      One row per ACO per CMS performance period: attribution, benchmark, spending, savings or
+      losses, shared savings, quality score and population context. PY 2019 has two periods.
+    data_tests:
+      - unique_combination:
+          arguments:
+            columns: [aco_key, performance_period_id]
+      - expression_is_true:
+          name: person_years_not_above_assigned_beneficiaries
+          arguments:
+            expression: "person_years <= n_assigned_beneficiaries"
+      - expression_is_true:
+          name: earned_savings_and_losses_are_exclusive
+          arguments:
+            expression: "not (earned_shared_savings > 0 and shared_losses_owed > 0)"
+    columns:
+      - name: aco_period_key
+        data_tests: [unique, not_null]
+      - name: aco_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_aco')
+                field: aco_key
+      - name: performance_period_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_performance_year')
+                field: performance_period_id
+          - values_present:
+              arguments:
+                expected_var: expected_periods
+      - name: track_code
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_track')
+                field: track_code
+      - name: risk_model
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["One-Sided", "Two-Sided"]
+      - name: n_assigned_beneficiaries
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: 1}
+      - name: total_benchmark_expenditures
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: 0}
+      - name: total_expenditures
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: 0}
+      - name: savings_rate
+        description: (benchmark minus expenditures) / benchmark, computed the same way for every year.
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: -0.5, max_value: 0.5}
+      - name: min_savings_rate
+        description: Minimum savings rate as a fraction. Very small ACOs can have large published MSRs (the largest is 0.254, PY 2017).
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 0.3}
+      - name: final_sharing_rate
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 0.75}
+      - name: max_sharing_rate
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0.4, 0.5, 0.6, 0.75]
+                quote: false
+      - name: quality_score
+        description: 0 to 100 quality score; NULL for pay-for-reporting ACOs in PY 2014 and 2015.
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 100}
+      - name: earned_shared_savings
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0}
+      - name: shared_losses_owed
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0}
+      - name: per_capita_expenditure
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: 1000, max_value: 100000}
+      - name: risk_adjusted_per_capita_expenditure
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: 1000, max_value: 100000}
+      - name: weighted_risk_score
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments: {min_value: 0.3, max_value: 5}
+      - name: savings_rate_band
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Spent above benchmark", "0 to 2 percent", "2 to 5 percent", "5 percent or more"]
+
+  - name: fct_aco_quality_measure
+    description: One row per ACO, period, quality measure and collection type, including non-reported results with their CMS status.
+    columns:
+      - name: aco_measure_key
+        data_tests: [unique, not_null]
+      - name: aco_period_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_aco_financial_year')
+                field: aco_period_key
+      - name: measure_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_measure')
+                field: measure_key
+      - name: measure_value
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 250}
+      - name: value_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [reported, not_reported, suppressed_small_cell, not_applicable, reporting_error, cahps_waived_auto_credit, pay_for_reporting_suppressed]
+      - name: is_reported
+        data_tests:
+          - expression_is_true:
+              name: reported_rows_have_values
+              arguments:
+                expression: "(is_reported and measure_value is not null) or (not is_reported and measure_value is null)"
+
+  - name: fct_attribution
+    description: One row per ACO, period and Medicare enrollment type with person years, spending and CMS-HCC risk scores (performance year and benchmark year 3).
+    columns:
+      - name: attribution_key
+        data_tests: [unique, not_null]
+      - name: enrollment_type_code
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_enrollment_type')
+                field: enrollment_type_code
+      - name: person_year_share
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 1}
+      - name: risk_score
+        description: Mean prospective CMS-HCC risk score. CMS publishes 0 when an ACO has no person years of a type, so the range check skips those rows.
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0.2, max_value: 6, row_filter: "person_years > 0"}
+
+  - name: fct_aco_county_assignment
+    description: One row per ACO, period and county of residence. Suppressed cells are NULL, so sums are lower bounds.
+    columns:
+      - name: aco_county_key
+        data_tests: [unique, not_null]
+      - name: aco_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_aco')
+                field: aco_key
+      - name: performance_period_id
+        data_tests:
+          - values_present:
+              arguments:
+                expected_var: expected_county_periods

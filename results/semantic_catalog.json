@@ -1,0 +1,658 @@
+{
+  "generated_from": "warehouse/target/semantic_manifest.json",
+  "semantic_models": [
+    {
+      "name": "aco_performance_periods",
+      "description": "One row per ACO per CMS performance period from the Shared Savings Program financial and quality results. Dollars are totals for the period (PY 2019 has two six-month periods for some ACOs; 2012 starters have an 18 or 21 month first period in PY 2013). Use performance_year to filter years; it covers both PY 2019 periods.",
+      "table": "\"aco\".\"core\".\"fct_aco_financial_year\"",
+      "entities": [
+        {
+          "name": "aco_period",
+          "type": "primary",
+          "column": "aco_period_key"
+        },
+        {
+          "name": "aco",
+          "type": "foreign",
+          "column": "aco_key"
+        },
+        {
+          "name": "track",
+          "type": "foreign",
+          "column": "track_code"
+        },
+        {
+          "name": "performance_period",
+          "type": "foreign",
+          "column": "performance_period_id"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "performance_year_start",
+          "type": "time",
+          "description": "January 1 of the performance year (both PY 2019 periods map to 2019-01-01)."
+        },
+        {
+          "name": "performance_year",
+          "type": "categorical",
+          "description": "Calendar performance year, 2013 to 2024."
+        },
+        {
+          "name": "performance_period_id",
+          "type": "categorical",
+          "description": "CMS file period id; 2019 and 2019A are the two PY 2019 periods."
+        },
+        {
+          "name": "risk_model",
+          "type": "categorical",
+          "description": "One-Sided (shares savings only) or Two-Sided (also owes losses)."
+        },
+        {
+          "name": "agreement_type",
+          "type": "categorical",
+          "description": "Initial, Renewal or Re-entering agreement period (published from PY 2016)."
+        },
+        {
+          "name": "assignment_type",
+          "type": "categorical",
+          "description": "Prospective or Retrospective beneficiary assignment (published from PY 2021)."
+        },
+        {
+          "name": "revenue_category",
+          "type": "categorical",
+          "description": "High Revenue or Low Revenue ACO (published from PY 2018)."
+        },
+        {
+          "name": "savings_rate_band",
+          "type": "categorical",
+          "description": "ACO savings rate band for the period."
+        },
+        {
+          "name": "earned_savings_flag",
+          "type": "categorical",
+          "description": "True when the ACO earned a shared savings payment for the period."
+        },
+        {
+          "name": "met_quality_standard_flag",
+          "type": "categorical",
+          "description": "True when the ACO met the quality performance standard (published from PY 2016)."
+        }
+      ],
+      "measures": [
+        {
+          "name": "benchmark_dollars",
+          "agg": "sum",
+          "expr": "total_benchmark_expenditures",
+          "description": "Total benchmark expenditures (the spending target)."
+        },
+        {
+          "name": "expenditure_dollars",
+          "agg": "sum",
+          "expr": "total_expenditures",
+          "description": "Total Parts A and B spending for assigned beneficiaries."
+        },
+        {
+          "name": "savings_dollars",
+          "agg": "sum",
+          "expr": "benchmark_minus_expenditures",
+          "description": "Benchmark minus expenditures (negative values are losses)."
+        },
+        {
+          "name": "earned_shared_savings_dollars",
+          "agg": "sum",
+          "expr": "earned_shared_savings",
+          "description": "Shared savings payments CMS paid to ACOs."
+        },
+        {
+          "name": "shared_losses_dollars",
+          "agg": "sum",
+          "expr": "shared_losses_owed",
+          "description": "Shared losses two-sided ACOs owed to CMS."
+        },
+        {
+          "name": "assigned_beneficiaries",
+          "agg": "sum",
+          "expr": "n_assigned_beneficiaries",
+          "description": "Assigned beneficiaries (summed over periods; an ACO in both PY 2019 periods counts twice)."
+        },
+        {
+          "name": "person_years_total",
+          "agg": "sum",
+          "expr": "person_years",
+          "description": "Assigned beneficiary person years (annualized by CMS)."
+        },
+        {
+          "name": "annualized_expenditure_dollars",
+          "agg": "sum",
+          "expr": "annualized_expenditure",
+          "description": "Per capita expenditure times person years, used to build person-year weighted per capita spending."
+        },
+        {
+          "name": "risk_adjusted_expenditure_dollars",
+          "agg": "sum",
+          "expr": "risk_adjusted_annualized_expenditure",
+          "description": "Risk normalized per capita expenditure times person years."
+        },
+        {
+          "name": "quality_score_average",
+          "agg": "average",
+          "expr": "quality_score",
+          "description": "Simple average of ACO quality scores (0 to 100)."
+        },
+        {
+          "name": "distinct_acos",
+          "agg": "count_distinct",
+          "expr": "aco_key",
+          "description": "Distinct ACOs."
+        },
+        {
+          "name": "reconciliations",
+          "agg": "sum",
+          "expr": "aco_period_count",
+          "description": "ACO performance periods reconciled."
+        },
+        {
+          "name": "reconciliations_earning_savings",
+          "agg": "sum",
+          "expr": "case when earned_shared_savings > 0 then 1 else 0 end",
+          "description": "ACO performance periods with a shared savings payment."
+        }
+      ]
+    },
+    {
+      "name": "tracks",
+      "description": "Shared Savings Program tracks (risk arrangements) and their maximum sharing rates.",
+      "table": "\"aco\".\"core\".\"dim_track\"",
+      "entities": [
+        {
+          "name": "track",
+          "type": "primary",
+          "column": "track_code"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "track_family",
+          "type": "categorical",
+          "description": "Track 1, Track 1+, Track 2, Track 3, BASIC A and B (one-sided), BASIC C to E (two-sided) or ENHANCED."
+        },
+        {
+          "name": "program_era",
+          "type": "categorical",
+          "description": "Original tracks (2012 to mid 2019) or Pathways to Success (July 2019 on)."
+        },
+        {
+          "name": "track_risk_model",
+          "type": "categorical",
+          "description": "Risk model implied by the track."
+        }
+      ],
+      "measures": []
+    },
+    {
+      "name": "acos",
+      "description": "One row per ACO (conformed key across the PY 2017 to 2018 identifier change).",
+      "table": "\"aco\".\"core\".\"dim_aco\"",
+      "entities": [
+        {
+          "name": "aco",
+          "type": "primary",
+          "column": "aco_key"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "primary_state",
+          "type": "categorical",
+          "description": "State with the most reported assigned person years in the ACO's latest county file."
+        },
+        {
+          "name": "aco_key_method",
+          "type": "categorical",
+          "description": "How the ACO key was assigned (published id, bridged legacy id, or legacy id only)."
+        },
+        {
+          "name": "first_performance_year",
+          "type": "categorical",
+          "description": "First year the ACO was reconciled."
+        }
+      ],
+      "measures": []
+    },
+    {
+      "name": "performance_periods",
+      "description": "CMS performance periods with the quality methodology that applied.",
+      "table": "\"aco\".\"core\".\"dim_performance_year\"",
+      "entities": [
+        {
+          "name": "performance_period",
+          "type": "primary",
+          "column": "performance_period_id"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "quality_measure_set",
+          "type": "categorical",
+          "description": "ACO measure set (2013 to 2020) or APM Performance Pathway (2021 to 2024)."
+        },
+        {
+          "name": "comparability_group",
+          "type": "categorical",
+          "description": "Quality scores are comparable only within a group."
+        }
+      ],
+      "measures": []
+    },
+    {
+      "name": "aco_attribution",
+      "description": "Person years, spending and CMS-HCC risk scores by ACO, period and Medicare enrollment type.",
+      "table": "\"aco\".\"core\".\"fct_attribution\"",
+      "entities": [
+        {
+          "name": "attribution_row",
+          "type": "primary",
+          "column": "attribution_key"
+        },
+        {
+          "name": "aco_period",
+          "type": "foreign",
+          "column": "aco_period_key"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "attribution_year_start",
+          "type": "time",
+          "description": null
+        },
+        {
+          "name": "enrollment_type_code",
+          "type": "categorical",
+          "description": "esrd, disabled, aged_dual or aged_nondual."
+        }
+      ],
+      "measures": [
+        {
+          "name": "enrollment_person_years",
+          "agg": "sum",
+          "expr": "person_years",
+          "description": "Person years for the enrollment type (suppressed cells excluded)."
+        },
+        {
+          "name": "risk_weighted_person_years",
+          "agg": "sum",
+          "expr": "risk_score * person_years",
+          "description": "Risk score times person years."
+        },
+        {
+          "name": "person_years_with_risk_score",
+          "agg": "sum",
+          "expr": "case when risk_score is not null then person_years end",
+          "description": "Person years where a risk score is published."
+        }
+      ]
+    },
+    {
+      "name": "aco_quality_results",
+      "description": "One row per ACO, period, quality measure and collection type.",
+      "table": "\"aco\".\"core\".\"fct_aco_quality_measure\"",
+      "entities": [
+        {
+          "name": "measure_result",
+          "type": "primary",
+          "column": "aco_measure_key"
+        },
+        {
+          "name": "aco_period",
+          "type": "foreign",
+          "column": "aco_period_key"
+        },
+        {
+          "name": "quality_measure",
+          "type": "foreign",
+          "column": "measure_key"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "measure_year_start",
+          "type": "time",
+          "description": null
+        },
+        {
+          "name": "collection_type",
+          "type": "categorical",
+          "description": null
+        },
+        {
+          "name": "value_status",
+          "type": "categorical",
+          "description": null
+        }
+      ],
+      "measures": [
+        {
+          "name": "measure_rate_average",
+          "agg": "average",
+          "expr": "measure_value",
+          "description": "Simple average of reported performance rates."
+        },
+        {
+          "name": "measure_results",
+          "agg": "sum",
+          "expr": "1",
+          "description": "ACO results expected for the measure (reported or not)."
+        },
+        {
+          "name": "measure_results_reported",
+          "agg": "sum",
+          "expr": "case when is_reported then 1 else 0 end",
+          "description": "Results with a reported value."
+        }
+      ]
+    },
+    {
+      "name": "quality_measures",
+      "description": "Conformed quality measure catalog.",
+      "table": "\"aco\".\"core\".\"dim_measure\"",
+      "entities": [
+        {
+          "name": "quality_measure",
+          "type": "primary",
+          "column": "measure_key"
+        }
+      ],
+      "dimensions": [
+        {
+          "name": "measure_name",
+          "type": "categorical",
+          "description": null
+        },
+        {
+          "name": "domain",
+          "type": "categorical",
+          "description": null
+        },
+        {
+          "name": "higher_is_better",
+          "type": "categorical",
+          "description": null
+        }
+      ],
+      "measures": []
+    }
+  ],
+  "metrics": [
+    {
+      "name": "total_benchmark",
+      "label": "Total benchmark expenditures",
+      "type": "simple",
+      "description": "Sum of ACO spending targets (benchmarks) in dollars.",
+      "expr": null,
+      "inputs": [
+        "benchmark_dollars"
+      ]
+    },
+    {
+      "name": "total_expenditures",
+      "label": "Total expenditures",
+      "type": "simple",
+      "description": "Sum of Parts A and B spending for assigned beneficiaries in dollars.",
+      "expr": null,
+      "inputs": [
+        "expenditure_dollars"
+      ]
+    },
+    {
+      "name": "total_savings",
+      "label": "Total savings (benchmark minus expenditures)",
+      "type": "simple",
+      "description": "Benchmark minus actual spending, summed over ACOs; ACOs above benchmark subtract.",
+      "expr": null,
+      "inputs": [
+        "savings_dollars"
+      ]
+    },
+    {
+      "name": "savings_rate",
+      "label": "Savings rate",
+      "type": "ratio",
+      "description": "Total savings divided by total benchmark. Program-level rate weights each ACO by its benchmark.",
+      "expr": null,
+      "inputs": [
+        "numerator: total_savings",
+        "denominator: total_benchmark"
+      ]
+    },
+    {
+      "name": "earned_shared_savings",
+      "label": "Earned shared savings payments",
+      "type": "simple",
+      "description": "Dollars CMS paid ACOs that beat their minimum savings rate and met the quality standard.",
+      "expr": null,
+      "inputs": [
+        "earned_shared_savings_dollars"
+      ]
+    },
+    {
+      "name": "shared_losses_owed",
+      "label": "Shared losses owed",
+      "type": "simple",
+      "description": "Dollars two-sided ACOs owed CMS because spending exceeded the benchmark beyond their minimum loss rate.",
+      "expr": null,
+      "inputs": [
+        "shared_losses_dollars"
+      ]
+    },
+    {
+      "name": "net_savings_to_medicare",
+      "label": "Net savings to Medicare",
+      "type": "derived",
+      "description": "Total savings minus shared savings payments plus shared losses owed.",
+      "expr": "total_savings - earned_shared_savings + shared_losses_owed",
+      "inputs": [
+        "total_savings",
+        "earned_shared_savings",
+        "shared_losses_owed"
+      ]
+    },
+    {
+      "name": "assigned_beneficiaries",
+      "label": "Assigned beneficiaries",
+      "type": "simple",
+      "description": "Medicare beneficiaries assigned to ACOs (an ACO in both PY 2019 periods is counted in each).",
+      "expr": null,
+      "inputs": [
+        "assigned_beneficiaries"
+      ]
+    },
+    {
+      "name": "earned_shared_savings_per_assigned_beneficiary",
+      "label": "Earned shared savings per assigned beneficiary",
+      "type": "ratio",
+      "description": "Shared savings payments divided by assigned beneficiaries.",
+      "expr": null,
+      "inputs": [
+        "numerator: earned_shared_savings",
+        "denominator: assigned_beneficiaries"
+      ]
+    },
+    {
+      "name": "per_capita_expenditure",
+      "label": "Per capita expenditure",
+      "type": "ratio",
+      "description": "Person-year weighted annual spending per assigned beneficiary.",
+      "expr": null,
+      "inputs": [
+        "numerator: annualized_expenditure",
+        "denominator: person_years"
+      ]
+    },
+    {
+      "name": "risk_adjusted_per_capita_expenditure",
+      "label": "Risk-adjusted per capita expenditure",
+      "type": "ratio",
+      "description": "Person-year weighted spending per beneficiary after dividing each enrollment type's spending by its mean CMS-HCC risk score.",
+      "expr": null,
+      "inputs": [
+        "numerator: risk_adjusted_expenditure",
+        "denominator: person_years"
+      ]
+    },
+    {
+      "name": "mean_quality_score",
+      "label": "Mean quality score",
+      "type": "simple",
+      "description": "Simple average ACO quality score (0 to 100). Compare only within a comparability_group; the method changed in PY 2021 and PY 2023.",
+      "expr": null,
+      "inputs": [
+        "quality_score_average"
+      ]
+    },
+    {
+      "name": "aco_count",
+      "label": "Number of ACOs",
+      "type": "simple",
+      "description": "Distinct ACOs reconciled.",
+      "expr": null,
+      "inputs": [
+        "distinct_acos"
+      ]
+    },
+    {
+      "name": "share_earning_savings",
+      "label": "Share of reconciliations earning shared savings",
+      "type": "ratio",
+      "description": "ACO performance periods with a shared savings payment divided by all ACO performance periods.",
+      "expr": null,
+      "inputs": [
+        "numerator: reconciliations_earning_savings_count",
+        "denominator: reconciliations_count"
+      ]
+    },
+    {
+      "name": "mean_risk_score",
+      "label": "Mean CMS-HCC risk score",
+      "type": "ratio",
+      "description": "Person-year weighted mean prospective CMS-HCC risk score, by enrollment type if grouped.",
+      "expr": null,
+      "inputs": [
+        "numerator: risk_weighted_person_years_sum",
+        "denominator: person_years_with_risk_score_sum"
+      ]
+    },
+    {
+      "name": "quality_reporting_rate",
+      "label": "Quality measure reporting rate",
+      "type": "ratio",
+      "description": "Share of expected ACO measure results that have a reported value.",
+      "expr": null,
+      "inputs": [
+        "numerator: measure_results_reported_count",
+        "denominator: measure_results_count"
+      ]
+    },
+    {
+      "name": "mean_measure_rate",
+      "label": "Mean measure performance rate",
+      "type": "simple",
+      "description": "Simple average of reported performance rates for the selected measures.",
+      "expr": null,
+      "inputs": [
+        "measure_rate_average"
+      ]
+    },
+    {
+      "name": "person_years",
+      "label": "Person years",
+      "type": "simple",
+      "description": "Assigned beneficiary person years (annualized).",
+      "expr": null,
+      "inputs": [
+        "person_years_total"
+      ]
+    },
+    {
+      "name": "annualized_expenditure",
+      "label": "Annualized expenditure (building block)",
+      "type": "simple",
+      "description": "Per capita expenditure times person years.",
+      "expr": null,
+      "inputs": [
+        "annualized_expenditure_dollars"
+      ]
+    },
+    {
+      "name": "risk_adjusted_expenditure",
+      "label": "Risk-adjusted annualized expenditure (building block)",
+      "type": "simple",
+      "description": "Risk normalized per capita expenditure times person years.",
+      "expr": null,
+      "inputs": [
+        "risk_adjusted_expenditure_dollars"
+      ]
+    },
+    {
+      "name": "reconciliations_count",
+      "label": "ACO reconciliations",
+      "type": "simple",
+      "description": "ACO performance periods reconciled.",
+      "expr": null,
+      "inputs": [
+        "reconciliations"
+      ]
+    },
+    {
+      "name": "reconciliations_earning_savings_count",
+      "label": "ACO reconciliations earning shared savings",
+      "type": "simple",
+      "description": "ACO performance periods with a shared savings payment.",
+      "expr": null,
+      "inputs": [
+        "reconciliations_earning_savings"
+      ]
+    },
+    {
+      "name": "risk_weighted_person_years_sum",
+      "label": "Risk weighted person years (building block)",
+      "type": "simple",
+      "description": "Risk score times person years.",
+      "expr": null,
+      "inputs": [
+        "risk_weighted_person_years"
+      ]
+    },
+    {
+      "name": "person_years_with_risk_score_sum",
+      "label": "Person years with a risk score (building block)",
+      "type": "simple",
+      "description": "Person years where a risk score is published.",
+      "expr": null,
+      "inputs": [
+        "person_years_with_risk_score"
+      ]
+    },
+    {
+      "name": "measure_results_count",
+      "label": "Expected quality results (building block)",
+      "type": "simple",
+      "description": "ACO measure results expected (reported or not).",
+      "expr": null,
+      "inputs": [
+        "measure_results"
+      ]
+    },
+    {
+      "name": "measure_results_reported_count",
+      "label": "Reported quality results (building block)",
+      "type": "simple",
+      "description": "ACO measure results with a reported value.",
+      "expr": null,
+      "inputs": [
+        "measure_results_reported"
+      ]
+    }
+  ]
+}

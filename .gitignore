@@ -1,0 +1,22 @@
+# Raw CMS files and the local warehouse never go in the repo
+data/
+*.duckdb
+*.duckdb.wal
+
+# Python and dbt build output
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+warehouse/target/
+warehouse/logs/
+warehouse/dbt_packages/
+logs/
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Personal resume drafting notes stay local
+results/resume_lines.md

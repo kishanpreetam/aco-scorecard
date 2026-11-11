@@ -1,0 +1,1071 @@
+{
+  "generated_at": "2026-11-04T04:15:59+00:00",
+  "environment": {
+    "python": "3.12.13",
+    "duckdb": "2.0.0",
+    "dbt_core": "1.12.6",
+    "dbt_duckdb": "1.11.1",
+    "metricflow": "0.213.0",
+    "platform": "macOS-26.6.2"
+  },
+  "checks": [
+    {
+      "check": "dbt build: every model, seed, data test and unit test passed",
+      "pass": true,
+      "detail": "271 nodes, 0 not passing"
+    },
+    {
+      "check": "semantic layer answers match independent SQL",
+      "pass": true,
+      "detail": "12/12 questions, 42/42 values"
+    },
+    {
+      "check": "every source file matches its sha256 pin",
+      "pass": true,
+      "detail": "29 files"
+    },
+    {
+      "check": "all 13 PUF performance periods loaded",
+      "pass": true,
+      "detail": "13 loaded"
+    },
+    {
+      "check": "row counts unchanged since the previous run",
+      "pass": true,
+      "detail": "no differences from the run at 2026-11-04T04:15:40+00:00"
+    },
+    {
+      "check": "no new or revised CMS files waiting in the catalog",
+      "pass": true,
+      "detail": "checked 2026-11-04T04:11:30+00:00: 0 not pinned, 0 pinned files missing"
+    }
+  ],
+  "all_checks_passed": true,
+  "sources": {
+    "files": [
+      {
+        "key": "puf_py2013",
+        "kind": "data",
+        "period": "2013",
+        "bytes": 103682,
+        "sha256": "4271a720f9dc73799982b49a36db71842ec1ea233403c49a03ad8e5648f4b980",
+        "cms_last_modified": "Tue, 28 Nov 2023 16:36:34 GMT",
+        "days_since_cms_update": 1071,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2014",
+        "kind": "data",
+        "period": "2014",
+        "bytes": 206638,
+        "sha256": "b25055952af3dd82a83fd8404b0755b30d7503472ae8a8e191b7f7343024df37",
+        "cms_last_modified": "Tue, 28 Nov 2023 16:35:06 GMT",
+        "days_since_cms_update": 1071,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2015",
+        "kind": "data",
+        "period": "2015",
+        "bytes": 232103,
+        "sha256": "df5e99dfddf75cb671f4592a5b60cc0a5dfed00a86c9ccd5c08a091380a559bd",
+        "cms_last_modified": "Tue, 28 Nov 2023 17:37:15 GMT",
+        "days_since_cms_update": 1071,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2016",
+        "kind": "data",
+        "period": "2016",
+        "bytes": 364522,
+        "sha256": "fc00dec1ec8f3b7a5391e2f0e618b4f9cf02565e1101ee52b852ba53897aa0d9",
+        "cms_last_modified": "Mon, 04 Dec 2023 17:09:21 GMT",
+        "days_since_cms_update": 1065,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2017",
+        "kind": "data",
+        "period": "2017",
+        "bytes": 397254,
+        "sha256": "17512ec9b0b8e6f52eadef712d34889c865f613a7cbc882ba5ecbea75c3e8ca8",
+        "cms_last_modified": "Tue, 28 Nov 2023 16:26:51 GMT",
+        "days_since_cms_update": 1071,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2018",
+        "kind": "data",
+        "period": "2018",
+        "bytes": 471086,
+        "sha256": "1fa3b7d245ccf86251c8886bb48e429e55523009699fd3f7a5930b588010d2b2",
+        "cms_last_modified": "Tue, 28 Nov 2023 16:29:27 GMT",
+        "days_since_cms_update": 1071,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2019",
+        "kind": "data",
+        "period": "2019",
+        "bytes": 392694,
+        "sha256": "9a1c450dc7aee0196ab49ceddc2abfed1361b7cfceb64b13b3386cb416cfc103",
+        "cms_last_modified": "Tue, 28 Nov 2023 16:31:22 GMT",
+        "days_since_cms_update": 1071,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2019a",
+        "kind": "data",
+        "period": "2019A",
+        "bytes": 193199,
+        "sha256": "5fc0bb4db2a7b78fe1e182a8cb2a0c2fbbb4b93ca6d21a3f75c66f22a791f818",
+        "cms_last_modified": "Tue, 06 Aug 2024 12:44:16 GMT",
+        "days_since_cms_update": 819,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2020",
+        "kind": "data",
+        "period": "2020",
+        "bytes": 382676,
+        "sha256": "5278af279bdf3414832771cbc55414ab2c95a338fbd90278ff7681be80118f1f",
+        "cms_last_modified": "Tue, 31 Oct 2023 13:40:26 GMT",
+        "days_since_cms_update": 1099,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2021",
+        "kind": "data",
+        "period": "2021",
+        "bytes": 469381,
+        "sha256": "7544ae6d722dc3543401fdaa94f1810a6631eb88a744d066d7ec330aed7eab33",
+        "cms_last_modified": "Thu, 07 Sep 2023 16:45:01 GMT",
+        "days_since_cms_update": 1153,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2022",
+        "kind": "data",
+        "period": "2022",
+        "bytes": 397030,
+        "sha256": "cf50f95f3c57e6bc3a23bfcc7be5857394ec28ac63ad1f3f9d684a2ec7534bc8",
+        "cms_last_modified": "Thu, 07 Mar 2024 15:33:18 GMT",
+        "days_since_cms_update": 971,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2023",
+        "kind": "data",
+        "period": "2023",
+        "bytes": 381089,
+        "sha256": "fa75ded41dbbea3e2d2aaebc33b3a2e74e84ca07d5f3961d46ae7e67e5330a87",
+        "cms_last_modified": "Wed, 23 Oct 2024 18:47:12 GMT",
+        "days_since_cms_update": 741,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "puf_py2024",
+        "kind": "data",
+        "period": "2024",
+        "bytes": 437855,
+        "sha256": "b32873e80634f122bc6ce8ef9614c0a87f44852e27ebb6b0217284c4a8a19c62",
+        "cms_last_modified": "Fri, 17 Jul 2026 10:54:25 GMT",
+        "days_since_cms_update": 109,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2016",
+        "kind": "data",
+        "period": "2016",
+        "bytes": 4421455,
+        "sha256": "6d745c0f28949f53b4eda8793cf050a15afc8a947402901f9e94a9c3ee2feb19",
+        "cms_last_modified": "Tue, 30 Nov 2021 18:27:52 GMT",
+        "days_since_cms_update": 1799,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2017",
+        "kind": "data",
+        "period": "2017",
+        "bytes": 5563732,
+        "sha256": "d3c6edf2b8b80e4244fad4bc36e8e9e518055d97a0147aba79de7d3a61e6abb3",
+        "cms_last_modified": "Tue, 30 Nov 2021 18:26:23 GMT",
+        "days_since_cms_update": 1799,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2018",
+        "kind": "data",
+        "period": "2018",
+        "bytes": 6503795,
+        "sha256": "aba3135ef3cd8f7aec46f0354d246ad30821bf53efb9b0d738c957612ce7597f",
+        "cms_last_modified": "Tue, 30 Nov 2021 18:24:49 GMT",
+        "days_since_cms_update": 1799,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2019",
+        "kind": "data",
+        "period": "2019",
+        "bytes": 6091842,
+        "sha256": "32fbbf901a8329ae660e0a9f5d8c3b50759741e9e21f2e0654c88b138d7f1994",
+        "cms_last_modified": "Tue, 30 Nov 2021 18:18:13 GMT",
+        "days_since_cms_update": 1799,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2019a",
+        "kind": "data",
+        "period": "2019A",
+        "bytes": 2796184,
+        "sha256": "a1fca40ab41949f4e133f1dfa58218c44857bb7697eb0e677a0c9b9d2710343a",
+        "cms_last_modified": "Tue, 30 Nov 2021 18:21:13 GMT",
+        "days_since_cms_update": 1799,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2020",
+        "kind": "data",
+        "period": "2020",
+        "bytes": 6728528,
+        "sha256": "9cb43093241654ad18bcf1179dcd9092dec6c3149793f1c67740c5d3ed86e6a9",
+        "cms_last_modified": "Tue, 30 Nov 2021 18:15:51 GMT",
+        "days_since_cms_update": 1799,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2021",
+        "kind": "data",
+        "period": "2021",
+        "bytes": 6397391,
+        "sha256": "eac2bc1f1420fe4372f4610da8db75d1e0bfd05f9eb1dc2cb29c2545921f27e0",
+        "cms_last_modified": "Tue, 20 Sep 2022 15:02:05 GMT",
+        "days_since_cms_update": 1505,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2022",
+        "kind": "data",
+        "period": "2022",
+        "bytes": 6764277,
+        "sha256": "f9c497588a8961208bc169e05e5f5a77f2a49252289f22cf8d55e6fc47cbf185",
+        "cms_last_modified": "Thu, 14 Sep 2023 13:39:52 GMT",
+        "days_since_cms_update": 1146,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2023",
+        "kind": "data",
+        "period": "2023",
+        "bytes": 6495900,
+        "sha256": "018d5901503240ed5c32ba48a8c418e369ba9465c191d66a67223302a171595b",
+        "cms_last_modified": "Fri, 08 Nov 2024 15:32:28 GMT",
+        "days_since_cms_update": 725,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "county_py2024",
+        "kind": "data",
+        "period": "2024",
+        "bytes": 6725362,
+        "sha256": "d26867cd552a9140d816ff7cd4e8e31c2bf0a2c54d465dd6f9f0901a791e50ad",
+        "cms_last_modified": "Wed, 05 Nov 2025 12:31:20 GMT",
+        "days_since_cms_update": 363,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "dict_puf_2013_2020",
+        "kind": "dictionary",
+        "period": null,
+        "bytes": 669617,
+        "sha256": "bb382f18982b73194d70198fc82faeba37e12bf6484cc358289ed8b14e0968f6",
+        "cms_last_modified": "Tue, 25 Mar 2025 13:39:06 GMT",
+        "days_since_cms_update": 588,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "dict_puf_2021",
+        "kind": "dictionary",
+        "period": null,
+        "bytes": 419577,
+        "sha256": "7cc10793972e311917b2adbdf1a23dbec81cf098ce783cb690681164ec908d00",
+        "cms_last_modified": "Tue, 25 Mar 2025 13:39:25 GMT",
+        "days_since_cms_update": 588,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "dict_puf_2022",
+        "kind": "dictionary",
+        "period": null,
+        "bytes": 494270,
+        "sha256": "3d6eca1229e73c186c5020e1c43537c559bad0d2221960036d7e44789329d0f8",
+        "cms_last_modified": "Tue, 25 Mar 2025 13:38:47 GMT",
+        "days_since_cms_update": 588,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "dict_puf_2023",
+        "kind": "dictionary",
+        "period": null,
+        "bytes": 1304387,
+        "sha256": "3029a6a8809393ef4b5ff58a895cc1b8099caf0ddb3f3f6203d9b190938563ff",
+        "cms_last_modified": "Tue, 25 Mar 2025 13:36:40 GMT",
+        "days_since_cms_update": 588,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "dict_puf_2024",
+        "kind": "dictionary",
+        "period": null,
+        "bytes": 503365,
+        "sha256": "5b0fed033afa5767a988bab1df411cf462f94cfa5a7f348c9bd747e64875b9f8",
+        "cms_last_modified": "Wed, 26 Nov 2025 15:08:33 GMT",
+        "days_since_cms_update": 342,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      },
+      {
+        "key": "dict_county_current",
+        "kind": "dictionary",
+        "period": null,
+        "bytes": 181346,
+        "sha256": "56ebaea5550af0c26e8d0483da7dc9330d951d55af982bbd2818746e31fd3cf8",
+        "cms_last_modified": "Mon, 17 Nov 2025 19:17:26 GMT",
+        "days_since_cms_update": 351,
+        "downloaded_at": "2026-11-03T18:41:03+00:00",
+        "pin_status": "verified"
+      }
+    ],
+    "totals": {
+      "data_files": 23,
+      "dictionary_files": 6,
+      "data_bytes": 62917675,
+      "dictionary_bytes": 3572562,
+      "all_bytes": 66490237
+    },
+    "latest_performance_year_loaded": 2024,
+    "most_recently_updated_file": {
+      "key": "puf_py2024",
+      "cms_last_modified": "Fri, 17 Jul 2026 10:54:25 GMT"
+    },
+    "catalog_discovery": {
+      "checked_at": "2026-11-04T04:11:30+00:00",
+      "not_pinned": 0,
+      "pinned_missing": 0
+    }
+  },
+  "load_audit": [
+    {
+      "file_key": "county_py2016",
+      "period_id": "2016",
+      "rows": 98208,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2017",
+      "period_id": "2017",
+      "rows": 109900,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2018",
+      "period_id": "2018",
+      "rows": 131165,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2019",
+      "period_id": "2019",
+      "rows": 122627,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2019a",
+      "period_id": "2019A",
+      "rows": 56444,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2020",
+      "period_id": "2020",
+      "rows": 135418,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2021",
+      "period_id": "2021",
+      "rows": 130186,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2022",
+      "period_id": "2022",
+      "rows": 136150,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2023",
+      "period_id": "2023",
+      "rows": 129750,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "county_py2024",
+      "period_id": "2024",
+      "rows": 135203,
+      "columns": 12,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2013",
+      "period_id": "2013",
+      "rows": 220,
+      "columns": 97,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2014",
+      "period_id": "2014",
+      "rows": 333,
+      "columns": 119,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2015",
+      "period_id": "2015",
+      "rows": 392,
+      "columns": 119,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2016",
+      "period_id": "2016",
+      "rows": 432,
+      "columns": 164,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2017",
+      "period_id": "2017",
+      "rows": 472,
+      "columns": 164,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2018",
+      "period_id": "2018",
+      "rows": 548,
+      "columns": 172,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2019",
+      "period_id": "2019",
+      "rows": 475,
+      "columns": 175,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2019a",
+      "period_id": "2019A",
+      "rows": 205,
+      "columns": 175,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2020",
+      "period_id": "2020",
+      "rows": 513,
+      "columns": 162,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2021",
+      "period_id": "2021",
+      "rows": 475,
+      "columns": 171,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2022",
+      "period_id": "2022",
+      "rows": 482,
+      "columns": 164,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2023",
+      "period_id": "2023",
+      "rows": 453,
+      "columns": 168,
+      "loaded_at": "2026-11-04 04:11:31"
+    },
+    {
+      "file_key": "puf_py2024",
+      "period_id": "2024",
+      "rows": 476,
+      "columns": 189,
+      "loaded_at": "2026-11-04 04:11:31"
+    }
+  ],
+  "row_counts": {
+    "core.dim_aco": {
+      "rows": 1059,
+      "type": "table"
+    },
+    "core.dim_enrollment_type": {
+      "rows": 4,
+      "type": "table"
+    },
+    "core.dim_measure": {
+      "rows": 43,
+      "type": "table"
+    },
+    "core.dim_performance_year": {
+      "rows": 13,
+      "type": "table"
+    },
+    "core.dim_track": {
+      "rows": 10,
+      "type": "table"
+    },
+    "core.fct_aco_county_assignment": {
+      "rows": 1185051,
+      "type": "table"
+    },
+    "core.fct_aco_financial_year": {
+      "rows": 5476,
+      "type": "table"
+    },
+    "core.fct_aco_quality_measure": {
+      "rows": 128010,
+      "type": "table"
+    },
+    "core.fct_attribution": {
+      "rows": 21904,
+      "type": "table"
+    },
+    "core.metricflow_time_spine": {
+      "rows": 5479,
+      "type": "table"
+    },
+    "intermediate.int_aco_id_bridge": {
+      "rows": 405,
+      "type": "table"
+    },
+    "intermediate.int_aco_period__keyed": {
+      "rows": 5476,
+      "type": "table"
+    },
+    "intermediate.int_county__unioned": {
+      "rows": 1185051,
+      "type": "table"
+    },
+    "intermediate.int_puf__unioned": {
+      "rows": 5476,
+      "type": "table"
+    },
+    "intermediate.int_quality__unioned": {
+      "rows": 128010,
+      "type": "table"
+    },
+    "raw._load_audit": {
+      "rows": 23,
+      "type": "table"
+    },
+    "raw.county_py2016": {
+      "rows": 98208,
+      "type": "table"
+    },
+    "raw.county_py2017": {
+      "rows": 109900,
+      "type": "table"
+    },
+    "raw.county_py2018": {
+      "rows": 131165,
+      "type": "table"
+    },
+    "raw.county_py2019": {
+      "rows": 122627,
+      "type": "table"
+    },
+    "raw.county_py2019a": {
+      "rows": 56444,
+      "type": "table"
+    },
+    "raw.county_py2020": {
+      "rows": 135418,
+      "type": "table"
+    },
+    "raw.county_py2021": {
+      "rows": 130186,
+      "type": "table"
+    },
+    "raw.county_py2022": {
+      "rows": 136150,
+      "type": "table"
+    },
+    "raw.county_py2023": {
+      "rows": 129750,
+      "type": "table"
+    },
+    "raw.county_py2024": {
+      "rows": 135203,
+      "type": "table"
+    },
+    "raw.puf_py2013": {
+      "rows": 220,
+      "type": "table"
+    },
+    "raw.puf_py2014": {
+      "rows": 333,
+      "type": "table"
+    },
+    "raw.puf_py2015": {
+      "rows": 392,
+      "type": "table"
+    },
+    "raw.puf_py2016": {
+      "rows": 432,
+      "type": "table"
+    },
+    "raw.puf_py2017": {
+      "rows": 472,
+      "type": "table"
+    },
+    "raw.puf_py2018": {
+      "rows": 548,
+      "type": "table"
+    },
+    "raw.puf_py2019": {
+      "rows": 475,
+      "type": "table"
+    },
+    "raw.puf_py2019a": {
+      "rows": 205,
+      "type": "table"
+    },
+    "raw.puf_py2020": {
+      "rows": 513,
+      "type": "table"
+    },
+    "raw.puf_py2021": {
+      "rows": 475,
+      "type": "table"
+    },
+    "raw.puf_py2022": {
+      "rows": 482,
+      "type": "table"
+    },
+    "raw.puf_py2023": {
+      "rows": 453,
+      "type": "table"
+    },
+    "raw.puf_py2024": {
+      "rows": 476,
+      "type": "table"
+    },
+    "reference.enrollment_types": {
+      "rows": 4,
+      "type": "table"
+    },
+    "reference.measure_catalog": {
+      "rows": 43,
+      "type": "table"
+    },
+    "reference.performance_periods": {
+      "rows": 13,
+      "type": "table"
+    },
+    "reference.track_reference": {
+      "rows": 10,
+      "type": "table"
+    },
+    "reporting.mart_aco_year_scorecard": {
+      "rows": 5337,
+      "type": "table"
+    },
+    "reporting.mart_program_year_summary": {
+      "rows": 12,
+      "type": "table"
+    },
+    "reporting.mart_quality_measure_year": {
+      "rows": 257,
+      "type": "table"
+    },
+    "reporting.mart_state_year_assignment": {
+      "rows": 504,
+      "type": "table"
+    },
+    "reporting.mart_track_year_summary": {
+      "rows": 46,
+      "type": "table"
+    },
+    "staging.stg_county__py2016": {
+      "rows": 98208,
+      "type": "view"
+    },
+    "staging.stg_county__py2017": {
+      "rows": 109900,
+      "type": "view"
+    },
+    "staging.stg_county__py2018": {
+      "rows": 131165,
+      "type": "view"
+    },
+    "staging.stg_county__py2019": {
+      "rows": 122627,
+      "type": "view"
+    },
+    "staging.stg_county__py2019a": {
+      "rows": 56444,
+      "type": "view"
+    },
+    "staging.stg_county__py2020": {
+      "rows": 135418,
+      "type": "view"
+    },
+    "staging.stg_county__py2021": {
+      "rows": 130186,
+      "type": "view"
+    },
+    "staging.stg_county__py2022": {
+      "rows": 136150,
+      "type": "view"
+    },
+    "staging.stg_county__py2023": {
+      "rows": 129750,
+      "type": "view"
+    },
+    "staging.stg_county__py2024": {
+      "rows": 135203,
+      "type": "view"
+    },
+    "staging.stg_puf__py2013": {
+      "rows": 220,
+      "type": "view"
+    },
+    "staging.stg_puf__py2014": {
+      "rows": 333,
+      "type": "view"
+    },
+    "staging.stg_puf__py2015": {
+      "rows": 392,
+      "type": "view"
+    },
+    "staging.stg_puf__py2016": {
+      "rows": 432,
+      "type": "view"
+    },
+    "staging.stg_puf__py2017": {
+      "rows": 472,
+      "type": "view"
+    },
+    "staging.stg_puf__py2018": {
+      "rows": 548,
+      "type": "view"
+    },
+    "staging.stg_puf__py2019": {
+      "rows": 475,
+      "type": "view"
+    },
+    "staging.stg_puf__py2019a": {
+      "rows": 205,
+      "type": "view"
+    },
+    "staging.stg_puf__py2020": {
+      "rows": 513,
+      "type": "view"
+    },
+    "staging.stg_puf__py2021": {
+      "rows": 475,
+      "type": "view"
+    },
+    "staging.stg_puf__py2022": {
+      "rows": 482,
+      "type": "view"
+    },
+    "staging.stg_puf__py2023": {
+      "rows": 453,
+      "type": "view"
+    },
+    "staging.stg_puf__py2024": {
+      "rows": 476,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2016": {
+      "rows": 15120,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2017": {
+      "rows": 15104,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2018": {
+      "rows": 17536,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2019": {
+      "rows": 10925,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2019a": {
+      "rows": 4715,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2020": {
+      "rows": 11799,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2021": {
+      "rows": 11875,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2022": {
+      "rows": 13496,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2023": {
+      "rows": 12684,
+      "type": "view"
+    },
+    "staging.stg_puf_quality__py2024": {
+      "rows": 14756,
+      "type": "view"
+    }
+  },
+  "row_count_changes_vs_previous_run": [],
+  "dbt": {
+    "invocation_id": "0a47076e-c785-4c26-ba35-54e1c5eea035",
+    "generated_at": "2026-11-04T04:12:01.981096Z",
+    "dbt_version": "1.12.6",
+    "elapsed_seconds": 13.65,
+    "status_by_resource_type": {
+      "model": {
+        "success": 53
+      },
+      "seed": {
+        "success": 4
+      },
+      "test": {
+        "pass": 212
+      },
+      "unit_test": {
+        "pass": 2
+      }
+    },
+    "nodes": 271,
+    "non_passing": [],
+    "slowest_nodes": [
+      {
+        "node": "model.aco_scorecard.int_county__unioned",
+        "seconds": 3.294
+      },
+      {
+        "node": "model.aco_scorecard.fct_aco_county_assignment",
+        "seconds": 1.574
+      },
+      {
+        "node": "model.aco_scorecard.mart_aco_year_scorecard",
+        "seconds": 0.69
+      },
+      {
+        "node": "model.aco_scorecard.int_puf__unioned",
+        "seconds": 0.597
+      },
+      {
+        "node": "model.aco_scorecard.metricflow_time_spine",
+        "seconds": 0.344
+      }
+    ]
+  },
+  "semantic_layer": {
+    "questions": 12,
+    "questions_passed": 12,
+    "values_compared": 42,
+    "values_passed": 42
+  },
+  "data_health": {
+    "aco_id_bridge": {
+      "acos_in_py2017": 472,
+      "py2018_acos_started_before_2018": 425,
+      "bridged": 405,
+      "share_of_py2017_acos_bridged": 0.8581,
+      "share_of_continuing_py2018_acos_bridged": 0.9529
+    },
+    "dim_aco_key_methods": {
+      "bridged_legacy_id": 405,
+      "legacy_id_only": 219,
+      "published_aco_id": 435
+    },
+    "county_files": [
+      {
+        "period": "2016",
+        "reported_share_of_puf_person_years": 0.9787,
+        "suppressed_row_share": 0.8783
+      },
+      {
+        "period": "2017",
+        "reported_share_of_puf_person_years": 0.9789,
+        "suppressed_row_share": 0.8759
+      },
+      {
+        "period": "2018",
+        "reported_share_of_puf_person_years": 0.9776,
+        "suppressed_row_share": 0.8771
+      },
+      {
+        "period": "2019",
+        "reported_share_of_puf_person_years": 0.9786,
+        "suppressed_row_share": 0.8708
+      },
+      {
+        "period": "2019A",
+        "reported_share_of_puf_person_years": 0.9755,
+        "suppressed_row_share": 0.8756
+      },
+      {
+        "period": "2020",
+        "reported_share_of_puf_person_years": 0.9776,
+        "suppressed_row_share": 0.8672
+      },
+      {
+        "period": "2021",
+        "reported_share_of_puf_person_years": 0.9773,
+        "suppressed_row_share": 0.8647
+      },
+      {
+        "period": "2022",
+        "reported_share_of_puf_person_years": 0.9769,
+        "suppressed_row_share": 0.8611
+      },
+      {
+        "period": "2023",
+        "reported_share_of_puf_person_years": 0.9776,
+        "suppressed_row_share": 0.8491
+      },
+      {
+        "period": "2024",
+        "reported_share_of_puf_person_years": 0.9771,
+        "suppressed_row_share": 0.8395
+      }
+    ],
+    "acos_with_a_suppressed_enrollment_type_cell": {
+      "2013": 0,
+      "2014": 0,
+      "2015": 1,
+      "2016": 0,
+      "2017": 4,
+      "2018": 6,
+      "2019": 7,
+      "2019A": 0,
+      "2020": 7,
+      "2021": 4,
+      "2022": 18,
+      "2023": 42,
+      "2024": 43
+    },
+    "quality_measures": [
+      {
+        "period": "2016",
+        "reported_share": 0.9921,
+        "suppressed_cells": 0,
+        "waived_cells": 0
+      },
+      {
+        "period": "2017",
+        "reported_share": 0.9933,
+        "suppressed_cells": 0,
+        "waived_cells": 0
+      },
+      {
+        "period": "2018",
+        "reported_share": 0.997,
+        "suppressed_cells": 0,
+        "waived_cells": 0
+      },
+      {
+        "period": "2019",
+        "reported_share": 0.9923,
+        "suppressed_cells": 10,
+        "waived_cells": 0
+      },
+      {
+        "period": "2019A",
+        "reported_share": 0.9907,
+        "suppressed_cells": 10,
+        "waived_cells": 0
+      },
+      {
+        "period": "2020",
+        "reported_share": 0.4708,
+        "suppressed_cells": 0,
+        "waived_cells": 6156
+      },
+      {
+        "period": "2021",
+        "reported_share": 0.8714,
+        "suppressed_cells": 0,
+        "waived_cells": 0
+      },
+      {
+        "period": "2022",
+        "reported_share": 0.7696,
+        "suppressed_cells": 0,
+        "waived_cells": 0
+      },
+      {
+        "period": "2023",
+        "reported_share": 0.7419,
+        "suppressed_cells": 0,
+        "waived_cells": 0
+      },
+      {
+        "period": "2024",
+        "reported_share": 0.6449,
+        "suppressed_cells": 0,
+        "waived_cells": 0
+      }
+    ],
+    "quality_score_null_counts": {
+      "2014": 119,
+      "2015": 89
+    }
+  }
+}

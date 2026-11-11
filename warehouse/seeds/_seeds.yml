@@ -1,0 +1,60 @@
+version: 2
+
+seeds:
+  - name: track_reference
+    description: >
+      Shared Savings Program tracks and their maximum sharing rates. Rates come from the CMS
+      data dictionary definition of QualPerfShare (PY 2013 to 2020 dictionary): 40 percent for
+      BASIC Levels A and B; 50 percent for Track 1, Track 1+ and BASIC Levels C to E; 60 percent
+      for Track 2; 75 percent for Track 3 and ENHANCED.
+    config:
+      column_types:
+        max_sharing_rate: double
+        display_order: integer
+    columns:
+      - name: track_code
+        data_tests: [unique, not_null]
+      - name: risk_model
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["One-Sided", "Two-Sided"]
+      - name: max_sharing_rate
+        data_tests:
+          - accepted_range:
+              arguments: {min_value: 0, max_value: 0.75}
+
+  - name: enrollment_types
+    description: The four Medicare enrollment types CMS uses for benchmarks and risk scores.
+    columns:
+      - name: enrollment_type_code
+        data_tests: [unique, not_null]
+
+  - name: performance_periods
+    description: One row per CMS performance period, with the quality methodology that applied.
+    config:
+      column_types:
+        performance_period_id: varchar
+        performance_year: integer
+        nominal_start: date
+        nominal_end: date
+    columns:
+      - name: performance_period_id
+        data_tests: [unique, not_null]
+
+  - name: measure_catalog
+    description: >
+      Conformed quality measure list. Legacy ACO measure codes are mapped to their APM
+      Performance Pathway names using the crosswalk in the CMS PY 2021 data dictionary notes.
+    config:
+      column_types:
+        higher_is_better: boolean
+    columns:
+      - name: measure_key
+        data_tests: [unique, not_null]
+      - name: predecessor_measure_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('measure_catalog')
+                field: measure_key

@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACO Scorecard</title>
+<meta name="description" content="Medicare Shared Savings Program ACO results, performance years 2013 to 2024, built from public CMS files.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f5f5f7;
+  --surface-1: #fcfcfb;
+  --card: rgba(255, 255, 255, 0.86);
+  --card-border: rgba(11, 11, 11, 0.08);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #6e6d68;
+  --axis-muted: #898781;
+  --grid: #e1e0d9;
+  --baseline: #c3c2b7;
+  --accent: #2a78d6;
+  --band: rgba(235, 104, 52, 0.16);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #6250d6;
+  --series-8: #e34948;
+  --marker-ring: #fcfcfb;
+  --chip: rgba(11, 11, 11, 0.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface-1: #1a1a19;
+    --card: rgba(30, 30, 29, 0.86);
+    --card-border: rgba(255, 255, 255, 0.10);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #a3a29a;
+    --axis-muted: #898781;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --accent: #3987e5;
+    --band: rgba(217, 89, 38, 0.22);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+    --series-7: #9085e9;
+    --series-8: #e66767;
+    --marker-ring: #1a1a19;
+    --chip: rgba(255, 255, 255, 0.07);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface-1: #1a1a19;
+  --card: rgba(30, 30, 29, 0.86);
+  --card-border: rgba(255, 255, 255, 0.10);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --text-primary: #f0efec;
+  --text-secondary: #c3c2b7;
+  --text-muted: #a3a29a;
+  --axis-muted: #898781;
+  --grid: #2c2c2a;
+  --baseline: #383835;
+  --accent: #3987e5;
+  --band: rgba(217, 89, 38, 0.22);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+  --marker-ring: #1a1a19;
+  --chip: rgba(255, 255, 255, 0.07);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--page);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+header.top {
+  position: sticky; top: 0; z-index: 10;
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  background: color-mix(in srgb, var(--page) 78%, transparent);
+  border-bottom: 1px solid var(--card-border);
+}
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; }
+.brand { font-weight: 650; letter-spacing: -0.01em; font-size: 17px; }
+.brand span { color: var(--text-secondary); font-weight: 450; margin-left: 8px; font-size: 14px; }
+.filters { display: flex; align-items: center; gap: 10px; }
+.filters label { color: var(--text-secondary); font-size: 13px; }
+select {
+  font: inherit; font-size: 14px; color: var(--text-primary); background: var(--card);
+  border: 1px solid var(--card-border); border-radius: 10px; padding: 6px 28px 6px 10px;
+}
+.hero { padding: 40px 0 8px; }
+.hero h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 10px; font-weight: 700; }
+.hero p { color: var(--text-secondary); max-width: 860px; margin: 0; font-size: 17px; }
+.meta { color: var(--text-muted); font-size: 13px; margin-top: 10px; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+.kpi { background: var(--card); border: 1px solid var(--card-border); border-radius: 18px; padding: 16px 18px; box-shadow: var(--shadow); }
+.kpi .label { color: var(--text-secondary); font-size: 13px; }
+.kpi .value { font-size: 30px; font-weight: 650; letter-spacing: -0.02em; margin-top: 4px; }
+.kpi .delta { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+section { margin: 34px 0; }
+section > h2 { font-size: 22px; letter-spacing: -0.01em; margin: 0 0 4px; }
+section > p.lede { color: var(--text-secondary); margin: 0 0 14px; max-width: 900px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; padding: 18px 18px 10px; box-shadow: var(--shadow); min-width: 0; }
+.card h3 { font-size: 16px; margin: 0 0 2px; letter-spacing: -0.005em; }
+.card .sub { color: var(--text-secondary); font-size: 13px; margin: 0 0 6px; }
+.chart { width: 100%; height: 340px; }
+.chart.tall { height: 420px; }
+details { margin: 4px 0 6px; }
+details summary { cursor: pointer; color: var(--accent); font-size: 13px; padding: 4px 0; }
+.table-wrap { overflow-x: auto; max-height: 360px; overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--text-secondary); font-weight: 600; position: sticky; top: 0; background: var(--surface-1); }
+td.name { white-space: normal; min-width: 180px; text-align: left; }
+td.wrap { white-space: normal; text-align: left; min-width: 96px; }
+.note { color: var(--text-muted); font-size: 12.5px; margin: 6px 0 4px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.chip { background: var(--chip); border-radius: 999px; padding: 4px 10px; font-size: 12.5px; color: var(--text-secondary); }
+.health { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+footer { color: var(--text-muted); font-size: 13px; padding: 30px 0 60px; border-top: 1px solid var(--card-border); margin-top: 40px; }
+footer a, .card a { color: var(--accent); }
+@media (max-width: 960px) {
+  .kpis, .health { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .wrap { padding: 0 16px; }
+  .kpi .value { font-size: 24px; }
+  .chart { height: 300px; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap topbar">
+    <div class="brand">ACO Scorecard<span>Medicare Shared Savings Program</span></div>
+    <div class="filters">
+      <label for="year">Performance year</label>
+      <select id="year" aria-label="Performance year"></select>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1 id="headline">ACO results, 2013 to 2024</h1>
+    <p id="lede"></p>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div class="kpis" id="kpis" aria-live="polite"></div>
+
+  <section>
+    <h2>Savings over time</h2>
+    <p class="lede">Savings rate is total benchmark minus total spending, divided by total benchmark. The selected year is marked. PY 2019 combines its two six-month periods.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Savings rate by year</h3>
+        <div class="sub">Program rate (benchmark weighted) and the median ACO, with the middle half of ACOs shaded</div>
+        <div class="chart" id="chart-rate" role="img" aria-label="Line chart of program and median ACO savings rate by year"></div>
+        <details><summary>Data table</summary><div class="table-wrap" id="table-rate"></div></details>
+      </div>
+      <div class="card">
+        <h3>Where the savings went</h3>
+        <div class="sub">Shared savings paid to ACOs and net savings kept by Medicare (after payments and losses owed)</div>
+        <div class="chart" id="chart-dollars" role="img" aria-label="Bar chart of shared savings payments and net savings to Medicare by year"></div>
+        <details><summary>Data table</summary><div class="table-wrap" id="table-dollars"></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="scatter-title">Savings rate and quality</h2>
+    <p class="lede" id="scatter-lede"></p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Savings rate vs quality score, by ACO</h3>
+        <div class="sub" id="scatter-sub"></div>
+        <div class="chart tall" id="chart-scatter" role="img" aria-label="Scatter plot of ACO savings rate against quality score"></div>
+        <details><summary>Data table</summary><div class="table-wrap" id="table-scatter"></div></details>
+      </div>
+      <div class="card">
+        <h3>Shared savings paid, by track</h3>
+        <div class="sub">How payments moved from Track 1 to the BASIC and ENHANCED tracks after 2019</div>
+        <div class="chart tall" id="chart-track" role="img" aria-label="Stacked bar chart of earned shared savings by track family and year"></div>
+        <details><summary>Data table</summary><div class="table-wrap" id="table-track"></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Spending, risk and quality measures</h2>
+    <p class="lede">Risk-adjusted spending divides each Medicare enrollment type's spending by its mean CMS-HCC risk score before weighting by person years. Quality measures use the conformed keys that carry legacy ACO measures through the 2021 rename.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Spending per beneficiary</h3>
+        <div class="sub">Annual Parts A and B spending per assigned beneficiary, raw and risk adjusted</div>
+        <div class="chart" id="chart-spend" role="img" aria-label="Line chart of per capita and risk-adjusted per capita spending by year"></div>
+        <details><summary>Data table</summary><div class="table-wrap" id="table-spend"></div></details>
+      </div>
+      <div class="card">
+        <h3>Median ACO rate on five quality measures</h3>
+        <div class="sub">CMS Web Interface results, 2016 to 2024. HbA1c poor control is inverse: lower is better.</div>
+        <div class="chart" id="chart-quality" role="img" aria-label="Line chart of median quality measure rates by year"></div>
+        <details><summary>Data table</summary><div class="table-wrap" id="table-quality"></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="detail-title">ACO detail</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Where assigned beneficiaries live</h3>
+        <div class="sub" id="states-sub"></div>
+        <div class="chart tall" id="chart-states" role="img" aria-label="Bar chart of assigned beneficiary person years by state"></div>
+        <details><summary>Data table</summary><div class="table-wrap" id="table-states"></div></details>
+      </div>
+      <div class="card">
+        <h3 id="gain-title">Largest savings rate gains</h3>
+        <div class="sub">ACOs with 5,000 or more assigned beneficiaries, change from the prior year</div>
+        <div class="table-wrap" id="table-gain" style="max-height:none"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3 id="top-title">Largest shared savings payments</h3>
+      <div class="sub">Top 10 ACOs by earned shared savings in the selected year. State is the ACO's primary state in its latest county file.</div>
+      <div class="table-wrap" id="table-top" style="max-height:none"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pipeline health</h2>
+    <p class="lede">Every number on this page comes from the run recorded below. Source files are pinned by sha256; the warehouse is rebuilt and tested on every run.</p>
+    <div class="health" id="health"></div>
+    <div class="chips" id="health-chips"></div>
+  </section>
+
+  <footer>
+    <p><strong>Sources.</strong> Centers for Medicare &amp; Medicaid Services, Medicare Shared Savings Program public use files on data.cms.gov:
+      <a href="https://data.cms.gov/medicare-shared-savings-program/performance-year-financial-and-quality-results">Performance Year Financial and Quality Results</a> (PY 2013 to 2024, 13 files) and
+      <a href="https://data.cms.gov/medicare-shared-savings-program/number-of-accountable-care-organization-assigned-beneficiaries-by-county">Number of ACO Assigned Beneficiaries by County</a> (PY 2016 to 2024, 10 files).
+      Aggregate ACO-level data only; CMS suppresses cells with 1 to 10 beneficiaries. This page is an independent analysis and is not affiliated with or endorsed by CMS.</p>
+    <p><strong>Read with care.</strong> Quality scores are comparable only within a scoring era (2013 to 2020 ACO measure set; 2021 to 2024 APM Performance Pathway, with a health equity adjustment in 2023). PY 2020 and 2021 spending excludes COVID-19 episode months. PY 2013 covers 18 or 21 months for ACOs that started in 2012. Net savings to Medicare here is benchmark minus spending, less shared savings payments, plus losses owed; CMS's own published figures may use other adjustments.</p>
+    <p id="generated"></p>
+  </footer>
+</main>
+
+<script id="dashboard-data" type="application/json">__DATA_JSON__</script>
+<script>__PLOTLY_JS__</script>
+<script>
+(function () {
+  "use strict";
+  const DATA = JSON.parse(document.getElementById("dashboard-data").textContent);
+  const yearSelect = document.getElementById("year");
+  const years = DATA.program_by_year.map(r => r.performance_year);
+  const latest = Math.max.apply(null, years);
+  years.slice().reverse().forEach(y => {
+    const opt = document.createElement("option");
+    opt.value = String(y);
+    opt.textContent = "PY " + y;
+    yearSelect.appendChild(opt);
+  });
+  yearSelect.value = String(latest);
+
+  const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const series = i => css("--series-" + i);
+
+  const money = v => {
+    if (v === null || v === undefined || isNaN(v)) return "n/a";
+    const a = Math.abs(v), s = v < 0 ? "-" : "";
+    if (a >= 1e9) return s + "$" + (a / 1e9).toFixed(2) + "B";
+    if (a >= 1e6) return s + "$" + (a / 1e6).toFixed(1) + "M";
+    return s + "$" + Math.round(a).toLocaleString("en-US");
+  };
+  const pct = (v, d) => (v === null || v === undefined || isNaN(v)) ? "n/a" : (v * 100).toFixed(d === undefined ? 1 : d) + "%";
+  const int = v => (v === null || v === undefined || isNaN(v)) ? "n/a" : Math.round(v).toLocaleString("en-US");
+  const millions = v => (v / 1e6).toFixed(1) + "M";
+  const titleCase = s => s.toLowerCase().replace(/\b([a-z])/g, m => m.toUpperCase());
+
+  function baseLayout(extra) {
+    const font = { family: "system-ui, -apple-system, 'Segoe UI', sans-serif", size: 12, color: css("--text-secondary") };
+    const axis = { gridcolor: css("--grid"), linecolor: css("--baseline"), zerolinecolor: css("--baseline"), tickfont: { color: css("--axis-muted") }, title: { font: { color: css("--text-secondary"), size: 12 } }, automargin: true };
+    const layout = {
+      paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)", font: font,
+      margin: { l: 8, r: 12, t: 8, b: 8 },
+      xaxis: Object.assign({}, axis), yaxis: Object.assign({}, axis),
+      legend: { orientation: "h", x: 0, y: 1.12, font: { color: css("--text-secondary") } },
+      hoverlabel: { bgcolor: css("--surface-1"), bordercolor: css("--grid"), font: { color: css("--text-primary"), family: font.family } },
+      shapes: []
+    };
+    return deepMerge(layout, extra || {});
+  }
+  function deepMerge(a, b) {
+    Object.keys(b).forEach(k => {
+      if (b[k] && typeof b[k] === "object" && !Array.isArray(b[k]) && a[k] && typeof a[k] === "object") a[k] = deepMerge(Object.assign({}, a[k]), b[k]);
+      else a[k] = b[k];
+    });
+    return a;
+  }
+  const config = { displayModeBar: false, responsive: true };
+  const yearMarker = y => ({ type: "line", xref: "x", yref: "paper", x0: y, x1: y, y0: 0, y1: 1, line: { color: css("--axis-muted"), width: 1 } });
+
+  function renderTable(el, columns, rows) {
+    const host = document.getElementById(el);
+    host.textContent = "";
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const hr = document.createElement("tr");
+    columns.forEach(c => { const th = document.createElement("th"); th.textContent = c.label; hr.appendChild(th); });
+    thead.appendChild(hr); table.appendChild(thead);
+    const tbody = document.createElement("tbody");
+    rows.forEach(r => {
+      const tr = document.createElement("tr");
+      columns.forEach(c => {
+        const td = document.createElement("td");
+        td.textContent = c.format ? c.format(r[c.key], r) : String(r[c.key]);
+        if (c.cls) td.className = c.cls;
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    host.appendChild(table);
+  }
+
+  function kpis(y) {
+    const cur = DATA.program_by_year.find(r => r.performance_year === y);
+    const prev = DATA.program_by_year.find(r => r.performance_year === y - 1);
+    const delta = (key, kind) => {
+      if (!prev || cur[key] === null || prev[key] === null) return "first year in the data";
+      const d = cur[key] - prev[key];
+      const sign = d >= 0 ? "+" : "-";
+      if (kind === "pp") return sign + Math.abs(d * 100).toFixed(2) + " pts vs " + (y - 1);
+      if (kind === "money") return sign + money(Math.abs(d)).replace("-", "") + " vs " + (y - 1);
+      if (kind === "count") return sign + int(Math.abs(d)) + " vs " + (y - 1);
+      if (kind === "pct") return sign + Math.abs(d / Math.abs(prev[key]) * 100).toFixed(1) + "% vs " + (y - 1);
+      return "";
+    };
+    const tiles = [
+      ["Total savings vs benchmark", money(cur.benchmark_minus_expenditures), delta("benchmark_minus_expenditures", "money")],
+      ["Savings rate", pct(cur.savings_rate, 2), delta("savings_rate", "pp")],
+      ["Shared savings paid to ACOs", money(cur.earned_shared_savings), delta("earned_shared_savings", "money")],
+      ["Net savings to Medicare", money(cur.net_savings_to_medicare), delta("net_savings_to_medicare", "money")],
+      ["ACOs reconciled", int(cur.aco_count), delta("aco_count", "count")],
+      ["Assigned beneficiaries", millions(cur.assigned_beneficiaries), delta("assigned_beneficiaries", "pct")],
+      ["Share earning shared savings", pct(cur.share_earning_savings, 1), delta("share_earning_savings", "pp")],
+      ["Risk-adjusted spend per beneficiary", money(cur.risk_adjusted_per_capita_expenditure), delta("risk_adjusted_per_capita_expenditure", "pct")]
+    ];
+    const host = document.getElementById("kpis");
+    host.textContent = "";
+    tiles.forEach(t => {
+      const div = document.createElement("div"); div.className = "kpi";
+      const l = document.createElement("div"); l.className = "label"; l.textContent = t[0];
+      const v = document.createElement("div"); v.className = "value"; v.textContent = t[1];
+      const d = document.createElement("div"); d.className = "delta"; d.textContent = t[2];
+      div.appendChild(l); div.appendChild(v); div.appendChild(d); host.appendChild(div);
+    });
+    document.getElementById("headline").textContent = "PY " + y + ": " + money(cur.benchmark_minus_expenditures) + " below benchmark across " + int(cur.aco_count) + " ACOs";
+    const netText = cur.net_savings_to_medicare >= 0
+      ? ", leaving " + money(cur.net_savings_to_medicare) + " in net savings to Medicare."
+      : ". Those payments exceeded the savings below benchmark, so the net result for Medicare was " + money(cur.net_savings_to_medicare) + ".";
+    document.getElementById("lede").textContent = "ACOs in the Medicare Shared Savings Program spent " + pct(cur.savings_rate, 2) + " less than their combined benchmarks in PY " + y + ". CMS paid " + money(cur.earned_shared_savings) + " in shared savings to the " + pct(cur.share_earning_savings, 1) + " of ACO reconciliations that qualified" + netText;
+  }
+
+  function chartRate(y) {
+    const p = DATA.program_by_year;
+    const x = p.map(r => r.performance_year);
+    const traces = [
+      { x: x, y: p.map(r => r.savings_rate_p75), mode: "lines", line: { width: 0 }, hoverinfo: "skip", showlegend: false },
+      { x: x, y: p.map(r => r.savings_rate_p25), mode: "lines", line: { width: 0 }, fill: "tonexty", fillcolor: css("--band"), name: "Middle half of ACOs", hoverinfo: "skip" },
+      { x: x, y: p.map(r => r.savings_rate_median), mode: "lines+markers", name: "Median ACO", line: { color: series(2), width: 2 }, marker: { size: 8, color: series(2), line: { color: css("--marker-ring"), width: 2 } }, hovertemplate: "Median ACO %{y:.2%}<extra></extra>" },
+      { x: x, y: p.map(r => r.savings_rate), mode: "lines+markers", name: "Program", line: { color: series(1), width: 2 }, marker: { size: 8, color: series(1), line: { color: css("--marker-ring"), width: 2 } }, hovertemplate: "Program %{y:.2%}<extra></extra>" }
+    ];
+    const layout = baseLayout({ hovermode: "x unified", yaxis: { tickformat: ".0%", title: { text: "Savings rate" } }, xaxis: { dtick: 1, tickformat: "d" }, legend: { y: 1.14 }, margin: { t: 34 } });
+    layout.shapes.push(yearMarker(y));
+    Plotly.react("chart-rate", traces, layout, config);
+    renderTable("table-rate", [
+      { key: "performance_year", label: "Year" },
+      { key: "savings_rate", label: "Program", format: v => pct(v, 2) },
+      { key: "savings_rate_p25", label: "ACO 25th pct", format: v => pct(v, 2) },
+      { key: "savings_rate_median", label: "ACO median", format: v => pct(v, 2) },
+      { key: "savings_rate_p75", label: "ACO 75th pct", format: v => pct(v, 2) }
+    ], p);
+  }
+
+  function chartDollars(y) {
+    const p = DATA.program_by_year;
+    const x = p.map(r => r.performance_year);
+    const traces = [
+      { type: "bar", x: x, y: p.map(r => r.earned_shared_savings / 1e9), name: "Paid to ACOs", marker: { color: series(1) }, hovertemplate: "Paid to ACOs %{customdata}<extra></extra>", customdata: p.map(r => money(r.earned_shared_savings)) },
+      { type: "bar", x: x, y: p.map(r => r.net_savings_to_medicare / 1e9), name: "Net savings to Medicare", marker: { color: series(2) }, hovertemplate: "Net to Medicare %{customdata}<extra></extra>", customdata: p.map(r => money(r.net_savings_to_medicare)) }
+    ];
+    const layout = baseLayout({ barmode: "group", bargap: 0.28, bargroupgap: 0.08, hovermode: "x unified", yaxis: { tickprefix: "$", ticksuffix: "B", tickformat: ".1f", title: { text: "Billions of dollars" } }, xaxis: { dtick: 1, tickformat: "d" }, legend: { y: 1.14 }, margin: { t: 34 } });
+    layout.shapes.push(yearMarker(y));
+    Plotly.react("chart-dollars", traces, layout, config);
+    renderTable("table-dollars", [
+      { key: "performance_year", label: "Year" },
+      { key: "benchmark_minus_expenditures", label: "Total savings", format: money },
+      { key: "earned_shared_savings", label: "Paid to ACOs", format: money },
+      { key: "shared_losses_owed", label: "Losses owed", format: money },
+      { key: "net_savings_to_medicare", label: "Net to Medicare", format: money }
+    ], p);
+  }
+
+  function chartScatter(y) {
+    const rows = DATA.aco_years.filter(r => r.performance_year === y && r.quality_score !== null);
+    const era = DATA.periods.find(p => p.performance_year === y);
+    const groups = [["One-Sided", 1], ["Two-Sided", 2]];
+    const traces = groups.map(g => {
+      const rs = rows.filter(r => r.risk_model === g[0]);
+      return {
+        type: "scatter", mode: "markers", name: g[0] + " (" + rs.length + ")",
+        x: rs.map(r => r.quality_score), y: rs.map(r => r.savings_rate),
+        customdata: rs.map(r => [r.aco_name, r.track_family, int(r.n_assigned_beneficiaries), money(r.earned_shared_savings)]),
+        marker: { size: 8, color: series(g[1]), opacity: 0.85, line: { color: css("--marker-ring"), width: 1 } },
+        hovertemplate: "<b>%{customdata[0]}</b><br>Savings rate %{y:.2%}<br>Quality score %{x:.1f}<br>%{customdata[1]}, %{customdata[2]} beneficiaries<br>Shared savings %{customdata[3]}<extra></extra>"
+      };
+    });
+    const layout = baseLayout({ hovermode: "closest", xaxis: { title: { text: "Quality score (0 to 100)" } }, yaxis: { tickformat: ".0%", title: { text: "Savings rate" }, zeroline: true }, legend: { y: 1.1 }, margin: { t: 30 } });
+    Plotly.react("chart-scatter", traces, layout, config);
+    const n = rows.length;
+    const missing = DATA.aco_years.filter(r => r.performance_year === y && r.quality_score === null).length;
+    document.getElementById("scatter-sub").textContent = "PY " + y + ", " + n + " ACOs" + (missing ? " (" + missing + " pay-for-reporting ACOs without a score are left out)" : "") + ". Quality scoring era: " + era.comparability_group + ".";
+    document.getElementById("scatter-title").textContent = "Savings rate and quality, PY " + y;
+    const corr = DATA.correlations[String(y)];
+    document.getElementById("scatter-lede").textContent = "Each dot is one ACO. Across ACOs in PY " + y + ", the correlation between quality score and savings rate is " + (corr === null || corr === undefined ? "n/a" : corr.toFixed(2)) + ". Quality scores are comparable only within a year's scoring era.";
+    renderTable("table-scatter", [
+      { key: "aco_name", label: "ACO", cls: "name" },
+      { key: "risk_model", label: "Risk model" },
+      { key: "quality_score", label: "Quality score", format: v => v === null ? "n/a" : v.toFixed(1) },
+      { key: "savings_rate", label: "Savings rate", format: v => pct(v, 2) }
+    ], rows.slice().sort((a, b) => b.savings_rate - a.savings_rate));
+  }
+
+  function chartTrack(y) {
+    const fams = DATA.track_families;
+    const t = DATA.track_by_year;
+    const x = years;
+    const traces = fams.map((f, i) => ({
+      type: "bar", name: f, x: x,
+      y: x.map(yr => { const r = t.find(z => z.performance_year === yr && z.track_family === f); return r ? r.earned_shared_savings / 1e9 : 0; }),
+      customdata: x.map(yr => { const r = t.find(z => z.performance_year === yr && z.track_family === f); return r ? [money(r.earned_shared_savings), r.aco_count] : [money(0), 0]; }),
+      marker: { color: series(i + 1), line: { color: css("--marker-ring"), width: 1 } },
+      hovertemplate: f + ": %{customdata[0]} (%{customdata[1]} ACOs)<extra></extra>"
+    }));
+    const layout = baseLayout({ barmode: "stack", bargap: 0.25, hovermode: "x unified", yaxis: { tickprefix: "$", ticksuffix: "B", tickformat: ".1f", title: { text: "Earned shared savings, billions" } }, xaxis: { dtick: 1, tickformat: "d" }, legend: { y: 1.3, traceorder: "normal" }, margin: { t: 64 } });
+    layout.shapes.push(yearMarker(y));
+    Plotly.react("chart-track", traces, layout, config);
+    renderTable("table-track", [
+      { key: "performance_year", label: "Year" },
+      { key: "track_family", label: "Track", cls: "wrap" },
+      { key: "aco_count", label: "ACOs", format: int },
+      { key: "savings_rate", label: "Savings rate", format: v => pct(v, 2) },
+      { key: "earned_shared_savings", label: "Shared savings paid", format: money }
+    ], t.filter(r => r.performance_year === y));
+  }
+
+  function chartSpend(y) {
+    const p = DATA.program_by_year;
+    const x = p.map(r => r.performance_year);
+    const traces = [
+      { x: x, y: p.map(r => r.per_capita_expenditure), mode: "lines+markers", name: "Per capita spending", line: { color: series(1), width: 2 }, marker: { size: 8, color: series(1), line: { color: css("--marker-ring"), width: 2 } }, hovertemplate: "Per capita $%{y:,.0f}<extra></extra>" },
+      { x: x, y: p.map(r => r.risk_adjusted_per_capita_expenditure), mode: "lines+markers", name: "Risk-adjusted per capita", line: { color: series(2), width: 2 }, marker: { size: 8, color: series(2), line: { color: css("--marker-ring"), width: 2 } }, hovertemplate: "Risk adjusted $%{y:,.0f}<extra></extra>" }
+    ];
+    const layout = baseLayout({ hovermode: "x unified", yaxis: { tickprefix: "$", tickformat: ",.0f", title: { text: "Dollars per beneficiary per year" } }, xaxis: { dtick: 1, tickformat: "d" }, margin: { t: 30 } });
+    layout.shapes.push(yearMarker(y));
+    Plotly.react("chart-spend", traces, layout, config);
+    renderTable("table-spend", [
+      { key: "performance_year", label: "Year" },
+      { key: "per_capita_expenditure", label: "Per capita", format: money },
+      { key: "risk_adjusted_per_capita_expenditure", label: "Risk adjusted", format: money },
+      { key: "per_capita_expenditure_growth_yoy", label: "Per capita growth", format: v => v === null ? "n/a" : pct(v, 1) }
+    ], p);
+  }
+
+  function chartQuality(y) {
+    const q = DATA.quality_trends;
+    const keys = DATA.quality_measures;
+    const traces = keys.map((m, i) => {
+      const rs = q.filter(r => r.measure_key === m.measure_key).sort((a, b) => a.performance_year - b.performance_year);
+      return {
+        x: rs.map(r => r.performance_year), y: rs.map(r => r.median_value), mode: "lines+markers", name: m.label,
+        line: { color: series(i + 1), width: 2 }, marker: { size: 7, color: series(i + 1), line: { color: css("--marker-ring"), width: 1.5 } },
+        hovertemplate: m.label + " %{y:.1f}<extra></extra>"
+      };
+    });
+    const layout = baseLayout({ hovermode: "x unified", yaxis: { title: { text: "Median ACO rate (percent)" }, rangemode: "tozero" }, xaxis: { dtick: 1, tickformat: "d" }, legend: { y: 1.32 }, margin: { t: 70 },
+      annotations: [{ x: 2021, y: 1, yref: "paper", xref: "x", text: "APP measure set begins", showarrow: false, xanchor: "left", yanchor: "top", font: { size: 11, color: css("--text-muted") } }] });
+    layout.shapes.push({ type: "line", xref: "x", yref: "paper", x0: 2020.5, x1: 2020.5, y0: 0, y1: 1, line: { color: css("--baseline"), width: 1 } });
+    layout.shapes.push(yearMarker(y));
+    Plotly.react("chart-quality", traces, layout, config);
+    renderTable("table-quality", [
+      { key: "performance_year", label: "Year" },
+      { key: "label", label: "Measure", cls: "name" },
+      { key: "median_value", label: "Median", format: v => v.toFixed(1) },
+      { key: "reported_results", label: "ACOs reporting", format: int }
+    ], q.map(r => Object.assign({ label: keys.find(k => k.measure_key === r.measure_key).label }, r)).sort((a, b) => a.performance_year - b.performance_year || a.label.localeCompare(b.label)));
+  }
+
+  function chartStates(y) {
+    const rows = DATA.states.filter(r => r.performance_year === y).sort((a, b) => b.reported_person_years - a.reported_person_years).slice(0, 12);
+    const sub = document.getElementById("states-sub");
+    if (!rows.length) {
+      sub.textContent = "County files start in PY 2016; no state breakdown for PY " + y + ".";
+      Plotly.purge("chart-states");
+      document.getElementById("table-states").textContent = "";
+      return;
+    }
+    sub.textContent = "Top 12 states by reported assigned person years, PY " + y + ". Suppressed small counties are excluded, so reported cells cover " + pct(rows[0].coverage_of_program, 1) + " of program person years.";
+    const r = rows.slice().reverse();
+    const traces = [{ type: "bar", orientation: "h", x: r.map(z => z.reported_person_years), y: r.map(z => titleCase(z.state_name)), marker: { color: series(1) },
+      customdata: r.map(z => [int(z.reported_person_years), z.acos_with_beneficiaries, pct(z.share_of_reported_person_years, 1)]),
+      hovertemplate: "%{y}: %{customdata[0]} person years<br>%{customdata[2]} of reported total, %{customdata[1]} ACOs<extra></extra>" }];
+    const layout = baseLayout({ bargap: 0.3, xaxis: { tickformat: ".2s", title: { text: "Assigned beneficiary person years" } }, yaxis: { automargin: true }, showlegend: false });
+    Plotly.react("chart-states", traces, layout, config);
+    renderTable("table-states", [
+      { key: "state_name", label: "State", format: titleCase },
+      { key: "reported_person_years", label: "Person years", format: int },
+      { key: "share_of_reported_person_years", label: "Share", format: v => pct(v, 1) },
+      { key: "acos_with_beneficiaries", label: "ACOs", format: int }
+    ], rows);
+  }
+
+  function tables(y) {
+    const rows = DATA.aco_years.filter(r => r.performance_year === y);
+    const top = rows.slice().sort((a, b) => b.earned_shared_savings - a.earned_shared_savings).slice(0, 10);
+    document.getElementById("top-title").textContent = "Largest shared savings payments, PY " + y;
+    document.getElementById("detail-title").textContent = "ACO detail, PY " + y;
+    renderTable("table-top", [
+      { key: "aco_name", label: "ACO", cls: "name" },
+      { key: "primary_state", label: "State", format: v => v ? titleCase(v) : "n/a" },
+      { key: "track_family", label: "Track", cls: "wrap" },
+      { key: "n_assigned_beneficiaries", label: "Beneficiaries", format: int },
+      { key: "savings_rate", label: "Savings rate", format: v => pct(v, 2) },
+      { key: "earned_shared_savings", label: "Shared savings", format: money }
+    ], top);
+    const gains = rows.filter(r => r.savings_rate_change_yoy !== null && r.n_assigned_beneficiaries >= 5000).sort((a, b) => b.savings_rate_change_yoy - a.savings_rate_change_yoy).slice(0, 10);
+    document.getElementById("gain-title").textContent = "Largest savings rate gains, PY " + (y - 1) + " to " + y;
+    if (!gains.length) { document.getElementById("table-gain").textContent = "No prior year to compare."; return; }
+    renderTable("table-gain", [
+      { key: "aco_name", label: "ACO", cls: "name" },
+      { key: "track_family", label: "Track", cls: "wrap" },
+      { key: "savings_rate", label: "Savings rate", format: v => pct(v, 2) },
+      { key: "savings_rate_change_yoy", label: "Change", format: v => (v >= 0 ? "+" : "-") + Math.abs(v * 100).toFixed(2) + " pts" }
+    ], gains);
+  }
+
+  function health() {
+    const h = DATA.pipeline;
+    const host = document.getElementById("health");
+    host.textContent = "";
+    [["dbt data tests passed", h.dbt_tests_passed + " of " + h.dbt_tests_total],
+     ["Business questions matched", h.semantic_passed + " of " + h.semantic_total],
+     ["Source files pinned", h.files_pinned + " (" + (h.bytes / 1e6).toFixed(1) + " MB)"],
+     ["ACO IDs bridged 2017 to 2018", h.bridged + " of " + h.acos_2017]].forEach(t => {
+      const div = document.createElement("div"); div.className = "kpi";
+      const l = document.createElement("div"); l.className = "label"; l.textContent = t[0];
+      const v = document.createElement("div"); v.className = "value"; v.textContent = t[1];
+      div.appendChild(l); div.appendChild(v); host.appendChild(div);
+    });
+    const chips = document.getElementById("health-chips");
+    chips.textContent = "";
+    h.chips.forEach(c => { const s = document.createElement("span"); s.className = "chip"; s.textContent = c; chips.appendChild(s); });
+    document.getElementById("meta").textContent = "Built " + DATA.generated_at.slice(0, 10) + " from " + h.files_pinned + " CMS files. Latest file revision: " + DATA.latest_revision + ".";
+    document.getElementById("generated").textContent = "Generated " + DATA.generated_at + " by aco_scorecard/dashboard.py.";
+  }
+
+  function render() {
+    const y = parseInt(yearSelect.value, 10);
+    kpis(y); chartRate(y); chartDollars(y); chartScatter(y); chartTrack(y); chartSpend(y); chartQuality(y); chartStates(y); tables(y);
+  }
+  yearSelect.addEventListener("change", render);
+  if (window.matchMedia) {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mq.addEventListener) mq.addEventListener("change", render);
+  }
+  health();
+  render();
+})();
+</script>
+</body>
+</html>

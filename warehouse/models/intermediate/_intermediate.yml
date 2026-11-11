@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: int_puf__unioned
+    description: All PUF periods stacked, with period length, period dates and derived rates that are defined the same way in every year.
+    columns:
+      - name: period_months
+        description: Months covered by the dollar totals (12; 6 for the 2019 half-year periods; 18 or 21 for 2012 starters in PY 2013).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [6, 12, 18, 21]
+                quote: false
+      - name: savings_rate
+        description: benchmark_minus_expenditures divided by total_benchmark_expenditures.
+      - name: risk_adjusted_per_capita_expenditure
+        description: Sum over enrollment types of (per capita spending / mean CMS-HCC risk score) x person years, divided by the person years of the types included.
+
+  - name: int_aco_id_bridge
+    description: >
+      Crosswalk from the encrypted ACO_Num (PY 2013 to 2017) to the unencrypted ACO_ID (PY 2018 on),
+      built from an exact match on normalized ACO name and initial start date between the PY 2017
+      and PY 2018 files, one to one only.
+    columns:
+      - name: legacy_aco_num
+        data_tests: [unique, not_null]
+      - name: aco_id
+        data_tests: [unique, not_null]
+
+  - name: int_aco_period__keyed
+    description: PUF periods with the conformed aco_key and how it was assigned.
+    data_tests:
+      - unique_combination:
+          arguments:
+            columns: [aco_key, performance_period_id]
+    columns:
+      - name: aco_key_method
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [published_aco_id, bridged_legacy_id, legacy_id_only]
+
+  - name: int_quality__unioned
+    description: Quality measure results for PY 2016 onward with the conformed ACO key.
+
+  - name: int_county__unioned
+    description: ACO by county assignment rows with the conformed ACO key and zero padded SSA county codes.
+    columns:
+      - name: aco_key
+        description: Every county row must match an ACO in the PUF for the same period.
+        data_tests: [not_null]

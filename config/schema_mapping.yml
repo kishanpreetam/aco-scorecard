@@ -1,0 +1,358 @@
+# Schema mapping for the CMS Shared Savings Program public use files.
+#
+# CMS renamed columns, changed units and recoded fields across performance years. This file
+# is the single, reviewed source of truth for how each published column becomes a canonical
+# column. aco_scorecard/gen_staging.py turns it into one dbt staging model per file, and
+# aco_scorecard/ingest.py refuses to load a file if a column named here is missing from it.
+#
+# Conventions
+#   * Period ids follow the CMS file names. PY 2019 has two files: "2019" (12 month, or
+#     January to June 2019 for ACOs flagged Participation_Six_Months) and "2019A" (July to
+#     December 2019).
+#   * A range "2016..2020" means every period from 2016 through 2020 in the order listed
+#     under `periods`, so it includes 2019A.
+#   * A source is either a column name, or a mapping with `column` and optional `scale`
+#     (multiplier applied after parsing), or `expr` (SQL with {Column} placeholders).
+#     A field without a source for a period is published as NULL for that period.
+#   * Numbers are parsed by stripping "$", "," and "%" and casting. CMS sentinel values
+#     ("*" suppressed, "-" not reported, "N/A", "/", "^", "~", "P4R", ".") become NULL; the
+#     quality staging models keep the sentinel as a status code.
+#   * Units: `fraction` means 0.05 is 5 percent; `points_0_100` means a 0 to 100 score.
+#     CMS published several rates as fractions in some years and as percents in others,
+#     so the scale is set per period after checking every file (see docs/schema_mapping.md).
+
+version: "2026-11-03"
+
+periods:
+  - {id: "2013", file_key: puf_py2013, performance_year: 2013, id_system: encrypted_aco_num, period_rule: start_date_2013, county_file_key: null}
+  - {id: "2014", file_key: puf_py2014, performance_year: 2014, id_system: encrypted_aco_num, period_rule: full_year, county_file_key: null}
+  - {id: "2015", file_key: puf_py2015, performance_year: 2015, id_system: encrypted_aco_num, period_rule: full_year, county_file_key: null}
+  - {id: "2016", file_key: puf_py2016, performance_year: 2016, id_system: encrypted_aco_num, period_rule: full_year, county_file_key: county_py2016}
+  - {id: "2017", file_key: puf_py2017, performance_year: 2017, id_system: encrypted_aco_num, period_rule: full_year, county_file_key: county_py2017}
+  - {id: "2018", file_key: puf_py2018, performance_year: 2018, id_system: aco_id, period_rule: full_year, county_file_key: county_py2018}
+  - {id: "2019", file_key: puf_py2019, performance_year: 2019, id_system: aco_id, period_rule: six_month_flag_first_half, county_file_key: county_py2019}
+  - {id: "2019A", file_key: puf_py2019a, performance_year: 2019, id_system: aco_id, period_rule: second_half, county_file_key: county_py2019a}
+  - {id: "2020", file_key: puf_py2020, performance_year: 2020, id_system: aco_id, period_rule: full_year, county_file_key: county_py2020}
+  - {id: "2021", file_key: puf_py2021, performance_year: 2021, id_system: aco_id, period_rule: full_year, county_file_key: county_py2021}
+  - {id: "2022", file_key: puf_py2022, performance_year: 2022, id_system: aco_id, period_rule: full_year, county_file_key: county_py2022}
+  - {id: "2023", file_key: puf_py2023, performance_year: 2023, id_system: aco_id, period_rule: full_year, county_file_key: county_py2023}
+  - {id: "2024", file_key: puf_py2024, performance_year: 2024, id_system: aco_id, period_rule: full_year, county_file_key: county_py2024}
+
+# How the track (the ACO's risk arrangement) is decoded in each period.
+# `flags` lists 0/1 columns; exactly one should equal 1. `default` applies when none is set.
+# `code` maps the values of a single column.
+tracks:
+  "2013": {flags: {Track2: TRACK_2}, default: TRACK_1}
+  "2014..2015": {flags: {Track1: TRACK_1, Track2: TRACK_2}}
+  "2016..2017": {flags: {Current_Track_1: TRACK_1, Current_Track_2: TRACK_2, Current_Track_3: TRACK_3}}
+  "2018": {flags: {Current_Track_1: TRACK_1, Current_Track_2: TRACK_2, Current_Track_3: TRACK_3, Current_Track_1_Plus: TRACK_1_PLUS}}
+  "2019..2021":
+    flags:
+      Current_Track_1: TRACK_1
+      Current_Track_2: TRACK_2
+      Current_Track_3: TRACK_3
+      Current_Track_1_Plus: TRACK_1_PLUS
+      Current_BASIC_A: BASIC_A
+      Current_BASIC_B: BASIC_B
+      Current_BASIC_C: BASIC_C
+      Current_BASIC_D: BASIC_D
+      Current_BASIC_E: BASIC_E
+      Current_ENHANCED: ENHANCED
+  "2022..2024": {code: {column: Current_Track, values: {A: BASIC_A, B: BASIC_B, C: BASIC_C, D: BASIC_D, E: BASIC_E, EN: ENHANCED}}}
+
+fields:
+  # Identity and agreement
+  - name: aco_source_id
+    type: varchar
+    description: ACO identifier exactly as published. Encrypted ACO_Num through PY 2017, unencrypted ACO_ID from PY 2018.
+    sources: {"2013..2017": ACO_Num, "2018..2024": ACO_ID}
+  - name: aco_name
+    type: varchar
+    description: ACO doing business as name, or legal business name when no DBA exists.
+    sources: {"2013..2014": ACO_NAME, "2015..2024": ACO_Name}
+  - name: aco_states_text
+    type: varchar
+    description: States where at least 1 percent of assigned beneficiaries live, as published (full names through 2017, postal codes 2018 to 2021). Not published from 2022.
+    sources: {"2014..2021": ACO_State}
+  - name: agreement_type
+    type: varchar
+    description: Initial, Renewal or Re-entering agreement period. Published from PY 2016.
+    sources: {"2016..2024": Agree_Type}
+  - name: agreement_period_num
+    type: number
+    description: Agreement period number (1 for the first agreement period). Published from PY 2016.
+    sources: {"2016..2024": Agreement_Period_Num}
+  - name: initial_start_date
+    type: date
+    description: Start date of the ACO's first agreement period. PY 2013 to 2015 publish a single Start_Date, which is the initial start because no ACO had renewed yet.
+    sources: {"2013..2015": Start_Date, "2016..2021": Initial_Start_Date}
+  - name: current_start_date
+    type: date
+    description: Start date of the current agreement period.
+    sources: {"2013..2015": Start_Date, "2016..2024": Current_Start_Date}
+  - name: risk_model_reported
+    type: varchar
+    description: One-Sided or Two-Sided as published. Published from PY 2019; earlier years derive it from the track.
+    sources: {"2019..2024": Risk_Model}
+  - name: assignment_type
+    type: varchar
+    description: Prospective or Retrospective (preliminary prospective with retrospective reconciliation). Published from PY 2021.
+    sources: {"2021..2024": Assign_Type}
+  - name: snf_waiver_flag
+    type: flag
+    description: 1 if the ACO uses the skilled nursing facility 3-day rule waiver. Published from PY 2018.
+    sources: {"2018..2024": SNF_Waiver}
+  - name: six_month_flag
+    type: flag
+    description: 1 if the ACO was reconciled for a 6-month performance period in 2019.
+    sources: {"2019..2019A": Participation_Six_Months}
+  - name: revenue_category
+    type: varchar
+    description: High Revenue or Low Revenue ACO (participant revenue versus 35 percent of assigned beneficiary spending). Published from PY 2018.
+    sources: {"2018..2024": Rev_Exp_Cat}
+
+  # Attribution and financial results
+  - name: n_assigned_beneficiaries
+    type: number
+    description: Number of assigned beneficiaries in the performance year.
+    sources: {"2013..2024": N_AB}
+  - name: person_years
+    type: number
+    description: Assigned beneficiary person years (person months divided by 12).
+    sources: {"2013..2014": N_AB_Year, "2015..2024": N_AB_Year_PY}
+  - name: total_benchmark_expenditures
+    type: number
+    unit: dollars
+    description: Total benchmark expenditures for the performance period (per capita benchmark times person years; prorated for 6-month periods, 18 or 21 months for 2012 starters in PY 2013).
+    sources: {"2013..2024": ABtotBnchmk}
+  - name: total_expenditures
+    type: number
+    unit: dollars
+    description: Total Parts A and B expenditures for assigned beneficiaries in the performance period.
+    sources: {"2013..2024": ABtotExp}
+  - name: benchmark_minus_expenditures
+    type: number
+    unit: dollars
+    description: Total benchmark minus total expenditures. Positive values are savings, negative values are losses.
+    sources: {"2013..2024": BnchmkMinExp}
+  - name: savings_rate_reported
+    type: number
+    unit: fraction
+    description: Savings rate as published (benchmark minus expenditures over benchmark). Not published for PY 2013.
+    sources:
+      "2014..2015": {column: Sav_rate, scale: 0.01}
+      "2016..2019": Sav_rate
+      "2019A": {column: Sav_rate, scale: 0.01}
+      "2020": Sav_rate
+      "2021": {column: Sav_Rate, scale: 0.01}
+      "2022..2024": {column: Sav_rate, scale: 0.01}
+  - name: min_savings_rate
+    type: number
+    unit: fraction
+    description: Minimum savings rate (MSR) the savings rate had to reach before the ACO could share in savings.
+    sources:
+      "2013": MinSavPerc
+      "2014..2015": {column: MinSavPerc, scale: 0.01}
+      "2016..2019": MinSavPerc
+      "2019A": {column: MinSavPerc, scale: 0.01}
+      "2020": MinSavPerc
+      "2021..2024": {column: MinSavPerc, scale: 0.01}
+  - name: generated_savings_losses
+    type: number
+    unit: dollars
+    description: Gross savings (or losses) generated, counted only when the savings rate met the MSR (or the loss rate met the MLR). Not published for PY 2013.
+    sources: {"2014..2024": GenSaveLoss}
+  - name: earned_savings_losses
+    type: number
+    unit: dollars
+    description: Earned shared savings payment (positive) or shared losses owed (negative). PY 2013 publishes savings and losses in two columns, which are combined here.
+    sources:
+      "2013": {expr: "coalesce({EarnShrSavings}, 0) + coalesce({OweLosses}, 0)"}
+      "2014..2024": EarnSaveLoss
+  - name: max_sharing_rate_reported
+    type: number
+    unit: fraction
+    description: Maximum sharing rate for the ACO's track before quality (QualPerfShare through 2020, MaxShareRate in 2021). Not published from 2022.
+    sources:
+      "2013..2014": QualPerfShare
+      "2015": {column: QualPerfShare, scale: 0.01}
+      "2016..2019": QualPerfShare
+      "2019A": {column: QualPerfShare, scale: 0.01}
+      "2020": QualPerfShare
+      "2021": {column: MaxShareRate, scale: 0.01}
+  - name: final_sharing_rate
+    type: number
+    unit: fraction
+    description: Share of savings the ACO kept after quality performance.
+    sources:
+      "2013..2014": FinalShareRate
+      "2015": {column: FinalShareRate, scale: 0.01}
+      "2016..2019": FinalShareRate
+      "2019A": {column: FinalShareRate, scale: 0.01}
+      "2020": FinalShareRate
+      "2021..2024": {column: FinalShareRate, scale: 0.01}
+  - name: final_loss_rate
+    type: number
+    unit: fraction
+    description: Share of losses a two-sided ACO owes. Published from PY 2023.
+    sources: {"2023..2024": {column: FinalLossRate, scale: 0.01}}
+  - name: updated_benchmark_per_capita
+    type: number
+    unit: dollars
+    description: Updated (risk adjusted and trended) per capita benchmark for the performance year. Published from PY 2014.
+    sources: {"2014..2024": UpdatedBnchmk}
+  - name: historical_benchmark_per_capita
+    type: number
+    unit: dollars
+    description: Per capita historical benchmark set at the start of the agreement period. Published from PY 2014.
+    sources: {"2014..2024": HistBnchmk}
+  - name: per_capita_expenditure_reported
+    type: number
+    unit: dollars
+    description: Annualized per capita expenditure for assigned beneficiaries. Published from PY 2014; PY 2013 is derived from the enrollment type values in the intermediate layer.
+    sources: {"2014..2024": Per_Capita_Exp_TOTAL_PY}
+
+  # Quality
+  - name: quality_score
+    type: number
+    unit: points_0_100
+    description: Quality score on a 0 to 100 scale. The definition changed in PY 2021 (APM Performance Pathway) and again in PY 2023 (health equity adjustment); see dim_performance_year.
+    sources:
+      "2013..2014": {column: QualScore, scale: 100}
+      "2015": QualScore
+      "2016..2018": {column: QualScore, scale: 100}
+      "2019..2024": QualScore
+  - name: quality_score_raw
+    type: varchar
+    description: Quality score text exactly as published (keeps values such as P4R, pay for reporting, in PY 2014).
+    sources: {"2013..2024": QualScore}
+  - name: met_quality_standard_flag
+    type: flag
+    description: 1 if the ACO met the quality performance standard. Published from PY 2016.
+    sources: {"2016..2024": Met_QPS}
+  - name: reduced_shared_savings_flag
+    type: flag
+    description: 1 if a low revenue ACO whose savings rate was below its MSR still qualified to share savings at a reduced rate (policy that starts in PY 2024).
+    sources: {"2024": ReducedSS}
+
+  # Population and utilization
+  - name: pct_dual_eligible
+    type: number
+    unit: fraction
+    description: Share of assigned beneficiaries dually eligible for Medicare and Medicaid. Published from PY 2021.
+    sources: {"2021..2024": {column: Perc_Dual, scale: 0.01}}
+  - {name: n_beneficiaries_age_0_64, type: number, description: Assigned beneficiaries aged 0 to 64., sources: {"2013..2024": N_Ben_Age_0_64}}
+  - {name: n_beneficiaries_age_65_74, type: number, description: Assigned beneficiaries aged 65 to 74., sources: {"2013..2024": N_Ben_Age_65_74}}
+  - {name: n_beneficiaries_age_75_84, type: number, description: Assigned beneficiaries aged 75 to 84., sources: {"2013..2024": N_Ben_Age_75_84}}
+  - {name: n_beneficiaries_age_85_plus, type: number, description: Assigned beneficiaries aged 85 and older., sources: {"2013..2024": N_Ben_Age_85plus}}
+  - {name: inpatient_discharges_per_1000, type: number, description: Inpatient hospital discharges per 1,000 person years., sources: {"2013..2024": ADM}}
+  - {name: ed_visits_per_1000, type: number, description: Outpatient emergency department visits per 1,000 person years., sources: {"2013..2024": P_EDV_Vis}}
+  - {name: primary_care_services_per_1000, type: number, description: Primary care services per 1,000 person years., sources: {"2013..2024": P_EM_Total}}
+  - {name: pcp_services_per_1000, type: number, description: Primary care services with a primary care physician per 1,000 person years., sources: {"2013..2024": P_EM_PCP_Vis}}
+  - {name: n_primary_care_physicians, type: number, description: Participating primary care physicians., sources: {"2013..2024": N_PCP}}
+  - {name: n_specialists, type: number, description: Participating specialists., sources: {"2013..2024": N_Spec}}
+
+  # Attribution by Medicare enrollment type (ESRD, disabled, aged dual, aged non-dual)
+  - {name: person_years_esrd, type: number, description: ESRD person years in the performance year., sources: {"2013..2014": N_AB_Year_ESRD, "2015..2024": N_AB_Year_ESRD_PY}}
+  - {name: person_years_disabled, type: number, description: Disabled person years in the performance year., sources: {"2013..2014": N_AB_Year_DIS, "2015..2024": N_AB_Year_DIS_PY}}
+  - {name: person_years_aged_dual, type: number, description: Aged dual eligible person years in the performance year., sources: {"2013..2014": N_AB_Year_AGED_Dual, "2015..2024": N_AB_Year_AGED_Dual_PY}}
+  - {name: person_years_aged_nondual, type: number, description: Aged non-dual person years in the performance year., sources: {"2013..2014": N_AB_Year_AGED_NonDual, "2015..2024": N_AB_Year_AGED_NonDual_PY}}
+  - {name: per_capita_exp_esrd, type: number, unit: dollars, description: Annualized per capita expenditure for ESRD person years., sources: {"2013": Per_Capita_Exp_ALL_ESRD, "2014..2024": Per_Capita_Exp_ALL_ESRD_PY}}
+  - {name: per_capita_exp_disabled, type: number, unit: dollars, description: Annualized per capita expenditure for disabled person years., sources: {"2013": Per_Capita_Exp_ALL_DIS, "2014..2024": Per_Capita_Exp_ALL_DIS_PY}}
+  - {name: per_capita_exp_aged_dual, type: number, unit: dollars, description: Annualized per capita expenditure for aged dual person years., sources: {"2013": Per_Capita_Exp_ALL_AGDU, "2014..2024": Per_Capita_Exp_ALL_AGDU_PY}}
+  - {name: per_capita_exp_aged_nondual, type: number, unit: dollars, description: Annualized per capita expenditure for aged non-dual person years., sources: {"2013": Per_Capita_Exp_ALL_AGND, "2014..2024": Per_Capita_Exp_ALL_AGND_PY}}
+  - {name: risk_score_esrd, type: number, description: Mean prospective CMS-HCC risk score, ESRD, performance year., sources: {"2013..2024": CMS_HCC_RiskScore_ESRD_PY}}
+  - {name: risk_score_disabled, type: number, description: Mean prospective CMS-HCC risk score, disabled, performance year., sources: {"2013..2024": CMS_HCC_RiskScore_DIS_PY}}
+  - {name: risk_score_aged_dual, type: number, description: Mean prospective CMS-HCC risk score, aged dual, performance year., sources: {"2013..2024": CMS_HCC_RiskScore_AGDU_PY}}
+  - {name: risk_score_aged_nondual, type: number, description: Mean prospective CMS-HCC risk score, aged non-dual, performance year., sources: {"2013..2024": CMS_HCC_RiskScore_AGND_PY}}
+  - {name: risk_score_esrd_by3, type: number, description: Mean prospective CMS-HCC risk score, ESRD, benchmark year 3., sources: {"2013..2024": CMS_HCC_RiskScore_ESRD_BY3}}
+  - {name: risk_score_disabled_by3, type: number, description: Mean prospective CMS-HCC risk score, disabled, benchmark year 3., sources: {"2013..2024": CMS_HCC_RiskScore_DIS_BY3}}
+  - {name: risk_score_aged_dual_by3, type: number, description: Mean prospective CMS-HCC risk score, aged dual, benchmark year 3., sources: {"2013..2024": CMS_HCC_RiskScore_AGDU_BY3}}
+  - {name: risk_score_aged_nondual_by3, type: number, description: Mean prospective CMS-HCC risk score, aged non-dual, benchmark year 3., sources: {"2013..2024": CMS_HCC_RiskScore_AGND_BY3}}
+  - {name: person_years_esrd_by3, type: number, description: ESRD person years in benchmark year 3. Published from PY 2014., sources: {"2014..2024": N_AB_Year_ESRD_BY3}}
+  - {name: person_years_disabled_by3, type: number, description: Disabled person years in benchmark year 3. Published from PY 2014., sources: {"2014..2024": N_AB_Year_DIS_BY3}}
+  - {name: person_years_aged_dual_by3, type: number, description: Aged dual person years in benchmark year 3. Published from PY 2014., sources: {"2014..2024": N_AB_Year_AGED_Dual_BY3}}
+  - {name: person_years_aged_nondual_by3, type: number, description: Aged non-dual person years in benchmark year 3. Published from PY 2014., sources: {"2014..2024": N_AB_Year_AGED_NonDual_BY3}}
+  - {name: per_capita_exp_esrd_by3, type: number, unit: dollars, description: Per capita ESRD expenditure in benchmark year 3. Published from PY 2014., sources: {"2014..2024": Per_Capita_Exp_ALL_ESRD_BY3}}
+  - {name: per_capita_exp_disabled_by3, type: number, unit: dollars, description: Per capita disabled expenditure in benchmark year 3. Published from PY 2014., sources: {"2014..2024": Per_Capita_Exp_ALL_DIS_BY3}}
+  - {name: per_capita_exp_aged_dual_by3, type: number, unit: dollars, description: Per capita aged dual expenditure in benchmark year 3. Published from PY 2014., sources: {"2014..2024": Per_Capita_Exp_ALL_AGDU_BY3}}
+  - {name: per_capita_exp_aged_nondual_by3, type: number, unit: dollars, description: Per capita aged non-dual expenditure in benchmark year 3. Published from PY 2014., sources: {"2014..2024": Per_Capita_Exp_ALL_AGND_BY3}}
+
+# Quality measure columns. Measure keys are conformed across the PY 2021 rename using the
+# crosswalk CMS printed in the PY 2021 data dictionary notes ("ACO1 is now CAHPS_1", and so on).
+# Measures whose method changed (ACO-8 to Quality ID 479, ACO-38 to MCC1 and then 484) keep
+# separate keys and are linked through `predecessor` in config/measure_catalog.csv.
+quality_measures:
+  - {measure_key: CAHPS_1, collection: CAHPS survey, sources: {"2016..2020": ACO1, "2021..2024": CAHPS_1}}
+  - {measure_key: CAHPS_2, collection: CAHPS survey, sources: {"2016..2020": ACO2, "2021..2024": CAHPS_2}}
+  - {measure_key: CAHPS_3, collection: CAHPS survey, sources: {"2016..2020": ACO3, "2021..2024": CAHPS_3}}
+  - {measure_key: CAHPS_4, collection: CAHPS survey, sources: {"2016..2020": ACO4, "2021..2024": CAHPS_4}}
+  - {measure_key: CAHPS_5, collection: CAHPS survey, sources: {"2016..2020": ACO5, "2021..2024": CAHPS_5}}
+  - {measure_key: CAHPS_6, collection: CAHPS survey, sources: {"2016..2020": ACO6, "2021..2024": CAHPS_6}}
+  - {measure_key: CAHPS_7, collection: CAHPS survey, sources: {"2016..2020": ACO7, "2021..2024": CAHPS_7}}
+  - {measure_key: CAHPS_11, collection: CAHPS survey, sources: {"2016..2020": ACO34, "2021..2024": CAHPS_11}}
+  - {measure_key: CAHPS_9, collection: CAHPS survey, sources: {"2019..2020": ACO45, "2021..2024": CAHPS_9}}
+  - {measure_key: CAHPS_8, collection: CAHPS survey, sources: {"2019..2020": ACO46, "2021..2024": CAHPS_8}}
+  - {measure_key: ACO_8, collection: Claims, sources: {"2016..2020": ACO8}}
+  - {measure_key: ACO_35, collection: Claims, sources: {"2016..2018": ACO35}}
+  - {measure_key: ACO_36, collection: Claims, sources: {"2016..2018": ACO36}}
+  - {measure_key: ACO_37, collection: Claims, sources: {"2016..2018": ACO37}}
+  - {measure_key: ACO_38, collection: Claims, sources: {"2016..2020": ACO38}}
+  - {measure_key: ACO_9, collection: Claims, sources: {"2016": ACO9}}
+  - {measure_key: ACO_10, collection: Claims, sources: {"2016": ACO10}}
+  - {measure_key: ACO_43, collection: Claims, sources: {"2017..2020": ACO43}}
+  - {measure_key: ACO_44, collection: Claims, sources: {"2017..2018": ACO44}}
+  - {measure_key: ACO_11, collection: EHR attestation, sources: {"2016..2018": ACO11}}
+  - {measure_key: ACO_12, collection: Web Interface, sources: {"2017..2018": ACO12}}
+  - {measure_key: ACO_39, collection: Web Interface, sources: {"2016": ACO39}}
+  - {measure_key: ACO_15, collection: Web Interface, sources: {"2016..2018": ACO15}}
+  - {measure_key: ACO_16, collection: Web Interface, sources: {"2016..2018": ACO16}}
+  - {measure_key: ACO_21, collection: Web Interface, sources: {"2016": ACO21}}
+  - {measure_key: ACO_30, collection: Web Interface, sources: {"2016..2018": ACO30}}
+  - {measure_key: ACO_31, collection: Web Interface, sources: {"2016": ACO31}}
+  - {measure_key: ACO_33, collection: Web Interface, sources: {"2016": ACO33}}
+  - {measure_key: ACO_41, collection: Web Interface, sources: {"2016..2018": ACO41}}
+  - {measure_key: DM_COMP, collection: Web Interface, sources: {"2016..2018": DM_Comp}}
+  - {measure_key: Q318, collection: Web Interface, sources: {"2016..2020": ACO13, "2021..2024": QualityID_318}}
+  - {measure_key: Q110, collection: Web Interface, sources: {"2016..2020": ACO14, "2021..2024": QualityID_110}}
+  - {measure_key: Q226, collection: Web Interface, sources: {"2016..2020": ACO17, "2021..2024": QualityID_226}}
+  - {measure_key: Q113, collection: Web Interface, sources: {"2016..2020": ACO19, "2021..2024": QualityID_113}}
+  - {measure_key: Q112, collection: Web Interface, sources: {"2016..2020": ACO20, "2021..2024": QualityID_112}}
+  - {measure_key: Q438, collection: Web Interface, sources: {"2016..2020": ACO42, "2021..2024": QualityID_438}}
+  - {measure_key: Q370, collection: Web Interface, sources: {"2016..2020": ACO40, "2021..2024": QualityID_370}}
+  - {measure_key: Q134, collection: Web Interface, sources: {"2016..2020": ACO18, "2021..2024": QualityID_134_WI}}
+  - {measure_key: Q134, collection: eCQM or MIPS CQM, sources: {"2021": QualityID_134_eCQM-CQM}}
+  - {measure_key: Q134, collection: eCQM, sources: {"2022..2024": QualityID_134_eCQM}}
+  - {measure_key: Q134, collection: MIPS CQM, sources: {"2022..2024": QualityID_134_MIPSCQM}}
+  - {measure_key: Q134, collection: Medicare CQM, sources: {"2024": QualityID_134_MedicareCQM}}
+  - {measure_key: Q001, collection: Web Interface, sources: {"2016..2020": ACO27, "2021..2024": QualityID_001_WI}}
+  - {measure_key: Q001, collection: eCQM or MIPS CQM, sources: {"2021": QualityID_001_eCQM-CQM}}
+  - {measure_key: Q001, collection: eCQM, sources: {"2022..2024": QualityID_001_eCQM}}
+  - {measure_key: Q001, collection: MIPS CQM, sources: {"2022..2024": QualityID_001_MIPSCQM}}
+  - {measure_key: Q001, collection: Medicare CQM, sources: {"2024": QualityID_001_MedicareCQM}}
+  - {measure_key: Q236, collection: Web Interface, sources: {"2016..2020": ACO28, "2021..2024": QualityID_236_WI}}
+  - {measure_key: Q236, collection: eCQM or MIPS CQM, sources: {"2021": QualityID_236_eCQM-CQM}}
+  - {measure_key: Q236, collection: eCQM, sources: {"2022..2024": QualityID_236_eCQM}}
+  - {measure_key: Q236, collection: MIPS CQM, sources: {"2022..2024": QualityID_236_MIPSCQM}}
+  - {measure_key: Q236, collection: Medicare CQM, sources: {"2024": QualityID_236_MedicareCQM}}
+  # Published as a proportion (0.15) from 2021; scaled to percent to match the other rates.
+  - {measure_key: Q479, collection: Claims, scale: 100, sources: {"2021..2024": Measure_479}}
+  - {measure_key: MCC1, collection: Claims, sources: {"2021": Measure_MCC1}}
+  - {measure_key: Q484, collection: Claims, sources: {"2022..2024": Measure_484}}
+
+# Number of ACO Assigned Beneficiaries by County. Header spelling changed four times; the
+# column order never did. Header whitespace (2017 headers end in a tab) is trimmed at load.
+county_periods: ["2016", "2017", "2018", "2019", "2019A", "2020", "2021", "2022", "2023", "2024"]
+county_fields:
+  - {name: file_year, type: number, sources: {"2016..2018": "Year", "2019..2019A": "year", "2020..2024": "Year"}}
+  - {name: aco_source_id, type: varchar, sources: {"2016..2018": "ACO ID", "2019..2019A": aco_id, "2020..2024": ACO_ID}}
+  - {name: state_name, type: varchar, sources: {"2016..2017": "State Name", "2018": "State name", "2019..2019A": state_name, "2020..2024": State_Name}}
+  - {name: county_name, type: varchar, sources: {"2016..2017": "County Name", "2018": "County name", "2019..2019A": county_name, "2020..2024": County_Name}}
+  - {name: ssa_state_code, type: varchar, sources: {"2016..2018": "State ID", "2019..2019A": state_id, "2020..2024": State_ID}}
+  - {name: ssa_county_code, type: varchar, sources: {"2016..2018": "County ID", "2019..2019A": county_id, "2020..2024": County_ID}}
+  - {name: person_years_esrd, type: county_count, sources: {"2016..2018": "ESRD assigned beneficiary person-years", "2019..2019A": ab_psn_yrs_esrd, "2020..2024": AB_Psn_Yrs_ESRD}}
+  - {name: person_years_disabled, type: county_count, sources: {"2016..2018": "DISABLED assigned beneficiary person-years", "2019..2019A": ab_psn_yrs_dis, "2020..2024": AB_Psn_Yrs_DIS}}
+  - {name: person_years_aged_dual, type: county_count, sources: {"2016..2018": "AGED/DUAL assigned beneficiary person-years", "2019..2019A": ab_psn_yrs_agdu, "2020..2024": AB_Psn_Yrs_AGDU}}
+  - {name: person_years_aged_nondual, type: county_count, sources: {"2016..2018": "AGED/NON-DUAL assigned beneficiary person-years", "2019..2019A": ab_psn_yrs_agnd, "2020..2024": AB_Psn_Yrs_AGND}}
+  - {name: total_person_years, type: county_count, sources: {"2016..2018": "Total assigned beneficiary person-years", "2019..2019A": tot_ab_psn_yrs, "2020..2024": Tot_AB_Psn_Yrs}}
+  - {name: total_assigned_beneficiaries, type: county_count, sources: {"2016..2018": "Total assigned beneficiaries", "2019..2019A": tot_ab, "2020..2024": Tot_AB}}

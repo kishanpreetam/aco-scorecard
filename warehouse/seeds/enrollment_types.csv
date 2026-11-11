@@ -1,0 +1,5 @@
+enrollment_type_code,enrollment_type_name,description,display_order
+esrd,ESRD,Beneficiaries with end stage renal disease,1
+disabled,Disabled,Beneficiaries entitled to Medicare because of disability,2
+aged_dual,Aged dual,Beneficiaries 65 and older also enrolled in Medicaid,3
+aged_nondual,Aged non-dual,Beneficiaries 65 and older not enrolled in Medicaid,4

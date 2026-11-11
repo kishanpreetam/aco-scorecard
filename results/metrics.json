@@ -1,0 +1,2299 @@
+{
+  "generated_at": "2026-11-04T04:15:30+00:00",
+  "description": "Headline metrics computed by the ACO Scorecard pipeline from CMS Shared Savings Program public use files. Rates are fractions; dollars are nominal.",
+  "latest_performance_year": 2024,
+  "latest_year": {
+    "performance_year": 2024,
+    "aco_count": 476,
+    "aco_reconciliations": 476,
+    "assigned_beneficiaries": 10326340.0,
+    "total_benchmark_expenditures": 139745370823.0,
+    "total_expenditures": 133131051324.0,
+    "benchmark_minus_expenditures": 6614319505.0,
+    "savings_rate": 0.04733122439796326,
+    "earned_shared_savings": 4142450738.0,
+    "shared_losses_owed": 19966437.0,
+    "net_savings_to_medicare": 2491835204.0,
+    "earned_savings_per_beneficiary": 401.1538200369153,
+    "reconciliations_earning_savings": 360,
+    "share_earning_savings": 0.7563025210084033,
+    "reconciliations_owing_losses": 16,
+    "two_sided_aco_count": 319,
+    "two_sided_share": 0.6701680672268907,
+    "per_capita_expenditure": 13166.51393647157,
+    "risk_adjusted_per_capita_expenditure": 13189.34565763482,
+    "savings_rate_p25": 0.020000473205270854,
+    "savings_rate_median": 0.0421543807967307,
+    "savings_rate_p75": 0.0703032183713411,
+    "quality_score_mean": 81.89930672268903,
+    "quality_score_median": 83.11,
+    "savings_rate_change_yoy": 0.00699740644796374,
+    "earned_shared_savings_growth_yoy": 0.3386688952792002,
+    "per_capita_expenditure_growth_yoy": 0.07472610118534402,
+    "aco_count_change_yoy": 23,
+    "cumulative_earned_shared_savings": 19261323356.303,
+    "cumulative_net_savings_to_medicare": 11756402316.4031
+  },
+  "prior_year": {
+    "performance_year": 2023,
+    "aco_count": 453,
+    "aco_reconciliations": 453,
+    "assigned_beneficiaries": 10235411.0,
+    "total_benchmark_expenditures": 127870094703.0,
+    "total_expenditures": 122712605582.0,
+    "benchmark_minus_expenditures": 5157489121.0,
+    "savings_rate": 0.04033381794999952,
+    "earned_shared_savings": 3094455061.0,
+    "shared_losses_owed": 14213577.0,
+    "net_savings_to_medicare": 2077247637.0,
+    "earned_savings_per_beneficiary": 302.32836385368404,
+    "reconciliations_earning_savings": 313,
+    "share_earning_savings": 0.6909492273730684,
+    "reconciliations_owing_losses": 20,
+    "two_sided_aco_count": 302,
+    "two_sided_share": 0.6666666666666666,
+    "per_capita_expenditure": 12251.041378775366,
+    "risk_adjusted_per_capita_expenditure": 12213.04017428256,
+    "savings_rate_p25": 0.012745320004977802,
+    "savings_rate_median": 0.036499734272601954,
+    "savings_rate_p75": 0.06413803427136136,
+    "quality_score_mean": 82.27905077262685,
+    "quality_score_median": 83.07,
+    "savings_rate_change_yoy": 0.0042722668820322565,
+    "earned_shared_savings_growth_yoy": 0.2263110417515136,
+    "per_capita_expenditure_growth_yoy": 0.07507680728667339,
+    "aco_count_change_yoy": -29,
+    "cumulative_earned_shared_savings": 15118872618.303,
+    "cumulative_net_savings_to_medicare": 9264567112.4031
+  },
+  "change_latest_vs_prior": {
+    "savings_rate_points": 0.00699740644796374,
+    "earned_shared_savings_dollars": 1047995677.0,
+    "net_savings_to_medicare_dollars": 414587567.0,
+    "aco_count": 23
+  },
+  "program_totals_all_years": {
+    "years": "2013 to 2024",
+    "benchmark_minus_expenditures": 30917020587.5861,
+    "earned_shared_savings": 19261323356.303,
+    "shared_losses_owed": 100705085.12,
+    "net_savings_to_medicare": 11756402316.403101
+  },
+  "program_by_year": [
+    {
+      "performance_year": 2013,
+      "aco_count": 220,
+      "aco_reconciliations": 220,
+      "assigned_beneficiaries": 3675263.0,
+      "total_benchmark_expenditures": 42499376821.06003,
+      "total_expenditures": 42265781093.47996,
+      "benchmark_minus_expenditures": 233595722.5861,
+      "savings_rate": 0.005496450537842819,
+      "earned_shared_savings": 315908772.303,
+      "shared_losses_owed": 3986552.12,
+      "net_savings_to_medicare": -78326497.59689996,
+      "earned_savings_per_beneficiary": 85.95541932726991,
+      "reconciliations_earning_savings": 52,
+      "share_earning_savings": 0.23636363636363636,
+      "reconciliations_owing_losses": 1,
+      "two_sided_aco_count": 5,
+      "two_sided_share": 0.022727272727272728,
+      "per_capita_expenditure": 10041.425309750863,
+      "risk_adjusted_per_capita_expenditure": 9488.460744365027,
+      "savings_rate_p25": -0.019432697672901626,
+      "savings_rate_median": 0.002475063830654856,
+      "savings_rate_p75": 0.03290238450672189,
+      "quality_score_mean": 95.0,
+      "quality_score_median": 100.0,
+      "savings_rate_change_yoy": null,
+      "earned_shared_savings_growth_yoy": null,
+      "per_capita_expenditure_growth_yoy": null,
+      "aco_count_change_yoy": null,
+      "cumulative_earned_shared_savings": 315908772.303,
+      "cumulative_net_savings_to_medicare": -78326497.59689996
+    },
+    {
+      "performance_year": 2014,
+      "aco_count": 333,
+      "aco_reconciliations": 333,
+      "assigned_beneficiaries": 5329831.0,
+      "total_benchmark_expenditures": 52885283830.0,
+      "total_expenditures": 52593806005.0,
+      "benchmark_minus_expenditures": 291477845.0,
+      "savings_rate": 0.005511511405270263,
+      "earned_shared_savings": 341246303.0,
+      "shared_losses_owed": 0.0,
+      "net_savings_to_medicare": -49768458.0,
+      "earned_savings_per_beneficiary": 64.02572670690684,
+      "reconciliations_earning_savings": 86,
+      "share_earning_savings": 0.25825825825825827,
+      "reconciliations_owing_losses": 0,
+      "two_sided_aco_count": 3,
+      "two_sided_share": 0.009009009009009009,
+      "per_capita_expenditure": 10173.46633654997,
+      "risk_adjusted_per_capita_expenditure": 9600.516342430632,
+      "savings_rate_p25": -0.021101481527494127,
+      "savings_rate_median": 0.004470859368660229,
+      "savings_rate_p75": 0.03181302082989501,
+      "quality_score_mean": 83.07009345794393,
+      "quality_score_median": 87.0,
+      "savings_rate_change_yoy": 1.506086742744401e-05,
+      "earned_shared_savings_growth_yoy": 0.08020521403153012,
+      "per_capita_expenditure_growth_yoy": 0.013149629930612165,
+      "aco_count_change_yoy": 113,
+      "cumulative_earned_shared_savings": 657155075.303,
+      "cumulative_net_savings_to_medicare": -128094955.59689996
+    },
+    {
+      "performance_year": 2015,
+      "aco_count": 392,
+      "aco_reconciliations": 392,
+      "assigned_beneficiaries": 7270233.0,
+      "total_benchmark_expenditures": 73297675699.0,
+      "total_expenditures": 72868421009.0,
+      "benchmark_minus_expenditures": 429254696.0,
+      "savings_rate": 0.005856320707395314,
+      "earned_shared_savings": 645543866.0,
+      "shared_losses_owed": 0.0,
+      "net_savings_to_medicare": -216289170.0,
+      "earned_savings_per_beneficiary": 88.79273415308698,
+      "reconciliations_earning_savings": 119,
+      "share_earning_savings": 0.30357142857142855,
+      "reconciliations_owing_losses": 0,
+      "two_sided_aco_count": 3,
+      "two_sided_share": 0.007653061224489796,
+      "per_capita_expenditure": 10325.629262433846,
+      "risk_adjusted_per_capita_expenditure": 9768.757415796254,
+      "savings_rate_p25": -0.02568352770267115,
+      "savings_rate_median": 0.0013123960423747044,
+      "savings_rate_p75": 0.0370275482390309,
+      "quality_score_mean": 91.4439603960396,
+      "quality_score_median": 93.59,
+      "savings_rate_change_yoy": 0.0003448093021250513,
+      "earned_shared_savings_growth_yoy": 0.8917241310010617,
+      "per_capita_expenditure_growth_yoy": 0.014956841734188916,
+      "aco_count_change_yoy": 59,
+      "cumulative_earned_shared_savings": 1302698941.303,
+      "cumulative_net_savings_to_medicare": -344384125.5969
+    },
+    {
+      "performance_year": 2016,
+      "aco_count": 432,
+      "aco_reconciliations": 432,
+      "assigned_beneficiaries": 7884058.0,
+      "total_benchmark_expenditures": 81376645025.0,
+      "total_expenditures": 80724701369.0,
+      "benchmark_minus_expenditures": 651943651.0,
+      "savings_rate": 0.008011434371615027,
+      "earned_shared_savings": 700607912.0,
+      "shared_losses_owed": 9332807.0,
+      "net_savings_to_medicare": -39331454.0,
+      "earned_savings_per_beneficiary": 88.86387086447107,
+      "reconciliations_earning_savings": 134,
+      "share_earning_savings": 0.3101851851851852,
+      "reconciliations_owing_losses": 4,
+      "two_sided_aco_count": 22,
+      "two_sided_share": 0.05092592592592592,
+      "per_capita_expenditure": 10525.471128987421,
+      "risk_adjusted_per_capita_expenditure": 9820.949855966046,
+      "savings_rate_p25": -0.020285115429378563,
+      "savings_rate_median": 0.005623472371550103,
+      "savings_rate_p75": 0.04053902722793151,
+      "quality_score_mean": 94.64687500000007,
+      "quality_score_median": 96.05000000000001,
+      "savings_rate_change_yoy": 0.0021551136642197124,
+      "earned_shared_savings_growth_yoy": 0.08529868983372851,
+      "per_capita_expenditure_growth_yoy": 0.019353964923051185,
+      "aco_count_change_yoy": 40,
+      "cumulative_earned_shared_savings": 2003306853.303,
+      "cumulative_net_savings_to_medicare": -383715579.5969
+    },
+    {
+      "performance_year": 2017,
+      "aco_count": 472,
+      "aco_reconciliations": 472,
+      "assigned_beneficiaries": 8992886.0,
+      "total_benchmark_expenditures": 94914491913.0,
+      "total_expenditures": 93819947556.0,
+      "benchmark_minus_expenditures": 1094544348.0,
+      "savings_rate": 0.011531899143528843,
+      "earned_shared_savings": 799420562.0,
+      "shared_losses_owed": 18616586.0,
+      "net_savings_to_medicare": 313740372.0,
+      "earned_savings_per_beneficiary": 88.89477326855916,
+      "reconciliations_earning_savings": 159,
+      "share_earning_savings": 0.336864406779661,
+      "reconciliations_owing_losses": 11,
+      "two_sided_aco_count": 39,
+      "two_sided_share": 0.0826271186440678,
+      "per_capita_expenditure": 10704.246560557162,
+      "risk_adjusted_per_capita_expenditure": 10690.509654024989,
+      "savings_rate_p25": -0.01216634281663886,
+      "savings_rate_median": 0.011329398667800097,
+      "savings_rate_p75": 0.038061856935490135,
+      "quality_score_mean": 92.40264830508463,
+      "quality_score_median": 92.67,
+      "savings_rate_change_yoy": 0.0035204647719138168,
+      "earned_shared_savings_growth_yoy": 0.14103844433889293,
+      "per_capita_expenditure_growth_yoy": 0.016985028924490424,
+      "aco_count_change_yoy": 40,
+      "cumulative_earned_shared_savings": 2802727415.303,
+      "cumulative_net_savings_to_medicare": -69975207.59689999
+    },
+    {
+      "performance_year": 2018,
+      "aco_count": 548,
+      "aco_reconciliations": 548,
+      "assigned_beneficiaries": 10096874.0,
+      "total_benchmark_expenditures": 109778449068.0,
+      "total_expenditures": 108072676295.0,
+      "benchmark_minus_expenditures": 1705772757.0,
+      "savings_rate": 0.01553832078592579,
+      "earned_shared_savings": 983979677.0,
+      "shared_losses_owed": 17585291.0,
+      "net_savings_to_medicare": 739378371.0,
+      "earned_savings_per_beneficiary": 97.45389285832427,
+      "reconciliations_earning_savings": 205,
+      "share_earning_savings": 0.3740875912408759,
+      "reconciliations_owing_losses": 11,
+      "two_sided_aco_count": 95,
+      "two_sided_share": 0.17335766423357665,
+      "per_capita_expenditure": 10969.880910522312,
+      "risk_adjusted_per_capita_expenditure": 10911.495090755183,
+      "savings_rate_p25": -0.008095237900407911,
+      "savings_rate_median": 0.014369725347878535,
+      "savings_rate_p75": 0.038162950232307015,
+      "quality_score_mean": 92.90640510948899,
+      "quality_score_median": 93.765,
+      "savings_rate_change_yoy": 0.004006421642396946,
+      "earned_shared_savings_growth_yoy": 0.23086610949594263,
+      "per_capita_expenditure_growth_yoy": 0.02481579142094461,
+      "aco_count_change_yoy": 76,
+      "cumulative_earned_shared_savings": 3786707092.303,
+      "cumulative_net_savings_to_medicare": 669403163.4031
+    },
+    {
+      "performance_year": 2019,
+      "aco_count": 541,
+      "aco_reconciliations": 680,
+      "assigned_beneficiaries": 11250925.0,
+      "total_benchmark_expenditures": 116617579257.0,
+      "total_expenditures": 113971561009.0,
+      "benchmark_minus_expenditures": 2646018272.0,
+      "savings_rate": 0.022689703292234752,
+      "earned_shared_savings": 1471167051.0,
+      "shared_losses_owed": 17003835.0,
+      "net_savings_to_medicare": 1191855056.0,
+      "earned_savings_per_beneficiary": 130.75965318407154,
+      "reconciliations_earning_savings": 355,
+      "share_earning_savings": 0.5220588235294118,
+      "reconciliations_owing_losses": 8,
+      "two_sided_aco_count": 150,
+      "two_sided_share": 0.27726432532347506,
+      "per_capita_expenditure": 11376.273928980527,
+      "risk_adjusted_per_capita_expenditure": 11208.471433338125,
+      "savings_rate_p25": -0.0006642331148027723,
+      "savings_rate_median": 0.02395375893287533,
+      "savings_rate_p75": 0.04622991738760557,
+      "quality_score_mean": 94.77140480591446,
+      "quality_score_median": 93.75,
+      "savings_rate_change_yoy": 0.007151382506308963,
+      "earned_shared_savings_growth_yoy": 0.4951193458439691,
+      "per_capita_expenditure_growth_yoy": 0.03704625617844244,
+      "aco_count_change_yoy": -7,
+      "cumulative_earned_shared_savings": 5257874143.3029995,
+      "cumulative_net_savings_to_medicare": 1861258219.4031
+    },
+    {
+      "performance_year": 2020,
+      "aco_count": 513,
+      "aco_reconciliations": 513,
+      "assigned_beneficiaries": 10614589.0,
+      "total_benchmark_expenditures": 110962952924.0,
+      "total_expenditures": 106818013016.0,
+      "benchmark_minus_expenditures": 4144939915.0,
+      "savings_rate": 0.03735426830105111,
+      "earned_shared_savings": 2283724790.0,
+      "shared_losses_owed": 0.0,
+      "net_savings_to_medicare": 1861215125.0,
+      "earned_savings_per_beneficiary": 215.14962001825978,
+      "reconciliations_earning_savings": 345,
+      "share_earning_savings": 0.672514619883041,
+      "reconciliations_owing_losses": 0,
+      "two_sided_aco_count": 190,
+      "two_sided_share": 0.37037037037037035,
+      "per_capita_expenditure": 10331.367466476271,
+      "risk_adjusted_per_capita_expenditure": 10160.913792755919,
+      "savings_rate_p25": 0.012889869165099717,
+      "savings_rate_median": 0.0381838978986543,
+      "savings_rate_p75": 0.06496008546242141,
+      "quality_score_mean": 97.83202729044862,
+      "quality_score_median": 97.41,
+      "savings_rate_change_yoy": 0.014664565008816358,
+      "earned_shared_savings_growth_yoy": 0.5523218715697025,
+      "per_capita_expenditure_growth_yoy": -0.09184962220735607,
+      "aco_count_change_yoy": -28,
+      "cumulative_earned_shared_savings": 7541598933.3029995,
+      "cumulative_net_savings_to_medicare": 3722473344.4031
+    },
+    {
+      "performance_year": 2021,
+      "aco_count": 475,
+      "aco_reconciliations": 475,
+      "assigned_beneficiaries": 10124325.0,
+      "total_benchmark_expenditures": 113300821564.0,
+      "total_expenditures": 109682482470.0,
+      "benchmark_minus_expenditures": 3618339101.0,
+      "savings_rate": 0.03193568282253025,
+      "earned_shared_savings": 1959433483.0,
+      "shared_losses_owed": 0.0,
+      "net_savings_to_medicare": 1658905618.0,
+      "earned_savings_per_beneficiary": 193.53719709709043,
+      "reconciliations_earning_savings": 274,
+      "share_earning_savings": 0.5768421052631579,
+      "reconciliations_owing_losses": 0,
+      "two_sided_aco_count": 195,
+      "two_sided_share": 0.4105263157894737,
+      "per_capita_expenditure": 11123.994835691417,
+      "risk_adjusted_per_capita_expenditure": 10928.278124238735,
+      "savings_rate_p25": 0.005096570678782065,
+      "savings_rate_median": 0.03137636350479684,
+      "savings_rate_p75": 0.058940843288757386,
+      "quality_score_mean": 90.667747368421,
+      "quality_score_median": 91.74,
+      "savings_rate_change_yoy": -0.005418585478520858,
+      "earned_shared_savings_growth_yoy": -0.14200104514344744,
+      "per_capita_expenditure_growth_yoy": 0.07672047013980507,
+      "aco_count_change_yoy": -38,
+      "cumulative_earned_shared_savings": 9501032416.303,
+      "cumulative_net_savings_to_medicare": 5381378962.4031
+    },
+    {
+      "performance_year": 2022,
+      "aco_count": 482,
+      "aco_reconciliations": 482,
+      "assigned_beneficiaries": 10418297.0,
+      "total_benchmark_expenditures": 120053783761.0,
+      "total_expenditures": 115724458104.0,
+      "benchmark_minus_expenditures": 4329325654.0,
+      "savings_rate": 0.03606155106796726,
+      "earned_shared_savings": 2523385141.0,
+      "shared_losses_owed": 0.0,
+      "net_savings_to_medicare": 1805940513.0,
+      "earned_savings_per_beneficiary": 242.2070652238077,
+      "reconciliations_earning_savings": 303,
+      "share_earning_savings": 0.6286307053941909,
+      "reconciliations_owing_losses": 0,
+      "two_sided_aco_count": 284,
+      "two_sided_share": 0.5892116182572614,
+      "per_capita_expenditure": 11395.503368447775,
+      "risk_adjusted_per_capita_expenditure": 11221.364320863822,
+      "savings_rate_p25": 0.01309914183786831,
+      "savings_rate_median": 0.03436077679849488,
+      "savings_rate_p75": 0.06146643845002103,
+      "quality_score_mean": 81.53105809128627,
+      "quality_score_median": 81.5,
+      "savings_rate_change_yoy": 0.004125868245437009,
+      "earned_shared_savings_growth_yoy": 0.2878136272003269,
+      "per_capita_expenditure_growth_yoy": 0.024407466631072173,
+      "aco_count_change_yoy": 7,
+      "cumulative_earned_shared_savings": 12024417557.303,
+      "cumulative_net_savings_to_medicare": 7187319475.4031
+    },
+    {
+      "performance_year": 2023,
+      "aco_count": 453,
+      "aco_reconciliations": 453,
+      "assigned_beneficiaries": 10235411.0,
+      "total_benchmark_expenditures": 127870094703.0,
+      "total_expenditures": 122712605582.0,
+      "benchmark_minus_expenditures": 5157489121.0,
+      "savings_rate": 0.04033381794999952,
+      "earned_shared_savings": 3094455061.0,
+      "shared_losses_owed": 14213577.0,
+      "net_savings_to_medicare": 2077247637.0,
+      "earned_savings_per_beneficiary": 302.32836385368404,
+      "reconciliations_earning_savings": 313,
+      "share_earning_savings": 0.6909492273730684,
+      "reconciliations_owing_losses": 20,
+      "two_sided_aco_count": 302,
+      "two_sided_share": 0.6666666666666666,
+      "per_capita_expenditure": 12251.041378775366,
+      "risk_adjusted_per_capita_expenditure": 12213.04017428256,
+      "savings_rate_p25": 0.012745320004977802,
+      "savings_rate_median": 0.036499734272601954,
+      "savings_rate_p75": 0.06413803427136136,
+      "quality_score_mean": 82.27905077262685,
+      "quality_score_median": 83.07,
+      "savings_rate_change_yoy": 0.0042722668820322565,
+      "earned_shared_savings_growth_yoy": 0.2263110417515136,
+      "per_capita_expenditure_growth_yoy": 0.07507680728667339,
+      "aco_count_change_yoy": -29,
+      "cumulative_earned_shared_savings": 15118872618.303,
+      "cumulative_net_savings_to_medicare": 9264567112.4031
+    },
+    {
+      "performance_year": 2024,
+      "aco_count": 476,
+      "aco_reconciliations": 476,
+      "assigned_beneficiaries": 10326340.0,
+      "total_benchmark_expenditures": 139745370823.0,
+      "total_expenditures": 133131051324.0,
+      "benchmark_minus_expenditures": 6614319505.0,
+      "savings_rate": 0.04733122439796326,
+      "earned_shared_savings": 4142450738.0,
+      "shared_losses_owed": 19966437.0,
+      "net_savings_to_medicare": 2491835204.0,
+      "earned_savings_per_beneficiary": 401.1538200369153,
+      "reconciliations_earning_savings": 360,
+      "share_earning_savings": 0.7563025210084033,
+      "reconciliations_owing_losses": 16,
+      "two_sided_aco_count": 319,
+      "two_sided_share": 0.6701680672268907,
+      "per_capita_expenditure": 13166.51393647157,
+      "risk_adjusted_per_capita_expenditure": 13189.34565763482,
+      "savings_rate_p25": 0.020000473205270854,
+      "savings_rate_median": 0.0421543807967307,
+      "savings_rate_p75": 0.0703032183713411,
+      "quality_score_mean": 81.89930672268903,
+      "quality_score_median": 83.11,
+      "savings_rate_change_yoy": 0.00699740644796374,
+      "earned_shared_savings_growth_yoy": 0.3386688952792002,
+      "per_capita_expenditure_growth_yoy": 0.07472610118534402,
+      "aco_count_change_yoy": 23,
+      "cumulative_earned_shared_savings": 19261323356.303,
+      "cumulative_net_savings_to_medicare": 11756402316.4031
+    }
+  ],
+  "track_by_year": [
+    {
+      "performance_year": 2013,
+      "track_family": "Track 1",
+      "aco_count": 215,
+      "savings_rate": 0.005102693292525031,
+      "earned_shared_savings": 298994995.8110001,
+      "share_of_year_earned_savings": 0.946459934085726
+    },
+    {
+      "performance_year": 2013,
+      "track_family": "Track 2",
+      "aco_count": 5,
+      "savings_rate": 0.027698093205534055,
+      "earned_shared_savings": 16913776.492,
+      "share_of_year_earned_savings": 0.05354006591427399
+    },
+    {
+      "performance_year": 2014,
+      "track_family": "Track 1",
+      "aco_count": 330,
+      "savings_rate": 0.0051852113711502645,
+      "earned_shared_savings": 331653188.0,
+      "share_of_year_earned_savings": 0.9718880031353776
+    },
+    {
+      "performance_year": 2014,
+      "track_family": "Track 2",
+      "aco_count": 3,
+      "savings_rate": 0.05068482100872181,
+      "earned_shared_savings": 9593115.0,
+      "share_of_year_earned_savings": 0.028111996864622443
+    },
+    {
+      "performance_year": 2015,
+      "track_family": "Track 1",
+      "aco_count": 389,
+      "savings_rate": 0.005572525464109545,
+      "earned_shared_savings": 632924714.0,
+      "share_of_year_earned_savings": 0.9804519062690621
+    },
+    {
+      "performance_year": 2015,
+      "track_family": "Track 2",
+      "aco_count": 3,
+      "savings_rate": 0.05636590754856219,
+      "earned_shared_savings": 12619152.0,
+      "share_of_year_earned_savings": 0.019548093730937875
+    },
+    {
+      "performance_year": 2016,
+      "track_family": "Track 1",
+      "aco_count": 410,
+      "savings_rate": 0.0070524562672709306,
+      "earned_shared_savings": 613046415.0,
+      "share_of_year_earned_savings": 0.8750206848934358
+    },
+    {
+      "performance_year": 2016,
+      "track_family": "Track 2",
+      "aco_count": 6,
+      "savings_rate": 0.06058618103135917,
+      "earned_shared_savings": 23455605.0,
+      "share_of_year_earned_savings": 0.03347893250740223
+    },
+    {
+      "performance_year": 2016,
+      "track_family": "Track 3",
+      "aco_count": 16,
+      "savings_rate": 0.017426556967152337,
+      "earned_shared_savings": 64105892.0,
+      "share_of_year_earned_savings": 0.09150038259916198
+    },
+    {
+      "performance_year": 2017,
+      "track_family": "Track 1",
+      "aco_count": 433,
+      "savings_rate": 0.011427717467726995,
+      "earned_shared_savings": 685656874.0,
+      "share_of_year_earned_savings": 0.8576923169009005
+    },
+    {
+      "performance_year": 2017,
+      "track_family": "Track 2",
+      "aco_count": 6,
+      "savings_rate": 0.009888843208753429,
+      "earned_shared_savings": 4429633.0,
+      "share_of_year_earned_savings": 0.005541054622010085
+    },
+    {
+      "performance_year": 2017,
+      "track_family": "Track 3",
+      "aco_count": 33,
+      "savings_rate": 0.012693924498197843,
+      "earned_shared_savings": 109334055.0,
+      "share_of_year_earned_savings": 0.1367666284770894
+    },
+    {
+      "performance_year": 2018,
+      "track_family": "Track 1",
+      "aco_count": 453,
+      "savings_rate": 0.014568817628880674,
+      "earned_shared_savings": 724822080.0,
+      "share_of_year_earned_savings": 0.7366230186886268
+    },
+    {
+      "performance_year": 2018,
+      "track_family": "Track 1+",
+      "aco_count": 52,
+      "savings_rate": 0.018295335976040994,
+      "earned_shared_savings": 107169137.0,
+      "share_of_year_earned_savings": 0.1089139740433887
+    },
+    {
+      "performance_year": 2018,
+      "track_family": "Track 2",
+      "aco_count": 7,
+      "savings_rate": 0.03847879336134898,
+      "earned_shared_savings": 26792602.0,
+      "share_of_year_earned_savings": 0.027228816434183324
+    },
+    {
+      "performance_year": 2018,
+      "track_family": "Track 3",
+      "aco_count": 36,
+      "savings_rate": 0.018087263765132422,
+      "earned_shared_savings": 125195858.0,
+      "share_of_year_earned_savings": 0.12723419083380114
+    },
+    {
+      "performance_year": 2019,
+      "track_family": "BASIC A and B (one-sided)",
+      "aco_count": 108,
+      "savings_rate": 0.01788677431710834,
+      "earned_shared_savings": 65473906.0,
+      "share_of_year_earned_savings": 0.044504739251395864
+    },
+    {
+      "performance_year": 2019,
+      "track_family": "BASIC C to E (two-sided)",
+      "aco_count": 47,
+      "savings_rate": 0.03369958235663323,
+      "earned_shared_savings": 90194938.0,
+      "share_of_year_earned_savings": 0.06130842716922703
+    },
+    {
+      "performance_year": 2019,
+      "track_family": "ENHANCED",
+      "aco_count": 50,
+      "savings_rate": 0.040477138762043945,
+      "earned_shared_savings": 181479125.0,
+      "share_of_year_earned_savings": 0.12335725224177822
+    },
+    {
+      "performance_year": 2019,
+      "track_family": "Track 1",
+      "aco_count": 389,
+      "savings_rate": 0.020192104208129558,
+      "earned_shared_savings": 842823228.0,
+      "share_of_year_earned_savings": 0.5728943068886063
+    },
+    {
+      "performance_year": 2019,
+      "track_family": "Track 1+",
+      "aco_count": 47,
+      "savings_rate": 0.023845890954731764,
+      "earned_shared_savings": 112758253.0,
+      "share_of_year_earned_savings": 0.07664544480068022
+    },
+    {
+      "performance_year": 2019,
+      "track_family": "Track 2",
+      "aco_count": 7,
+      "savings_rate": 0.03858748897914132,
+      "earned_shared_savings": 39930375.0,
+      "share_of_year_earned_savings": 0.027141972064190827
+    },
+    {
+      "performance_year": 2019,
+      "track_family": "Track 3",
+      "aco_count": 32,
+      "savings_rate": 0.024667210923065213,
+      "earned_shared_savings": 138507226.0,
+      "share_of_year_earned_savings": 0.09414785758412149
+    },
+    {
+      "performance_year": 2020,
+      "track_family": "BASIC A and B (one-sided)",
+      "aco_count": 190,
+      "savings_rate": 0.035503861764581625,
+      "earned_shared_savings": 536498387.0,
+      "share_of_year_earned_savings": 0.23492252190335072
+    },
+    {
+      "performance_year": 2020,
+      "track_family": "BASIC C to E (two-sided)",
+      "aco_count": 90,
+      "savings_rate": 0.05614737056040824,
+      "earned_shared_savings": 449319931.0,
+      "share_of_year_earned_savings": 0.196748720759825
+    },
+    {
+      "performance_year": 2020,
+      "track_family": "ENHANCED",
+      "aco_count": 74,
+      "savings_rate": 0.05190204277806736,
+      "earned_shared_savings": 786307190.0,
+      "share_of_year_earned_savings": 0.3443090837578551
+    },
+    {
+      "performance_year": 2020,
+      "track_family": "Track 1",
+      "aco_count": 133,
+      "savings_rate": 0.01892229114567386,
+      "earned_shared_savings": 375345688.0,
+      "share_of_year_earned_savings": 0.1643567953737543
+    },
+    {
+      "performance_year": 2020,
+      "track_family": "Track 1+",
+      "aco_count": 19,
+      "savings_rate": 0.03528050915939959,
+      "earned_shared_savings": 80210324.0,
+      "share_of_year_earned_savings": 0.035122587603911765
+    },
+    {
+      "performance_year": 2020,
+      "track_family": "Track 2",
+      "aco_count": 2,
+      "savings_rate": 0.03820804035285556,
+      "earned_shared_savings": 16938145.0,
+      "share_of_year_earned_savings": 0.0074168941346036705
+    },
+    {
+      "performance_year": 2020,
+      "track_family": "Track 3",
+      "aco_count": 5,
+      "savings_rate": 0.03861283871321957,
+      "earned_shared_savings": 39105125.0,
+      "share_of_year_earned_savings": 0.017123396466699473
+    },
+    {
+      "performance_year": 2021,
+      "track_family": "BASIC A and B (one-sided)",
+      "aco_count": 161,
+      "savings_rate": 0.028234804786945678,
+      "earned_shared_savings": 346844466.0,
+      "share_of_year_earned_savings": 0.17701262584783542
+    },
+    {
+      "performance_year": 2021,
+      "track_family": "BASIC C to E (two-sided)",
+      "aco_count": 100,
+      "savings_rate": 0.046833990702096644,
+      "earned_shared_savings": 487859376.0,
+      "share_of_year_earned_savings": 0.24897980984435386
+    },
+    {
+      "performance_year": 2021,
+      "track_family": "ENHANCED",
+      "aco_count": 71,
+      "savings_rate": 0.04230851606106841,
+      "earned_shared_savings": 687070907.0,
+      "share_of_year_earned_savings": 0.3506477320924703
+    },
+    {
+      "performance_year": 2021,
+      "track_family": "Track 1",
+      "aco_count": 119,
+      "savings_rate": 0.01905976101130237,
+      "earned_shared_savings": 353563154.0,
+      "share_of_year_earned_savings": 0.18044151897347158
+    },
+    {
+      "performance_year": 2021,
+      "track_family": "Track 1+",
+      "aco_count": 17,
+      "savings_rate": 0.030095330528198506,
+      "earned_shared_savings": 67268019.0,
+      "share_of_year_earned_savings": 0.03433034067428968
+    },
+    {
+      "performance_year": 2021,
+      "track_family": "Track 2",
+      "aco_count": 2,
+      "savings_rate": 0.008310541944451846,
+      "earned_shared_savings": 4766689.0,
+      "share_of_year_earned_savings": 0.002432687325880508
+    },
+    {
+      "performance_year": 2021,
+      "track_family": "Track 3",
+      "aco_count": 5,
+      "savings_rate": 0.016158135957885702,
+      "earned_shared_savings": 12060872.0,
+      "share_of_year_earned_savings": 0.006155285241698608
+    },
+    {
+      "performance_year": 2022,
+      "track_family": "BASIC A and B (one-sided)",
+      "aco_count": 198,
+      "savings_rate": 0.0233328100736173,
+      "earned_shared_savings": 356202660.0,
+      "share_of_year_earned_savings": 0.1411606394174293
+    },
+    {
+      "performance_year": 2022,
+      "track_family": "BASIC C to E (two-sided)",
+      "aco_count": 138,
+      "savings_rate": 0.03917594383964098,
+      "earned_shared_savings": 587501629.0,
+      "share_of_year_earned_savings": 0.2328228138678732
+    },
+    {
+      "performance_year": 2022,
+      "track_family": "ENHANCED",
+      "aco_count": 146,
+      "savings_rate": 0.045827442382152556,
+      "earned_shared_savings": 1579680852.0,
+      "share_of_year_earned_savings": 0.6260165467146975
+    },
+    {
+      "performance_year": 2023,
+      "track_family": "BASIC A and B (one-sided)",
+      "aco_count": 151,
+      "savings_rate": 0.02628689501698526,
+      "earned_shared_savings": 334351583.0,
+      "share_of_year_earned_savings": 0.10804861483170203
+    },
+    {
+      "performance_year": 2023,
+      "track_family": "BASIC C to E (two-sided)",
+      "aco_count": 142,
+      "savings_rate": 0.04031430592453246,
+      "earned_shared_savings": 686906594.0,
+      "share_of_year_earned_savings": 0.22197982535187316
+    },
+    {
+      "performance_year": 2023,
+      "track_family": "ENHANCED",
+      "aco_count": 160,
+      "savings_rate": 0.04896852936185922,
+      "earned_shared_savings": 2073196884.0,
+      "share_of_year_earned_savings": 0.6699715598164249
+    },
+    {
+      "performance_year": 2024,
+      "track_family": "BASIC A and B (one-sided)",
+      "aco_count": 157,
+      "savings_rate": 0.03162050806198101,
+      "earned_shared_savings": 432235788.0,
+      "share_of_year_earned_savings": 0.10434301222582215
+    },
+    {
+      "performance_year": 2024,
+      "track_family": "BASIC C to E (two-sided)",
+      "aco_count": 114,
+      "savings_rate": 0.04348279804153102,
+      "earned_shared_savings": 598590670.0,
+      "share_of_year_earned_savings": 0.14450157837942162
+    },
+    {
+      "performance_year": 2024,
+      "track_family": "ENHANCED",
+      "aco_count": 205,
+      "savings_rate": 0.056450344425411296,
+      "earned_shared_savings": 3111624280.0,
+      "share_of_year_earned_savings": 0.7511554093947562
+    }
+  ],
+  "quality_vs_savings_correlation_by_year": {
+    "2013": -0.14,
+    "2014": -0.081,
+    "2015": 0.047,
+    "2016": 0.115,
+    "2017": -0.08,
+    "2018": -0.012,
+    "2019": 0.032,
+    "2020": 0.031,
+    "2021": 0.107,
+    "2022": 0.188,
+    "2023": 0.131,
+    "2024": 0.157
+  },
+  "quality_measure_medians_web_interface": [
+    {
+      "measure_key": "Q001",
+      "performance_year": 2016,
+      "median_value": 16.375,
+      "reported_results": 428,
+      "aco_results": 432
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2017,
+      "median_value": 14.92,
+      "reported_results": 467,
+      "aco_results": 472
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2018,
+      "median_value": 14.37,
+      "reported_results": 546,
+      "aco_results": 548
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2019,
+      "median_value": 12.69,
+      "reported_results": 672,
+      "aco_results": 680
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2020,
+      "median_value": 13.61,
+      "reported_results": 505,
+      "aco_results": 513
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2021,
+      "median_value": 11.2,
+      "reported_results": 465,
+      "aco_results": 475
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2022,
+      "median_value": 9.75,
+      "reported_results": 457,
+      "aco_results": 482
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2023,
+      "median_value": 8.98,
+      "reported_results": 416,
+      "aco_results": 453
+    },
+    {
+      "measure_key": "Q001",
+      "performance_year": 2024,
+      "median_value": 8.44,
+      "reported_results": 391,
+      "aco_results": 476
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2016,
+      "median_value": 68.94,
+      "reported_results": 428,
+      "aco_results": 432
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2017,
+      "median_value": 71.985,
+      "reported_results": 466,
+      "aco_results": 472
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2018,
+      "median_value": 72.77,
+      "reported_results": 545,
+      "aco_results": 548
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2019,
+      "median_value": 75.775,
+      "reported_results": 672,
+      "aco_results": 680
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2020,
+      "median_value": 75.3,
+      "reported_results": 505,
+      "aco_results": 513
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2021,
+      "median_value": 76.64,
+      "reported_results": 465,
+      "aco_results": 475
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2022,
+      "median_value": 80.0,
+      "reported_results": 457,
+      "aco_results": 482
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2023,
+      "median_value": 81.76,
+      "reported_results": 415,
+      "aco_results": 453
+    },
+    {
+      "measure_key": "Q112",
+      "performance_year": 2024,
+      "median_value": 82.59,
+      "reported_results": 391,
+      "aco_results": 476
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2016,
+      "median_value": 63.235,
+      "reported_results": 428,
+      "aco_results": 432
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2017,
+      "median_value": 66.89,
+      "reported_results": 466,
+      "aco_results": 472
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2018,
+      "median_value": 70.11,
+      "reported_results": 545,
+      "aco_results": 548
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2019,
+      "median_value": 73.555,
+      "reported_results": 672,
+      "aco_results": 680
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2020,
+      "median_value": 74.52,
+      "reported_results": 505,
+      "aco_results": 513
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2021,
+      "median_value": 75.74,
+      "reported_results": 465,
+      "aco_results": 475
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2022,
+      "median_value": 77.02,
+      "reported_results": 457,
+      "aco_results": 482
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2023,
+      "median_value": 79.04,
+      "reported_results": 415,
+      "aco_results": 453
+    },
+    {
+      "measure_key": "Q113",
+      "performance_year": 2024,
+      "median_value": 80.23,
+      "reported_results": 391,
+      "aco_results": 476
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2016,
+      "median_value": 53.43,
+      "reported_results": 428,
+      "aco_results": 432
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2017,
+      "median_value": 65.15,
+      "reported_results": 467,
+      "aco_results": 472
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2018,
+      "median_value": 68.84,
+      "reported_results": 546,
+      "aco_results": 548
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2019,
+      "median_value": 74.14,
+      "reported_results": 672,
+      "aco_results": 680
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2020,
+      "median_value": 74.62,
+      "reported_results": 505,
+      "aco_results": 513
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2021,
+      "median_value": 77.1,
+      "reported_results": 465,
+      "aco_results": 475
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2022,
+      "median_value": 79.63,
+      "reported_results": 457,
+      "aco_results": 482
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2023,
+      "median_value": 83.01,
+      "reported_results": 416,
+      "aco_results": 453
+    },
+    {
+      "measure_key": "Q134",
+      "performance_year": 2024,
+      "median_value": 83.73,
+      "reported_results": 391,
+      "aco_results": 476
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2016,
+      "median_value": 70.68,
+      "reported_results": 429,
+      "aco_results": 432
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2017,
+      "median_value": 72.195,
+      "reported_results": 466,
+      "aco_results": 472
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2018,
+      "median_value": 73.07,
+      "reported_results": 544,
+      "aco_results": 548
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2019,
+      "median_value": 75.665,
+      "reported_results": 672,
+      "aco_results": 680
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2020,
+      "median_value": 72.94,
+      "reported_results": 505,
+      "aco_results": 513
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2021,
+      "median_value": 74.61,
+      "reported_results": 465,
+      "aco_results": 475
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2022,
+      "median_value": 75.6,
+      "reported_results": 457,
+      "aco_results": 482
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2023,
+      "median_value": 77.99,
+      "reported_results": 416,
+      "aco_results": 453
+    },
+    {
+      "measure_key": "Q236",
+      "performance_year": 2024,
+      "median_value": 80.24,
+      "reported_results": 391,
+      "aco_results": 476
+    }
+  ],
+  "top_states_by_year": [
+    {
+      "performance_year": 2016,
+      "state_name": "TEXAS",
+      "reported_person_years": 524071.39,
+      "acos_with_beneficiaries": 426,
+      "share_of_reported_person_years": 0.06981915090678731,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "FLORIDA",
+      "reported_person_years": 482120.54,
+      "acos_with_beneficiaries": 431,
+      "share_of_reported_person_years": 0.06423026973008737,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "NEW YORK",
+      "reported_person_years": 470184.15,
+      "acos_with_beneficiaries": 391,
+      "share_of_reported_person_years": 0.06264005009475819,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 455680.59,
+      "acos_with_beneficiaries": 395,
+      "share_of_reported_person_years": 0.06070782050991929,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 383621.34,
+      "acos_with_beneficiaries": 330,
+      "share_of_reported_person_years": 0.05110776268195826,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 363342.23,
+      "acos_with_beneficiaries": 374,
+      "share_of_reported_person_years": 0.048406088313996024,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "OHIO",
+      "reported_person_years": 346959.6,
+      "acos_with_beneficiaries": 379,
+      "share_of_reported_person_years": 0.04622352056073616,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 300384.31,
+      "acos_with_beneficiaries": 382,
+      "share_of_reported_person_years": 0.04001855065952218,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "VIRGINIA",
+      "reported_person_years": 298789.03,
+      "acos_with_beneficiaries": 385,
+      "share_of_reported_person_years": 0.03980602027304451,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "INDIANA",
+      "reported_person_years": 281827.75,
+      "acos_with_beneficiaries": 360,
+      "share_of_reported_person_years": 0.037546362160640646,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 266503.18,
+      "acos_with_beneficiaries": 415,
+      "share_of_reported_person_years": 0.0355047539259083,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2016,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 241338.15,
+      "acos_with_beneficiaries": 404,
+      "share_of_reported_person_years": 0.032152155290169314,
+      "coverage_of_program": 0.978699327152307,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "TEXAS",
+      "reported_person_years": 579021.56,
+      "acos_with_beneficiaries": 466,
+      "share_of_reported_person_years": 0.0674852143536149,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "FLORIDA",
+      "reported_person_years": 538151.69,
+      "acos_with_beneficiaries": 470,
+      "share_of_reported_person_years": 0.06272181325063289,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "NEW YORK",
+      "reported_person_years": 516189.24,
+      "acos_with_beneficiaries": 415,
+      "share_of_reported_person_years": 0.06016208016231653,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 515812.99,
+      "acos_with_beneficiaries": 417,
+      "share_of_reported_person_years": 0.06011822806136789,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 425618.43,
+      "acos_with_beneficiaries": 406,
+      "share_of_reported_person_years": 0.049606012911503725,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 406939.68,
+      "acos_with_beneficiaries": 407,
+      "share_of_reported_person_years": 0.04742899648467571,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 387723.04,
+      "acos_with_beneficiaries": 435,
+      "share_of_reported_person_years": 0.04518928874468024,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "OHIO",
+      "reported_person_years": 384375.15,
+      "acos_with_beneficiaries": 411,
+      "share_of_reported_person_years": 0.044799090710806816,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 359102.63,
+      "acos_with_beneficiaries": 359,
+      "share_of_reported_person_years": 0.04185356752604664,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 347540.23,
+      "acos_with_beneficiaries": 456,
+      "share_of_reported_person_years": 0.04050596478316734,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "MARYLAND",
+      "reported_person_years": 271164.63,
+      "acos_with_beneficiaries": 371,
+      "share_of_reported_person_years": 0.03160435542446583,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2017,
+      "state_name": "GEORGIA",
+      "reported_person_years": 262823.47,
+      "acos_with_beneficiaries": 436,
+      "share_of_reported_person_years": 0.030632189602941347,
+      "coverage_of_program": 0.9789220395999007,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "FLORIDA",
+      "reported_person_years": 734139.58,
+      "acos_with_beneficiaries": 543,
+      "share_of_reported_person_years": 0.07622505660293052,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "TEXAS",
+      "reported_person_years": 632752.07,
+      "acos_with_beneficiaries": 543,
+      "share_of_reported_person_years": 0.06569808203417049,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 607290.08,
+      "acos_with_beneficiaries": 475,
+      "share_of_reported_person_years": 0.06305438636396402,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "NEW YORK",
+      "reported_person_years": 516311.85,
+      "acos_with_beneficiaries": 486,
+      "share_of_reported_person_years": 0.05360819803641948,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 508947.25,
+      "acos_with_beneficiaries": 463,
+      "share_of_reported_person_years": 0.05284353819903822,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 439232.26,
+      "acos_with_beneficiaries": 512,
+      "share_of_reported_person_years": 0.04560509308098212,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "OHIO",
+      "reported_person_years": 415824.68,
+      "acos_with_beneficiaries": 468,
+      "share_of_reported_person_years": 0.043174704965362964,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 384307.3,
+      "acos_with_beneficiaries": 477,
+      "share_of_reported_person_years": 0.03990228356223413,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 369099.21,
+      "acos_with_beneficiaries": 416,
+      "share_of_reported_person_years": 0.03832324116668246,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 365929.94,
+      "acos_with_beneficiaries": 530,
+      "share_of_reported_person_years": 0.03799417869447521,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "SOUTH CAROLINA",
+      "reported_person_years": 291593.35,
+      "acos_with_beneficiaries": 470,
+      "share_of_reported_person_years": 0.03027587697803755,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2018,
+      "state_name": "VIRGINIA",
+      "reported_person_years": 291409.28,
+      "acos_with_beneficiaries": 498,
+      "share_of_reported_person_years": 0.03025676515441278,
+      "coverage_of_program": 0.9776140010426567,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "FLORIDA",
+      "reported_person_years": 1076323.28,
+      "acos_with_beneficiaries": 540,
+      "share_of_reported_person_years": 0.08006136249736014,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "TEXAS",
+      "reported_person_years": 956147.62,
+      "acos_with_beneficiaries": 531,
+      "share_of_reported_person_years": 0.0711222015060458,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 885572.57,
+      "acos_with_beneficiaries": 476,
+      "share_of_reported_person_years": 0.06587253835528753,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "NEW YORK",
+      "reported_person_years": 775869.98,
+      "acos_with_beneficiaries": 497,
+      "share_of_reported_person_years": 0.057712407483743705,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 645356.46,
+      "acos_with_beneficiaries": 476,
+      "share_of_reported_person_years": 0.04800427384983542,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "OHIO",
+      "reported_person_years": 621653.47,
+      "acos_with_beneficiaries": 474,
+      "share_of_reported_person_years": 0.04624114774272262,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 562162.56,
+      "acos_with_beneficiaries": 467,
+      "share_of_reported_person_years": 0.04181596861735069,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 521331.27,
+      "acos_with_beneficiaries": 507,
+      "share_of_reported_person_years": 0.038778768948191045,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 505487.48,
+      "acos_with_beneficiaries": 425,
+      "share_of_reported_person_years": 0.037600242535083955,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 417211.15,
+      "acos_with_beneficiaries": 525,
+      "share_of_reported_person_years": 0.031033885207881515,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "MASSACHUSETTS",
+      "reported_person_years": 392919.48,
+      "acos_with_beneficiaries": 404,
+      "share_of_reported_person_years": 0.029226970655651194,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2019,
+      "state_name": "GEORGIA",
+      "reported_person_years": 382478.99,
+      "acos_with_beneficiaries": 501,
+      "share_of_reported_person_years": 0.0284503639705853,
+      "coverage_of_program": 0.9777435400643647,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "FLORIDA",
+      "reported_person_years": 789872.31,
+      "acos_with_beneficiaries": 513,
+      "share_of_reported_person_years": 0.07815022110950774,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "TEXAS",
+      "reported_person_years": 633828.8,
+      "acos_with_beneficiaries": 507,
+      "share_of_reported_person_years": 0.06271122590127767,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 630082.64,
+      "acos_with_beneficiaries": 452,
+      "share_of_reported_person_years": 0.06234057962262578,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 548953.0,
+      "acos_with_beneficiaries": 453,
+      "share_of_reported_person_years": 0.05431358687422221,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "NEW YORK",
+      "reported_person_years": 528758.28,
+      "acos_with_beneficiaries": 464,
+      "share_of_reported_person_years": 0.05231551476400406,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 457118.09,
+      "acos_with_beneficiaries": 481,
+      "share_of_reported_person_years": 0.04522741125923989,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "MASSACHUSETTS",
+      "reported_person_years": 396422.84,
+      "acos_with_beneficiaries": 387,
+      "share_of_reported_person_years": 0.03922220364815548,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 392837.07,
+      "acos_with_beneficiaries": 496,
+      "share_of_reported_person_years": 0.03886742640783441,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "OHIO",
+      "reported_person_years": 389668.2,
+      "acos_with_beneficiaries": 455,
+      "share_of_reported_person_years": 0.03855389738797639,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "VIRGINIA",
+      "reported_person_years": 374941.23,
+      "acos_with_beneficiaries": 477,
+      "share_of_reported_person_years": 0.03709680622627576,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 357119.89,
+      "acos_with_beneficiaries": 450,
+      "share_of_reported_person_years": 0.0353335570987456,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2020,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 339982.31,
+      "acos_with_beneficiaries": 405,
+      "share_of_reported_person_years": 0.033637959406149075,
+      "coverage_of_program": 0.9775546458327548,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "FLORIDA",
+      "reported_person_years": 728652.3,
+      "acos_with_beneficiaries": 475,
+      "share_of_reported_person_years": 0.0756152296239912,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "TEXAS",
+      "reported_person_years": 598861.39,
+      "acos_with_beneficiaries": 470,
+      "share_of_reported_person_years": 0.062146296001251065,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 595204.94,
+      "acos_with_beneficiaries": 429,
+      "share_of_reported_person_years": 0.061766851228540455,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 542165.41,
+      "acos_with_beneficiaries": 421,
+      "share_of_reported_person_years": 0.05626272224946696,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "NEW YORK",
+      "reported_person_years": 500288.67,
+      "acos_with_beneficiaries": 438,
+      "share_of_reported_person_years": 0.05191700164856558,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 443712.66,
+      "acos_with_beneficiaries": 461,
+      "share_of_reported_person_years": 0.04604587767440229,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 420929.07,
+      "acos_with_beneficiaries": 449,
+      "share_of_reported_person_years": 0.043681531346930515,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "MASSACHUSETTS",
+      "reported_person_years": 390124.61,
+      "acos_with_beneficiaries": 359,
+      "share_of_reported_person_years": 0.040484826531282415,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "VIRGINIA",
+      "reported_person_years": 363541.42,
+      "acos_with_beneficiaries": 443,
+      "share_of_reported_person_years": 0.03772618017006438,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "OHIO",
+      "reported_person_years": 347139.56,
+      "acos_with_beneficiaries": 427,
+      "share_of_reported_person_years": 0.036024092068289944,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 324594.25,
+      "acos_with_beneficiaries": 403,
+      "share_of_reported_person_years": 0.03368447303107006,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2021,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 319481.61,
+      "acos_with_beneficiaries": 378,
+      "share_of_reported_person_years": 0.03315391346571246,
+      "coverage_of_program": 0.9773156528448725,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "FLORIDA",
+      "reported_person_years": 697149.84,
+      "acos_with_beneficiaries": 482,
+      "share_of_reported_person_years": 0.07026950143560069,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 605681.14,
+      "acos_with_beneficiaries": 435,
+      "share_of_reported_person_years": 0.06104987664738795,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "TEXAS",
+      "reported_person_years": 578846.4,
+      "acos_with_beneficiaries": 480,
+      "share_of_reported_person_years": 0.058345058123792023,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 519814.35,
+      "acos_with_beneficiaries": 436,
+      "share_of_reported_person_years": 0.052394898654170075,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 497315.97,
+      "acos_with_beneficiaries": 469,
+      "share_of_reported_person_years": 0.050127165299015466,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "MASSACHUSETTS",
+      "reported_person_years": 474630.1,
+      "acos_with_beneficiaries": 374,
+      "share_of_reported_person_years": 0.04784053381311731,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "NEW YORK",
+      "reported_person_years": 455017.43,
+      "acos_with_beneficiaries": 444,
+      "share_of_reported_person_years": 0.045863666770128486,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 452748.92,
+      "acos_with_beneficiaries": 460,
+      "share_of_reported_person_years": 0.045635011382784946,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "VIRGINIA",
+      "reported_person_years": 409325.14,
+      "acos_with_beneficiaries": 452,
+      "share_of_reported_person_years": 0.041258093830814725,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 370377.72,
+      "acos_with_beneficiaries": 426,
+      "share_of_reported_person_years": 0.03733237280418013,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "OHIO",
+      "reported_person_years": 342586.73,
+      "acos_with_beneficiaries": 427,
+      "share_of_reported_person_years": 0.03453116867322637,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2022,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 327242.81,
+      "acos_with_beneficiaries": 386,
+      "share_of_reported_person_years": 0.03298457202125303,
+      "coverage_of_program": 0.9769396641409177,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 630746.09,
+      "acos_with_beneficiaries": 440,
+      "share_of_reported_person_years": 0.06441435643600509,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "FLORIDA",
+      "reported_person_years": 572365.56,
+      "acos_with_beneficiaries": 452,
+      "share_of_reported_person_years": 0.05845229923428248,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 547623.39,
+      "acos_with_beneficiaries": 414,
+      "share_of_reported_person_years": 0.0559255281886145,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "TEXAS",
+      "reported_person_years": 538979.81,
+      "acos_with_beneficiaries": 442,
+      "share_of_reported_person_years": 0.05504281063898523,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 513101.62,
+      "acos_with_beneficiaries": 407,
+      "share_of_reported_person_years": 0.0524000246098579,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "MASSACHUSETTS",
+      "reported_person_years": 453580.68,
+      "acos_with_beneficiaries": 345,
+      "share_of_reported_person_years": 0.04632150410001838,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 419782.2,
+      "acos_with_beneficiaries": 427,
+      "share_of_reported_person_years": 0.04286986583823349,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "VIRGINIA",
+      "reported_person_years": 400158.83,
+      "acos_with_beneficiaries": 416,
+      "share_of_reported_person_years": 0.040865847470627596,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "NEW YORK",
+      "reported_person_years": 391361.8,
+      "acos_with_beneficiaries": 414,
+      "share_of_reported_person_years": 0.039967458982800054,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 352339.65,
+      "acos_with_beneficiaries": 390,
+      "share_of_reported_person_years": 0.035982358291967026,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 331599.17,
+      "acos_with_beneficiaries": 365,
+      "share_of_reported_person_years": 0.033864256107023094,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2023,
+      "state_name": "OHIO",
+      "reported_person_years": 304237.23,
+      "acos_with_beneficiaries": 396,
+      "share_of_reported_person_years": 0.03106994349235338,
+      "coverage_of_program": 0.9775869134884474,
+      "state_rank_in_year": 12
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "CALIFORNIA",
+      "reported_person_years": 675683.63,
+      "acos_with_beneficiaries": 466,
+      "share_of_reported_person_years": 0.0683898758668882,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 1
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "FLORIDA",
+      "reported_person_years": 555979.21,
+      "acos_with_beneficiaries": 472,
+      "share_of_reported_person_years": 0.05627389427278355,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 2
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "PENNSYLVANIA",
+      "reported_person_years": 545312.13,
+      "acos_with_beneficiaries": 412,
+      "share_of_reported_person_years": 0.055194216973124606,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 3
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "TEXAS",
+      "reported_person_years": 539294.52,
+      "acos_with_beneficiaries": 470,
+      "share_of_reported_person_years": 0.0545851396140723,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 4
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "MASSACHUSETTS",
+      "reported_person_years": 459511.18,
+      "acos_with_beneficiaries": 345,
+      "share_of_reported_person_years": 0.04650980305627255,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 5
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "ILLINOIS",
+      "reported_person_years": 449070.45,
+      "acos_with_beneficiaries": 415,
+      "share_of_reported_person_years": 0.04545303595854117,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 6
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "VIRGINIA",
+      "reported_person_years": 418246.94,
+      "acos_with_beneficiaries": 439,
+      "share_of_reported_person_years": 0.04233320897282332,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 7
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "NORTH CAROLINA",
+      "reported_person_years": 394388.58,
+      "acos_with_beneficiaries": 452,
+      "share_of_reported_person_years": 0.039918365388722385,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 8
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "NEW YORK",
+      "reported_person_years": 375318.56,
+      "acos_with_beneficiaries": 429,
+      "share_of_reported_person_years": 0.03798817758680825,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 9
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "NEW JERSEY",
+      "reported_person_years": 348455.2,
+      "acos_with_beneficiaries": 372,
+      "share_of_reported_person_years": 0.03526918044939423,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 10
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "MICHIGAN",
+      "reported_person_years": 336203.4,
+      "acos_with_beneficiaries": 409,
+      "share_of_reported_person_years": 0.0340291044079694,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 11
+    },
+    {
+      "performance_year": 2024,
+      "state_name": "OHIO",
+      "reported_person_years": 311896.04,
+      "acos_with_beneficiaries": 421,
+      "share_of_reported_person_years": 0.03156881491856477,
+      "coverage_of_program": 0.9771079956013773,
+      "state_rank_in_year": 12
+    }
+  ],
+  "top_acos_latest_year": [
+    {
+      "performance_year": 2024,
+      "aco_key": "A4604",
+      "aco_name": "Caravan Health ACO 22 LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 328733.0,
+      "savings_rate": 0.040017,
+      "quality_score": 84.31,
+      "earned_shared_savings": 127143802.0,
+      "savings_rate_change_yoy": 0.01355,
+      "primary_state": "COLORADO"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A2342",
+      "aco_name": "Health Connect Partners, LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 154409.0,
+      "savings_rate": 0.075999,
+      "quality_score": 84.3,
+      "earned_shared_savings": 122660765.0,
+      "savings_rate_change_yoy": -0.00487,
+      "primary_state": "WASHINGTON"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A1001",
+      "aco_name": "PBACO Holding, LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 116175.0,
+      "savings_rate": 0.088918,
+      "quality_score": 77.05,
+      "earned_shared_savings": 107895330.0,
+      "savings_rate_change_yoy": -0.00201,
+      "primary_state": "FLORIDA"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A5220",
+      "aco_name": "Sound Physicians Long Term Care Management, LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 12460.0,
+      "savings_rate": 0.208565,
+      "quality_score": 60.67,
+      "earned_shared_savings": 83779293.0,
+      "savings_rate_change_yoy": 0.132517,
+      "primary_state": "COLORADO"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A5069",
+      "aco_name": "EPC ACO, LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 16361.0,
+      "savings_rate": 0.166889,
+      "quality_score": 77.05,
+      "earned_shared_savings": 81130886.0,
+      "savings_rate_change_yoy": 0.020969,
+      "primary_state": "TEXAS"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A2542",
+      "aco_name": "Baylor Quality Health Care Alliance LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 115862.0,
+      "savings_rate": 0.070112,
+      "quality_score": 94.24,
+      "earned_shared_savings": 77839526.0,
+      "savings_rate_change_yoy": -0.003186,
+      "primary_state": "TEXAS"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A2616",
+      "aco_name": "Mercy Health ACO, LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 113505.0,
+      "savings_rate": 0.070234,
+      "quality_score": 88.15,
+      "earned_shared_savings": 75912603.0,
+      "savings_rate_change_yoy": 0.002216,
+      "primary_state": "MISSOURI"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A1215",
+      "aco_name": "Mercy Health Select, LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 106242.0,
+      "savings_rate": 0.063685,
+      "quality_score": 93.23,
+      "earned_shared_savings": 62760283.0,
+      "savings_rate_change_yoy": -0.011724,
+      "primary_state": "OHIO"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A2057",
+      "aco_name": "Privia Quality Network, LLC",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 61313.0,
+      "savings_rate": 0.109519,
+      "quality_score": 89.67,
+      "earned_shared_savings": 56874293.0,
+      "savings_rate_change_yoy": 0.003222,
+      "primary_state": "VIRGINIA"
+    },
+    {
+      "performance_year": 2024,
+      "aco_key": "A1033",
+      "aco_name": "Advocate Physician Partners Accountable Care, Inc.",
+      "risk_model": "Two-Sided",
+      "track_family": "ENHANCED",
+      "n_assigned_beneficiaries": 134269.0,
+      "savings_rate": 0.038457,
+      "quality_score": 85.37,
+      "earned_shared_savings": 51986107.0,
+      "savings_rate_change_yoy": -0.02265,
+      "primary_state": "ILLINOIS"
+    }
+  ],
+  "pipeline": {
+    "dbt_tests_total": 212,
+    "dbt_tests_passed": 212,
+    "dbt_unit_tests_total": 2,
+    "dbt_unit_tests_passed": 2,
+    "semantic_total": 12,
+    "semantic_passed": 12,
+    "semantic_values_compared": 42,
+    "semantic_values_passed": 42,
+    "files_pinned": 29,
+    "bytes": 66490237,
+    "bridged": 405,
+    "acos_2017": 472,
+    "chips": [
+      "2 of 2 dbt unit tests passed",
+      "13 performance periods, PY 2013 to 2024",
+      "1,059 ACOs tracked across years",
+      "5,476 ACO performance periods",
+      "128,010 quality measure results",
+      "21,904 attribution rows by enrollment type",
+      "1,185,051 ACO by county rows",
+      "42 of 42 semantic layer values matched plain SQL"
+    ]
+  }
+}
